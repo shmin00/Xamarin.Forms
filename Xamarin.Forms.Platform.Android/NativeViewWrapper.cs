@@ -12,7 +12,7 @@ namespace Xamarin.Forms.Platform.Android
 			OnLayoutDelegate = onLayoutDelegate;
 			OnMeasureDelegate = onMeasureDelegate;
 
-			nativeView.TransferbindablePropertiesToWrapper(this);
+			nativeView.TransferBindablePropertiesToWrapper(this);
 		}
 
 		public GetDesiredSizeDelegate GetDesiredSizeDelegate { get; }

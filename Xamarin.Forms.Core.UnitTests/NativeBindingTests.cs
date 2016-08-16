@@ -104,7 +104,7 @@ namespace Xamarin.Forms.Core.UnitTests
 
 		internal static void TransferbindablePropertiesToWrapper(this MockNativeView target, MockNativeViewWrapper wrapper)
 		{
-			NativeBindingHelpers.TransferbindablePropertiesToWrapper(target, wrapper);
+			NativeBindingHelpers.TransferBindablePropertiesToWrapper(target, wrapper);
 		}
 	}
 

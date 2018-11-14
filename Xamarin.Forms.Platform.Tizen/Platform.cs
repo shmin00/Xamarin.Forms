@@ -485,7 +485,7 @@ namespace Xamarin.Forms.Platform.Tizen
 			Native.Dialog alert = Native.Dialog.CreateDialog(Forms.NativeParent);
 
 			alert.Title = arguments.Title;
-			Box box = new Box(alert);
+			Native.BoxContainer box = new Native.BoxContainer(alert);
 
 			if (null != arguments.Destruction)
 			{

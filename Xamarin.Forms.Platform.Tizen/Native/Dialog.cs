@@ -21,6 +21,8 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 	/// </summary>
 	public class Dialog : Popup
 	{
+		public const string ShowNativeDialog = "ShowNativeDialog";
+
 		EButton _positiveButton;
 		EButton _neutralButton;
 		EButton _negativeButton;
@@ -177,6 +179,34 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 		{
 			base.Show();
 			Shown?.Invoke(this, EventArgs.Empty);
+
+			var arg = new NativeDialogArguments(this);
+			arg.AddChild(_positiveButton);
+			arg.AddChild(_negativeButton);
+			arg.AddChild(_neutralButton);
+			if (_content != null)
+			{
+				if (_content is Native.IContainable<EvasObject> container)
+				{
+					foreach (var obj in container.Children)
+					{
+						arg.AddChild(obj);
+					}
+				}
+				else if (_content is Native.IContainable<ListItem> list)
+				{
+					foreach (var item in list.Children)
+					{
+						arg.AddChild(item);
+					}
+				}
+				else
+				{
+					arg.AddChild(_content);
+				}
+			}
+
+			MessagingCenter.Send(this, ShowNativeDialog, arg);
 		}
 
 		/// <summary>

@@ -92,7 +92,7 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 		/// Gets or sets the color of the text.
 		/// </summary>
 		/// <value>The color of the text.</value>
-		public EColor TextColor
+		public virtual EColor TextColor
 		{
 			get
 			{
@@ -254,7 +254,7 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 		/// Gets or sets the placeholder's text.
 		/// </summary>
 		/// <value>The placeholder's text.</value>
-		public string Placeholder
+		public virtual string Placeholder
 		{
 			get
 			{
@@ -275,7 +275,7 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 		/// Gets or sets the color of the placeholder's text.
 		/// </summary>
 		/// <value>The color of the placeholder's text.</value>
-		public EColor PlaceholderColor
+		public virtual EColor PlaceholderColor
 		{
 			get
 			{

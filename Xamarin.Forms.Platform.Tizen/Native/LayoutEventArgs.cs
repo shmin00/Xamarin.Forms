@@ -14,7 +14,7 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 		public Rect Geometry
 		{
 			get;
-			internal set;
+			set;
 		}
 	}
 }

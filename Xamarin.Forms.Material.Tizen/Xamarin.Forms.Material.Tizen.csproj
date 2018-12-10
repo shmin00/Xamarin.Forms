@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>tizen40</TargetFramework>
+    <ApplicationIcon />
+    <Win32Resource />
+    <IncludeContentInPack>true</IncludeContentInPack>
+    <ContentTargetFolders>Content</ContentTargetFolders>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="native\ColorExtension.cs" />
+    <Compile Remove="native\MaterialEntry.cs" />
+    <Compile Remove="native\MaterialFrame.cs" />
+    <Compile Remove="native\MaterialProgressBar.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Tizen.NET" Version="4.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Tizen.NET.MaterialComponents\src\Tizen.NET.MaterialComponents\Tizen.NET.MaterialComponents.csproj" />
+    <ProjectReference Include="..\Xamarin.Forms.Core\Xamarin.Forms.Core.csproj" />
+    <ProjectReference Include="..\Xamarin.Forms.Platform.Tizen\Xamarin.Forms.Platform.Tizen.csproj" />
+  </ItemGroup>
+
+  <!--<ItemGroup>
+  <None Include="Xamarin.Forms.Material.Tizen.targets">
+    <pack>true</pack>
+    <PackagePath>build/$(TargetFramework)</PackagePath>
+  </None>
+  </ItemGroup>-->
+  
+</Project>

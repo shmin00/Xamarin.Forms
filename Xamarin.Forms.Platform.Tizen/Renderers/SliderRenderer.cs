@@ -16,23 +16,33 @@ namespace Xamarin.Forms.Platform.Tizen
 		{
 			if (Control == null)
 			{
-				SetNativeControl(new ESlider(Forms.NativeParent));
-				Control.ValueChanged += OnValueChanged;
-				Control.DragStarted += OnDragStarted;
-				Control.DragStopped += OnDragStopped;
-				_defaultMinColor = Control.GetPartColor("bar");
-				_defaultMaxColor = Control.GetPartColor("bg");
-				_defaultThumbColor = Control.GetPartColor("handler");
+				SetNativeControl(CreateNativeControl());
 			}
+
+			Control.ValueChanged += OnValueChanged;
+			Control.DragStarted += OnDragStarted;
+			Control.DragStopped += OnDragStopped;
+
+			_defaultMinColor = Control.GetPartColor("bar");
+			_defaultMaxColor = Control.GetPartColor("bg");
+			_defaultThumbColor = Control.GetPartColor("handler");
+
 			UpdateMinimum();
 			UpdateMaximum();
 			UpdateValue();
 			UpdateSliderColors();
+
 			base.OnElementChanged(e);
+		}
+
+		protected virtual ESlider CreateNativeControl()
+		{
+			return new ESlider(Forms.NativeParent);
 		}
 
 		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
+			base.OnElementPropertyChanged(sender, e);
 			if (e.PropertyName == Slider.MinimumProperty.PropertyName)
 			{
 				UpdateMinimum();
@@ -57,7 +67,6 @@ namespace Xamarin.Forms.Platform.Tizen
 			{
 				UpdateThumbColor();
 			}
-			base.OnElementPropertyChanged(sender, e);
 		}
 
 		protected override void Dispose(bool disposing)
@@ -132,6 +141,7 @@ namespace Xamarin.Forms.Platform.Tizen
 		{
 			// Changing slider color is only available on mobile profile. Otherwise ignored.
 			UpdateMinimumTrackColor();
+			UpdateMaximumTrackColor();
 			UpdateMaximum();
 			UpdateThumbColor();
 		}

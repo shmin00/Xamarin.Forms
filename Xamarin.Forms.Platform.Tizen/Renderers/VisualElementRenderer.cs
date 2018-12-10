@@ -39,9 +39,9 @@ namespace Xamarin.Forms.Platform.Tizen
 		{
 			RegisterPropertyHandler(VisualElement.IsVisibleProperty, UpdateIsVisible);
 			RegisterPropertyHandler(VisualElement.OpacityProperty, UpdateOpacity);
-			RegisterPropertyHandler(VisualElement.IsEnabledProperty, UpdateIsEnabled);
 			RegisterPropertyHandler(VisualElement.InputTransparentProperty, UpdateInputTransparent);
 			RegisterPropertyHandler(VisualElement.BackgroundColorProperty, UpdateBackgroundColor);
+			RegisterPropertyHandler(VisualElement.IsEnabledProperty, UpdateIsEnabled);
 
 			RegisterPropertyHandler(Specific.StyleProperty, UpdateThemeStyle);
 			RegisterPropertyHandler(Specific.IsFocusAllowedProperty, UpdateFocusAllowed);
@@ -563,6 +563,8 @@ namespace Xamarin.Forms.Platform.Tizen
 
 		protected virtual void UpdateBackgroundColor(bool initialize)
 		{
+			if(NativeView is Native.Entry)
+				Log.Debug("################################################ UpdateBackgroundColor ");
 			if (initialize && Element.BackgroundColor.IsDefault)
 				return;
 
@@ -764,6 +766,9 @@ namespace Xamarin.Forms.Platform.Tizen
 		/// </summary>
 		protected virtual void UpdateIsEnabled(bool initialize)
 		{
+			if (NativeView is Native.Button)
+				Log.Debug("################################################ UpdateIsEnabled");
+
 			if (initialize && Element.IsEnabled)
 				return;
 

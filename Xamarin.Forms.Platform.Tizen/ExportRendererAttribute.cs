@@ -8,5 +8,9 @@ namespace Xamarin.Forms.Platform.Tizen
 		public ExportRendererAttribute(Type handler, Type target) : base(handler, target)
 		{
 		}
+
+		public ExportRendererAttribute(Type handler, Type target, Type[] supportedVisuals) : base(handler, target, supportedVisuals)
+		{
+		}
 	}
 }

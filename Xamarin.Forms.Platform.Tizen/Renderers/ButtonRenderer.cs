@@ -26,11 +26,12 @@ namespace Xamarin.Forms.Platform.Tizen
 					SetNativeControl(new Native.Watch.WatchButton(Forms.NativeParent));
 				else
 					SetNativeControl(new Native.Button(Forms.NativeParent));
-
-				Control.Clicked += OnButtonClicked;
-				Control.Pressed += OnButtonPressed;
-				Control.Released += OnButtonReleased;
 			}
+
+			Control.Clicked += OnButtonClicked;
+			Control.Pressed += OnButtonPressed;
+			Control.Released += OnButtonReleased;
+
 			base.OnElementChanged(e);
 		}
 
@@ -63,6 +64,11 @@ namespace Xamarin.Forms.Platform.Tizen
 			base.Dispose(disposing);
 		}
 
+		protected virtual void UpdateText()
+		{
+			Control.Text = Element.Text ?? "";
+		}
+
 		void OnButtonClicked(object sender, EventArgs e)
 		{
 			(Element as IButtonController)?.SendClicked();
@@ -76,11 +82,6 @@ namespace Xamarin.Forms.Platform.Tizen
 		void OnButtonReleased(object sender, EventArgs e)
 		{
 			(Element as IButtonController)?.SendReleased();
-		}
-
-		void UpdateText()
-		{
-			Control.Text = Element.Text ?? "";
 		}
 
 		void UpdateFontSize()

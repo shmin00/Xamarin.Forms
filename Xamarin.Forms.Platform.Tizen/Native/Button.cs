@@ -56,7 +56,7 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 		/// Gets or sets the color of the text.
 		/// </summary>
 		/// <value>The color of the text.</value>
-		public EColor TextColor
+		public virtual EColor TextColor
 		{
 			get
 			{

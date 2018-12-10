@@ -1,0 +1,17 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <ThemeFileDirectory>$(MSBuildThisFileDirectory)..\..\content\Theme\</ThemeFileDirectory>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="$(ThemeFileDirectory)*.edj" CopyToOutputDirectory="Always"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <TizenTpkUserIncludeFiles Include="$(OutputPath)\*.edj">
+      <TizenTpkSubDir>res</TizenTpkSubDir>
+    </TizenTpkUserIncludeFiles>
+  </ItemGroup>
+
+</Project>

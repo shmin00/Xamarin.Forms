@@ -18,12 +18,12 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 		/// <summary>
 		/// Holds the formatted text of the entry.
 		/// </summary>
-		readonly Span _span = new Span();
+		protected readonly Span _span = new Span();
 
 		/// <summary>
 		/// Holds the formatted text of the placeholder.
 		/// </summary>
-		readonly Span _placeholderSpan = new Span();
+		protected readonly Span _placeholderSpan = new Span();
 
 		/// <summary>
 		/// Helps to detect whether the text change was initiated by the user
@@ -92,7 +92,7 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 		/// Gets or sets the color of the text.
 		/// </summary>
 		/// <value>The color of the text.</value>
-		public EColor TextColor
+		public virtual EColor TextColor
 		{
 			get
 			{
@@ -254,7 +254,7 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 		/// Gets or sets the placeholder's text.
 		/// </summary>
 		/// <value>The placeholder's text.</value>
-		public string Placeholder
+		public virtual string Placeholder
 		{
 			get
 			{
@@ -275,7 +275,7 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 		/// Gets or sets the color of the placeholder's text.
 		/// </summary>
 		/// <value>The color of the placeholder's text.</value>
-		public EColor PlaceholderColor
+		public virtual EColor PlaceholderColor
 		{
 			get
 			{
@@ -428,16 +428,16 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 		/// <summary>
 		/// Applies placeholders's text and its style.
 		/// </summary>
-		void ApplyPlaceholderAndStyle()
+		protected void ApplyPlaceholderAndStyle()
 		{
-			SetInternalPlaceholderAndStyle(_placeholderSpan.GetMarkupText());
+			SetInternalPceholderAndStyle(_placeholderSpan.GetMarkupText());
 		}
 
 		/// <summary>
 		/// Sets placeholder's internal text and style.
 		/// </summary>
 		/// <param name="markupText">Markup text to be used as a placeholder.</param>
-		void SetInternalPlaceholderAndStyle(string markupText)
+		protected void SetInternalPceholderAndStyle(string markupText)
 		{
 			SetPartText("elm.guide", markupText ?? "");
 		}

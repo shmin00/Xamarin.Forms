@@ -30,10 +30,7 @@ namespace Xamarin.Forms.Platform.Tizen
 		{
 			if (Control == null)
 			{
-				var entry = new Native.EditfieldEntry(Forms.NativeParent)
-				{
-					IsSingleLine = true,
-				};
+				var entry = CreateNativeControl();
 				entry.SetVerticalTextAlignment("elm.text", 0.5);
 				entry.SetVerticalTextAlignment("elm.guide", 0.5);
 				entry.TextChanged += OnTextChanged;
@@ -43,6 +40,14 @@ namespace Xamarin.Forms.Platform.Tizen
 				SetNativeControl(entry);
 			}
 			base.OnElementChanged(e);
+		}
+
+		protected virtual Native.Entry CreateNativeControl()
+		{
+			return new Native.EditfieldEntry(Forms.NativeParent)
+			{
+				IsSingleLine = true,
+			};
 		}
 
 		protected override void Dispose(bool disposing)
@@ -62,7 +67,23 @@ namespace Xamarin.Forms.Platform.Tizen
 
 		protected override Size MinimumSize()
 		{
-			return (Control as Native.IMeasurable).Measure(Control.MinimumWidth, Control.MinimumHeight).ToDP();
+			var size = (Control as Native.IMeasurable).Measure(Control.MinimumWidth, Control.MinimumHeight).ToDP();
+			return size;
+		}
+
+		protected virtual void UpdatePlaceholder()
+		{
+			Control.Placeholder = Element.Placeholder;
+		}
+
+		protected virtual void UpdatePlaceholderColor()
+		{
+			Control.PlaceholderColor = Element.PlaceholderColor.ToNative();
+		}
+
+		protected virtual void UpdateTextColor()
+		{
+			Control.TextColor = Element.TextColor.ToNative();
 		}
 
 		void OnTextChanged(object sender, EventArgs e)
@@ -90,11 +111,6 @@ namespace Xamarin.Forms.Platform.Tizen
 			{
 				Control.MoveCursorEnd();
 			}
-		}
-
-		void UpdateTextColor()
-		{
-			Control.TextColor = Element.TextColor.ToNative();
 		}
 
 		void UpdateFontSize()
@@ -127,16 +143,6 @@ namespace Xamarin.Forms.Platform.Tizen
 		void UpdateIsSpellCheckEnabled()
 		{
 			Control.InputHint = Element.Keyboard.ToInputHints(Element.IsSpellCheckEnabled, Element.IsTextPredictionEnabled);
-		}
-
-		void UpdatePlaceholder()
-		{
-			Control.Placeholder = Element.Placeholder;
-		}
-
-		void UpdatePlaceholderColor()
-		{
-			Control.PlaceholderColor = Element.PlaceholderColor.ToNative();
 		}
 
 		void UpdateFontWeight()

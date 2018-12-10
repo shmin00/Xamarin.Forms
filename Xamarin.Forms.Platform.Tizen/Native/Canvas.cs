@@ -34,6 +34,10 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 						var view = v as EvasObject;
 						if (null != view)
 						{
+							if(view is Image img)
+							{
+								img.MinimumWidth = Geometry.Width;
+							}
 							OnAdd(view);
 						}
 					}
@@ -84,7 +88,7 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 		/// Adds a new child to a container.
 		/// </summary>
 		/// <param name="view">Native element which will be added</param>
-		void OnAdd(EvasObject view)
+		protected virtual void OnAdd(EvasObject view)
 		{
 			PackEnd(view);
 		}
@@ -93,7 +97,7 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 		/// Removes a child from a container.
 		/// </summary>
 		/// <param name="view">Child element to be removed from canvas</param>
-		void OnRemove(EvasObject view)
+		protected virtual void OnRemove(EvasObject view)
 		{
 			UnPack(view);
 		}
@@ -101,7 +105,7 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 		/// <summary>
 		/// Removes all children from a canvas.
 		/// </summary>
-		void OnRemoveAll()
+		protected virtual void OnRemoveAll()
 		{
 			UnPackAll();
 		}

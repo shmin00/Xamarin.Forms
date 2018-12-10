@@ -33,6 +33,7 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 			}
 			set
 			{
+				Log.Debug($"********************* background color={value.ToString()}");
 				_editfieldLayout.BackgroundColor = value;
 			}
 		}
@@ -52,7 +53,6 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 		public override ElmSharp.Size Measure(int availableWidth, int availableHeight)
 		{
 			var textBlockSize = base.Measure(availableWidth, availableHeight);
-
 			// Calculate the minimum size by adding the width of a TextBlock and an Editfield.
 			textBlockSize.Width += _editfieldLayout.MinimumWidth;
 
@@ -79,13 +79,6 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 				RealHandle = handle;
 			}
 			Handle = handle;
-
-			if (!_editfieldLayout.SetPartContent("elm.swallow.content", this))
-			{
-				// Restore theme to default if editfield style is not available
-				_editfieldLayout.SetTheme("layout", "application", "default");
-				_editfieldLayout.SetPartContent("elm.swallow.content", this);
-			}
 
 			_heightPadding = _editfieldLayout.EdjeObject["elm.swallow.content"].Geometry.Height;
 			return _editfieldLayout;
@@ -130,6 +123,13 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 			{
 				layout.SignalEmit("elm,state,unfocused", "");
 			};
+
+			if (!layout.SetPartContent("elm.swallow.content", this))
+			{
+				// Restore theme to default if editfield style is not available
+				layout.SetTheme("layout", "application", "default");
+				layout.SetPartContent("elm.swallow.content", this);
+			}
 
 			return layout;
 		}

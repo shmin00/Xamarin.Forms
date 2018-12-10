@@ -9,19 +9,20 @@ namespace Xamarin.Forms.Platform.Tizen
 {
 	public class ProgressBarRenderer : ViewRenderer<ProgressBar, EProgressBar>
 	{
-		static readonly EColor s_defaultColor = new EColor(129, 198, 255);
+		EColor _defaultColor;
 
 		public ProgressBarRenderer()
 		{
-			RegisterPropertyHandler(ProgressBar.ProgressColorProperty, UpdateProgressColor);
 		}
 
 		protected override void OnElementChanged(ElementChangedEventArgs<ProgressBar> e)
 		{
 			if (Control == null)
 			{
-				SetNativeControl(new EProgressBar(Forms.NativeParent));
+				SetNativeControl(CrateNativeControl());
 			}
+
+			_defaultColor = Control.GetPartColor("bar");
 
 			if (e.NewElement != null)
 			{
@@ -39,17 +40,26 @@ namespace Xamarin.Forms.Platform.Tizen
 			base.OnElementChanged(e);
 		}
 
+		protected virtual EProgressBar CrateNativeControl()
+		{
+			return new EProgressBar(Forms.NativeParent);
+		}
+
 		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			base.OnElementPropertyChanged(sender, e);
 			if (e.PropertyName == ProgressBar.ProgressProperty.PropertyName)
 			{
 				UpdateProgress();
+			}
+			else if (e.PropertyName == ProgressBar.ProgressColorProperty.PropertyName)
+			{
+				UpdateProgressColor();
 			}
 			else if (e.PropertyName == Specific.ProgressBarPulsingStatusProperty.PropertyName)
 			{
 				UpdatePulsingStatus();
 			}
+			base.OnElementPropertyChanged(sender, e);
 		}
 
 		protected override void UpdateThemeStyle()
@@ -62,23 +72,21 @@ namespace Xamarin.Forms.Platform.Tizen
 		void UpdateAll()
 		{
 			UpdateProgress();
+			UpdateProgressColor();
 			UpdatePulsingStatus();
 		}
 
-		void UpdateProgressColor(bool initialize)
+		protected virtual void UpdateProgressColor()
 		{
-			if (initialize && Element.ProgressColor.IsDefault)
-				return;
-
-			Control.Color = Element.ProgressColor == Color.Default ? s_defaultColor : Element.ProgressColor.ToNative();
+			Control.Color = Element.ProgressColor.IsDefault ? _defaultColor : Element.ProgressColor.ToNative();
 		}
 
-		void UpdateProgress()
+		protected virtual void UpdateProgress()
 		{
 			Control.Value = Element.Progress;
 		}
 
-		void UpdatePulsingStatus()
+		protected virtual void UpdatePulsingStatus()
 		{
 			bool isPulsing = Specific.GetPulsingStatus(Element);
 			if (isPulsing)

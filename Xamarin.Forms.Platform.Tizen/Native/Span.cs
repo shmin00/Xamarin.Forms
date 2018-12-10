@@ -131,7 +131,7 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 		/// <summary>
 		/// This method return marked up text
 		/// </summary>
-		internal string GetMarkupText()
+		public string GetMarkupText()
 		{
 			StringBuilder sb = new StringBuilder();
 			sb.Append("<span ");

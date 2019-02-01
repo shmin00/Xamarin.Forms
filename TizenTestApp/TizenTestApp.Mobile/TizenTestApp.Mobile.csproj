@@ -13,12 +13,20 @@
     <DebugType>None</DebugType>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="res\icon_home.png" />
+    <None Remove="res\minions1.png" />
+    <None Remove="res\minions2.jpg" />
     <None Remove="res\photo2.jpg" />
+    <None Remove="res\xamarin-forms-material-tizen.edj" />
     <None Remove="shared\res\photo.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="res\icon_home.png" />
+    <EmbeddedResource Include="res\minions1.png" />
+    <EmbeddedResource Include="res\minions2.jpg" />
     <EmbeddedResource Include="res\photo2.jpg" />
     <EmbeddedResource Include="res\photo.jpg" />
+    <EmbeddedResource Include="res\xamarin-forms-material-tizen.edj" />
   </ItemGroup>
 
   <ItemGroup>

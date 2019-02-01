@@ -589,6 +589,7 @@ namespace Xamarin.Forms
 			{
 				RefreshAllowed = true;
 			}
+
 		}
 
 		void OnRefreshing(EventArgs e)

@@ -6,9 +6,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resource\xamarin-forms-material-tizen.edj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="..\Xamarin.Forms.Core\Properties\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resource\xamarin-forms-material-tizen.edj" />
   </ItemGroup>
 
   <ItemGroup>

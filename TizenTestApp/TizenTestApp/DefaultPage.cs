@@ -26,32 +26,28 @@ namespace TizenTestApp
 				Image = fileImageSource
 			};
 
-			button.Clicked += (s, e) =>
-			{
-				Console.WriteLine(" ************* clicked");
-			};
-
 			var frame = new Frame
 			{
+				HorizontalOptions = LayoutOptions.FillAndExpand,
 				HasShadow = true,
 				CornerRadius = 0,
 				Margin = 10,
 				Padding = 0,
 				Content = new StackLayout
 				{
-					BackgroundColor = Color.White,
 					Padding = 20,
 					Spacing = 20,
 					Children =
 					{
 						new Image
 						{
-							Source = ImageSource.FromFile("photo.jpg"),
-							Aspect = Aspect.AspectFit
+							Source = ImageSource.FromFile("minions1.png"),
+							Aspect = Aspect.AspectFit,
+
 						},
 						new Label
 						{
-							Text = "Walk below the arches",
+							Text = "Walk below the arches..",
 							Margin = new Thickness(0, 10, 0, 0),
 							FontSize = 28,
 							TextColor = Color.Black
@@ -65,6 +61,35 @@ namespace TizenTestApp
 						button
 					}
 				}
+			};
+
+			var flag = 0;
+
+			button.Clicked += (s, e) =>
+			{
+				Console.WriteLine(" ************* clicked");
+				if(flag % 4 == 0)
+				{
+					frame.HasShadow = true;
+					frame.BorderColor = Color.Red;
+				}
+				else if (flag % 4 == 1)
+				{
+					frame.HasShadow = true;
+					frame.BorderColor = Color.Default;
+				}
+				else if (flag % 4 == 2)
+				{
+					frame.HasShadow = false;
+					frame.BorderColor = Color.Default;
+				}
+				else if (flag % 4 == 3)
+				{
+					frame.HasShadow = false;
+					frame.BorderColor = Color.Red;
+				}
+
+				flag++;
 			};
 
 			var entry1 = new Entry

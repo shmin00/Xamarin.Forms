@@ -14,6 +14,8 @@ namespace TizenTestApp
 			var list = new List<string>();
 			list.Add("DefaultPage");
 			list.Add("MaterialStylePage");
+			list.Add("VisualGallery");
+			list.Add("DefaultViewGallery");
 
 			var listView = new ListView
 			{

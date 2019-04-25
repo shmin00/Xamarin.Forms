@@ -1,33 +1,33 @@
 using System;
 using ElmSharp;
-using Xamarin.Forms.PlatformConfiguration.TizenSpecific;
-using EButton = ElmSharp.Button;
+using Tizen.NET.MaterialComponents;
+using Xamarin.Forms.Platform.Tizen.Native;
 using EColor = ElmSharp.Color;
 using ESize = ElmSharp.Size;
+using NSpan = Xamarin.Forms.Platform.Tizen.Native.Span;
+using NImage = Xamarin.Forms.Platform.Tizen.Native.Image;
+using NTextAlignment = Xamarin.Forms.Platform.Tizen.Native.TextAlignment;
+using TButtonStyle = Xamarin.Forms.PlatformConfiguration.TizenSpecific.ButtonStyle;
 
-namespace Xamarin.Forms.Platform.Tizen.Native
+namespace Xamarin.Forms.Material.Tizen.Native
 {
-	/// <summary>
-	/// Extends the EButton control, providing basic formatting features,
-	/// i.e. font color, size, additional image.
-	/// </summary>
-	public class Button : EButton, IMeasurable, IBatchable, IButton
+	public class MButton : global::Tizen.NET.MaterialComponents.MButton, IMeasurable, IBatchable, IButton
 	{
 		/// <summary>
 		/// Holds the formatted text of the button.
 		/// </summary>
-		readonly Span _span = new Span();
+		readonly NSpan _span = new NSpan();
 
 		/// <summary>
 		/// Optional image, if set will be drawn on the button.
 		/// </summary>
-		Image _image;
+		NImage _image;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Xamarin.Forms.Platform.Tizen.Native.Button"/> class.
 		/// </summary>
 		/// <param name="parent">Parent evas object.</param>
-		public Button(EvasObject parent) : base(parent)
+		public MButton(EvasObject parent) : base(parent)
 		{
 		}
 
@@ -161,7 +161,7 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 		/// Gets or sets the image to be displayed next to the button's text.
 		/// </summary>
 		/// <value>The image displayed on the button.</value>
-		public Image Image
+		public NImage Image
 		{
 			get
 			{
@@ -170,10 +170,8 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 
 			set
 			{
-				if (value != _image)
-				{
-					ApplyImage(value);
-				}
+				_image = value;
+				Icon = _image;
 			}
 		}
 
@@ -182,7 +180,7 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 		/// </summary>
 		public virtual ESize Measure(int availableWidth, int availableHeight)
 		{
-			if (Style == ButtonStyle.Circle)
+			if (Style == TButtonStyle.Circle)
 			{
 				return new ESize(MinimumWidth, MinimumHeight);
 			}
@@ -192,7 +190,7 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 					MinimumWidth += Image.Geometry.Width;
 
 				var rawSize = TextHelper.GetRawTextBlockSize(this);
-				return new ESize(rawSize.Width + MinimumWidth , Math.Max(MinimumHeight, rawSize.Height));
+				return new ESize(rawSize.Width + MinimumWidth, Math.Max(MinimumHeight, rawSize.Height));
 			}
 		}
 
@@ -241,33 +239,6 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 		}
 
 		/// <summary>
-		/// Applies the image to be displayed on the button. If value is <c>null</c>,
-		/// image will be removed.
-		/// </summary>
-		/// <param name="image">Image to be displayed or null.</param>
-		void ApplyImage(Image image)
-		{
-			_image = image;
-
-			SetInternalImage();
-		}
-
-		/// <summary>
-		/// Sets the internal image. If value is <c>null</c>, image will be removed.
-		/// </summary>
-		void SetInternalImage()
-		{
-			if (_image == null)
-			{
-				SetPartContent("icon", null);
-			}
-			else
-			{
-				SetPartContent("icon", _image);
-			}
-		}
-
-		/// <summary>
 		/// Update the button's style
 		/// </summary>
 		/// <param name="style">The style of button</param>
@@ -276,10 +247,10 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 			if (Style != style)
 			{
 				Style = style;
-				if (Style == ButtonStyle.Default)
-					_span.HorizontalTextAlignment = TextAlignment.Auto;
+				if (Style == TButtonStyle.Default)
+					_span.HorizontalTextAlignment = NTextAlignment.Auto;
 				else
-					_span.HorizontalTextAlignment = TextAlignment.Center;
+					_span.HorizontalTextAlignment = NTextAlignment.Center;
 				ApplyTextAndStyle();
 			}
 		}

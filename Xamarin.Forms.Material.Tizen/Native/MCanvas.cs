@@ -6,7 +6,7 @@ using Tizen.NET.MaterialComponents;
 
 namespace Xamarin.Forms.Material.Tizen.Native
 {
-	public class MCanvas : MCard, IContainable<EvasObject>
+	public class MCanvas : MBox, IContainable<EvasObject>
 	{
 		readonly ObservableCollection<EvasObject> _children = new ObservableCollection<EvasObject>();
 

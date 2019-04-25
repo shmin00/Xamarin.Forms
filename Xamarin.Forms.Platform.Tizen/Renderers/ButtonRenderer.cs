@@ -1,9 +1,11 @@
 using System;
+using Xamarin.Forms.Platform.Tizen.Native;
+using EButton = ElmSharp.Button;
 using Specific = Xamarin.Forms.PlatformConfiguration.TizenSpecific.VisualElement;
 
 namespace Xamarin.Forms.Platform.Tizen
 {
-	public class ButtonRenderer : ViewRenderer<Button, Native.Button>
+	public class ButtonRenderer : ViewRenderer<Button, EButton>
 	{
 		public ButtonRenderer()
 		{
@@ -22,10 +24,7 @@ namespace Xamarin.Forms.Platform.Tizen
 		{
 			if (Control == null)
 			{
-				if (Device.Idiom == TargetIdiom.Watch)
-					SetNativeControl(new Native.Watch.WatchButton(Forms.NativeParent));
-				else
-					SetNativeControl(new Native.Button(Forms.NativeParent));
+				SetNativeControl(CreateNativeControl());
 
 				Control.Clicked += OnButtonClicked;
 				Control.Pressed += OnButtonPressed;
@@ -34,9 +33,17 @@ namespace Xamarin.Forms.Platform.Tizen
 			base.OnElementChanged(e);
 		}
 
+		protected virtual EButton CreateNativeControl()
+		{
+			if (Device.Idiom == TargetIdiom.Watch)
+				return new Native.Watch.WatchButton(Forms.NativeParent);
+			else
+				return new Native.Button(Forms.NativeParent);
+		}
+
 		protected override Size MinimumSize()
 		{
-			return Control.Measure(Control.MinimumWidth, Control.MinimumHeight).ToDP();
+			return (Control as IMeasurable).Measure(Control.MinimumWidth, Control.MinimumHeight).ToDP();
 		}
 
 		protected override void UpdateThemeStyle()
@@ -44,7 +51,7 @@ namespace Xamarin.Forms.Platform.Tizen
 			var style = Specific.GetStyle(Element);
 			if (!string.IsNullOrEmpty(style))
 			{
-				Control.UpdateStyle(style);
+				(Control as IButton).UpdateStyle(style);
 				((IVisualElementController)Element).NativeSizeChanged();
 			}
 		}
@@ -80,39 +87,39 @@ namespace Xamarin.Forms.Platform.Tizen
 
 		void UpdateText()
 		{
-			Control.Text = Element.Text ?? "";
+			(Control as IButton).Text = Element.Text ?? "";
 		}
 
 		void UpdateFontSize()
 		{
-			Control.FontSize = Element.FontSize;
+			(Control as IButton).FontSize = Element.FontSize;
 		}
 
 		void UpdateFontAttributes()
 		{
-			Control.FontAttributes = Element.FontAttributes;
+			(Control as IButton).FontAttributes = Element.FontAttributes;
 		}
 
 		void UpdateFontFamily()
 		{
-			Control.FontFamily = Element.FontFamily;
+			(Control as IButton).FontFamily = Element.FontFamily;
 		}
 
 		void UpdateTextColor()
 		{
-			Control.TextColor = Element.TextColor.ToNative();
+			(Control as IButton).TextColor = Element.TextColor.ToNative();
 		}
 
 		void UpdateBitmap()
 		{
 			if (!string.IsNullOrEmpty(Element.Image))
 			{
-				Control.Image = new Native.Image(Control);
-				var task = Control.Image.LoadFromImageSourceAsync(Element.Image);
+				(Control as IButton).Image = new Native.Image(Control);
+				var task = (Control as IButton).Image.LoadFromImageSourceAsync(Element.Image);
 			}
 			else
 			{
-				Control.Image = null;
+				(Control as IButton).Image = null;
 			}
 		}
 

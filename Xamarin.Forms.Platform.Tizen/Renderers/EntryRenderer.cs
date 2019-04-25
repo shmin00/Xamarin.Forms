@@ -1,9 +1,11 @@
 using System;
+using IEntry = Xamarin.Forms.Platform.Tizen.Native.IEntry;
+using EEntry = ElmSharp.Entry;
 using Specific = Xamarin.Forms.PlatformConfiguration.TizenSpecific.Entry;
 
 namespace Xamarin.Forms.Platform.Tizen
 {
-	public class EntryRenderer : ViewRenderer<Entry, Native.Entry>
+	public class EntryRenderer : ViewRenderer<Entry, EEntry>
 	{
 		public EntryRenderer()
 		{
@@ -30,13 +32,10 @@ namespace Xamarin.Forms.Platform.Tizen
 		{
 			if (Control == null)
 			{
-				var entry = new Native.EditfieldEntry(Forms.NativeParent)
-				{
-					IsSingleLine = true,
-				};
+				var entry = CreateNativeControl();
 				entry.SetVerticalTextAlignment("elm.text", 0.5);
 				entry.SetVerticalTextAlignment("elm.guide", 0.5);
-				entry.TextChanged += OnTextChanged;
+				(entry as IEntry).TextChanged += OnTextChanged;
 				entry.Activated += OnCompleted;
 				entry.CursorChanged += OnCursorChanged;
 				entry.PrependMarkUpFilter(MaxLengthFilter);
@@ -45,13 +44,21 @@ namespace Xamarin.Forms.Platform.Tizen
 			base.OnElementChanged(e);
 		}
 
+		protected virtual EEntry CreateNativeControl()
+		{
+			return new Native.EditfieldEntry(Forms.NativeParent)
+			{
+				IsSingleLine = true,
+			};
+		}
+
 		protected override void Dispose(bool disposing)
 		{
 			if (disposing)
 			{
 				if (null != Control)
 				{
-					Control.TextChanged -= OnTextChanged;
+					(Control as IEntry).TextChanged -= OnTextChanged;
 					Control.Activated -= OnCompleted;
 					Control.CursorChanged -= OnCursorChanged;
 				}
@@ -92,36 +99,36 @@ namespace Xamarin.Forms.Platform.Tizen
 			}
 		}
 
-		void UpdateTextColor()
+		protected virtual void UpdateTextColor()
 		{
-			Control.TextColor = Element.TextColor.ToNative();
+			(Control as IEntry).TextColor = Element.TextColor.ToNative();
 		}
 
 		void UpdateFontSize()
 		{
-			Control.FontSize = Element.FontSize;
+			(Control as IEntry).FontSize = Element.FontSize;
 		}
 
 		void UpdateFontFamily()
 		{
-			Control.FontFamily = Element.FontFamily;
+			(Control as IEntry).FontFamily = Element.FontFamily;
 		}
 
 		void UpdateFontAttributes()
 		{
-			Control.FontAttributes = Element.FontAttributes;
+			(Control as IEntry).FontAttributes = Element.FontAttributes;
 		}
 
 		void UpdateHorizontalTextAlignment()
 		{
-			Control.HorizontalTextAlignment = Element.HorizontalTextAlignment.ToNative();
+			(Control as IEntry).HorizontalTextAlignment = Element.HorizontalTextAlignment.ToNative();
 		}
 
 		void UpdateKeyboard(bool initialize)
 		{
 			if (initialize && Element.Keyboard == Keyboard.Default)
 				return;
-			Control.UpdateKeyboard(Element.Keyboard, Element.IsSpellCheckEnabled, Element.IsTextPredictionEnabled);
+			(Control as IEntry).UpdateKeyboard(Element.Keyboard, Element.IsSpellCheckEnabled, Element.IsTextPredictionEnabled);
 		}
 
 		void UpdateIsSpellCheckEnabled()
@@ -131,17 +138,17 @@ namespace Xamarin.Forms.Platform.Tizen
 
 		void UpdatePlaceholder()
 		{
-			Control.Placeholder = Element.Placeholder;
+			(Control as IEntry).Placeholder = Element.Placeholder;
 		}
 
 		void UpdatePlaceholderColor()
 		{
-			Control.PlaceholderColor = Element.PlaceholderColor.ToNative();
+			(Control as IEntry).PlaceholderColor = Element.PlaceholderColor.ToNative();
 		}
 
 		void UpdateFontWeight()
 		{
-			Control.FontWeight = Specific.GetFontWeight(Element);
+			(Control as IEntry).FontWeight = Specific.GetFontWeight(Element);
 		}
 
 		void UpdateMaxLength()

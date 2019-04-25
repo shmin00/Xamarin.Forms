@@ -1,29 +1,31 @@
 using System;
 using ElmSharp;
-using EEntry = ElmSharp.Entry;
+using Tizen.NET.MaterialComponents;
+using Xamarin.Forms.Platform.Tizen.Native;
 using EColor = ElmSharp.Color;
 using ESize = ElmSharp.Size;
+using EEntry = ElmSharp.Entry;
+using NSpan = Xamarin.Forms.Platform.Tizen.Native.Span;
+using NTextAlignment = Xamarin.Forms.Platform.Tizen.Native.TextAlignment;
+using NKeyboard = Xamarin.Forms.Platform.Tizen.Native.Keyboard;
 
-namespace Xamarin.Forms.Platform.Tizen.Native
+namespace Xamarin.Forms.Material.Tizen.Native
 {
-	/// <summary>
-	/// Extends the Entry control, providing basic formatting features,
-	/// i.e. font color, size, placeholder.
-	/// </summary>
-	public class Entry : EEntry, IMeasurable, IBatchable, IEntry
+	public class MEntry : MTextField, IMeasurable, IBatchable, IEntry
 	{
 		const int VariationNormal = 0;
 		const int VariationSignedAndDecimal = 3;
+		const int TextFieldMinimumHeight = 115;
 
 		/// <summary>
 		/// Holds the formatted text of the entry.
 		/// </summary>
-		readonly Span _span = new Span();
+		readonly NSpan _span = new NSpan();
 
 		/// <summary>
 		/// Holds the formatted text of the placeholder.
 		/// </summary>
-		readonly Span _placeholderSpan = new Span();
+		readonly NSpan _placeholderSpan = new NSpan();
 
 		/// <summary>
 		/// Helps to detect whether the text change was initiated by the user
@@ -34,13 +36,13 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 		/// <summary>
 		/// The type of the keyboard used by the entry.
 		/// </summary>
-		Keyboard _keyboard;
+		NKeyboard _keyboard;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Xamarin.Forms.Platform.Tizen.Native.Entry"/> class.
 		/// </summary>
 		/// <param name="parent">Parent evas object.</param>
-		public Entry(EvasObject parent) : base(parent)
+		public MEntry(EvasObject parent) : base(parent)
 		{
 			Scrollable = true;
 
@@ -53,13 +55,13 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 				_changedByUserCallbackDepth--;
 			};
 
-			ApplyKeyboard(Keyboard.Normal);
+			ApplyKeyboard(NKeyboard.Normal);
 		}
 
 		/// <summary>
 		/// Occurs when the text has changed.
 		/// </summary>
-		public event EventHandler<TextChangedEventArgs> TextChanged;
+		public new event EventHandler<TextChangedEventArgs> TextChanged;
 
 		/// <summary>
 		/// Gets or sets the text.
@@ -92,7 +94,7 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 		/// Gets or sets the color of the text.
 		/// </summary>
 		/// <value>The color of the text.</value>
-		public EColor TextColor
+		public new EColor TextColor
 		{
 			get
 			{
@@ -210,7 +212,7 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 		/// Gets or sets the horizontal text alignment of both text and placeholder.
 		/// </summary>
 		/// <value>The horizontal text alignment of both text and placeholder.</value>
-		public TextAlignment HorizontalTextAlignment
+		public NTextAlignment HorizontalTextAlignment
 		{
 			get
 			{
@@ -234,7 +236,7 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 		/// Gets or sets the keyboard type used by the entry.
 		/// </summary>
 		/// <value>The keyboard type.</value>
-		public Keyboard Keyboard
+		public NKeyboard Keyboard
 		{
 			get
 			{
@@ -314,8 +316,8 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 			else
 			{
 				// there's text in the entry, use it instead
-				rawSize = Native.TextHelper.GetRawTextBlockSize(this);
-				formattedSize = Native.TextHelper.GetFormattedTextBlockSize(this);
+				rawSize = TextHelper.GetRawTextBlockSize(this);
+				formattedSize = TextHelper.GetFormattedTextBlockSize(this);
 			}
 
 			// restore the original size
@@ -328,21 +330,28 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 			formattedSize.Height += verticalPadding;
 			formattedSize.Width += horizontalPadding;
 
+			ESize size;
+
 			// if the raw text width is larger than available width, we use the available width,
 			// while height is set to the smallest height value
 			if (rawSize.Width > availableWidth)
 			{
-				return new ESize
-				{
-					Width = availableWidth,
-					Height = Math.Min(formattedSize.Height, Math.Max(rawSize.Height, availableHeight)),
-				};
+				size.Width = availableWidth;
+				size.Height = Math.Min(formattedSize.Height, Math.Max(rawSize.Height, availableHeight));
 			}
 			else
 			{
-				// width is fine, return the formatted text size
-				return formattedSize;
+				size = formattedSize;
 			}
+
+			// for adapting material style, 
+			// the height of the entry should be bigger than minimun size defined by Tizen.NET.Material.Components
+			if (size.Height < TextFieldMinimumHeight)
+			{
+				size.Height = TextFieldMinimumHeight;
+			}
+
+			return size;
 		}
 
 		protected virtual void OnTextChanged(string oldValue, string newValue)
@@ -386,31 +395,31 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 		/// <returns>The internal text representation.</returns>
 		string GetInternalText()
 		{
-			return Entry.ConvertMarkupToUtf8(base.Text);
+			return EEntry.ConvertMarkupToUtf8(base.Text);
 		}
 
 		/// <summary>
 		/// Applies the keyboard type to be used by the entry.
 		/// </summary>
-		/// <param name="keyboard">Keyboard type to be used.</param>
-		void ApplyKeyboard(Keyboard keyboard)
+		/// <param name="keyboard">NKeyboard type to be used.</param>
+		void ApplyKeyboard(NKeyboard keyboard)
 		{
 			_keyboard = keyboard;
-			SetInternalKeyboard(keyboard);
+			SetInternalNKeyboard(keyboard);
 		}
 
 		/// <summary>
 		/// Configures the ElmSharp.Entry with specified keyboard type and displays
-		/// the keyboard automatically unless the provided type is Keyboard.None.
+		/// the keyboard automatically unless the provided type is NKeyboard.None.
 		/// </summary>
-		/// <param name="keyboard">Keyboard type to be used.</param>
-		void SetInternalKeyboard(Keyboard keyboard)
+		/// <param name="keyboard">NKeyboard type to be used.</param>
+		void SetInternalNKeyboard(NKeyboard keyboard)
 		{
-			if (keyboard == Keyboard.None)
+			if (keyboard == NKeyboard.None)
 			{
 				SetInputPanelEnabled(false);
 			}
-			else if (Keyboard == Keyboard.Numeric)
+			else if (keyboard == NKeyboard.Numeric)
 			{
 				SetInputPanelEnabled(true);
 				SetInputPanelLayout(InputPanelLayout.NumberOnly);
@@ -439,7 +448,7 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 		/// <param name="markupText">Markup text to be used as a placeholder.</param>
 		protected virtual void SetInternalPlaceholderAndStyle(string markupText)
 		{
-			SetPartText("elm.guide", markupText ?? "");
+			Label = markupText ?? "";
 		}
 	}
 }

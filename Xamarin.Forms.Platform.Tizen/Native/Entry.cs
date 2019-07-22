@@ -67,6 +67,16 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 		public event EventHandler<TextChangedEventArgs> TextChanged;
 
 		/// <summary>
+		/// Occurs when the text block get focused.
+		/// </summary>
+		public event EventHandler TextBlockFocused;
+
+		/// <summary>
+		/// Occurs when the text block loses focus
+		/// </summary>
+		public event EventHandler TextBlockUnfocused;
+
+		/// <summary>
 		/// Gets or sets the text.
 		/// </summary>
 		/// <value>The text.</value>
@@ -362,6 +372,16 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 #endif
 			return size;
 
+		}
+
+		protected virtual void InvokeTextBlockFocused()
+		{
+			TextBlockFocused?.Invoke(this, EventArgs.Empty);
+		}
+
+		protected virtual void InvokeTextBlcokUnfocused()
+		{
+			TextBlockUnfocused?.Invoke(this, EventArgs.Empty);
 		}
 
 		protected virtual void OnTextChanged(string oldValue, string newValue)

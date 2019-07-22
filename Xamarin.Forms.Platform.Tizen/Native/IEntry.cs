@@ -25,5 +25,7 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 		Keyboard Keyboard { get; set; }
 
 		event EventHandler<TextChangedEventArgs> TextChanged;
+
+		event EventHandler TextBlockFocused;
 	}
 }

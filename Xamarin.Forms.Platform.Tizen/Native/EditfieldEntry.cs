@@ -6,9 +6,6 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 {
 	public class EditfieldEntry : Native.Entry
 	{
-		public event EventHandler TextBlockFocused;
-		public event EventHandler TextBlockUnfocused;
-
 		public bool IsTextBlockFocused => _isTexstBlockFocused;
 
 		ELayout _editfieldLayout;
@@ -44,9 +41,9 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 			_isTexstBlockFocused = isFocused;
 
 			if (isFocused)
-				TextBlockFocused?.Invoke(this, EventArgs.Empty);
+				InvokeTextBlockFocused();
 			else
-				TextBlockUnfocused?.Invoke(this, EventArgs.Empty);
+				InvokeTextBlcokUnfocused();
 		}
 
 		public override ElmSharp.Size Measure(int availableWidth, int availableHeight)

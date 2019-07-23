@@ -303,9 +303,22 @@ namespace Xamarin.Forms.Platform.Tizen
 		/// </summary>
 		void UpdateSource()
 		{
+			bool hasHeader = Control.HasHeader();
+			bool hasFooter = Control.HasFooter();
+
 			Control.Clear();
 			Control.AddSource(Element.TemplatedItems);
 			UpdateSelectedItem();
+
+			if (hasHeader)
+			{
+				UpdateHeader();
+			}
+
+			if (hasFooter)
+			{
+				UpdateFooter();
+			}
 		}
 
 		/// <summary>

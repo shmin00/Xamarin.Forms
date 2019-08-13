@@ -1,9 +1,8 @@
 ﻿using Xamarin.Forms;
-using Xamarin.Forms.Platform.Tizen;
-using Xamarin.Forms.Platform.Tizen.Native;
 using Xamarin.Forms.Material.Tizen;
+using Xamarin.Forms.Material.Tizen.Native;
+using Xamarin.Forms.Platform.Tizen;
 using TForms = Xamarin.Forms.Platform.Tizen.Forms;
-using System;
 
 [assembly: ExportRenderer(typeof(Editor), typeof(MaterialEditorRenderer), new[] { typeof(VisualMarker.MaterialVisual) })]
 namespace Xamarin.Forms.Material.Tizen
@@ -12,14 +11,15 @@ namespace Xamarin.Forms.Material.Tizen
 	{
 		protected override ElmSharp.Entry CreateNativeControl()
 		{
-			var entry = new MaterialEntry(TForms.NativeParent);
+			var entry = new MEditor(TForms.NativeParent);
 			entry.IsSingleLine = false;
+			entry.LineWrapType = ElmSharp.WrapType.Mixed;
 			return entry;
 		}
 
 		protected override void UpdateTextColor()
 		{
-			if(Control is MaterialEntry me)
+			if (Control is MEditor me)
 			{
 				me.TextColor = Element.TextColor.ToNative();
 				me.TextFocusedColor = Element.TextColor.ToNative();
@@ -27,15 +27,6 @@ namespace Xamarin.Forms.Material.Tizen
 				me.UnderlineFocusedColor = Element.TextColor.ToNative();
 				me.CursorColor = Element.TextColor.ToNative();
 			}
-		}
-
-		protected override Size MinimumSize()
-		{
-			var size = base.MinimumSize();
-			size.Height += 200;
-			Console.WriteLine($"+++++++++++++ size={size}");
-
-			return size;
 		}
 	}
 }

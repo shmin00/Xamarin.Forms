@@ -77,7 +77,10 @@ namespace Xamarin.Forms.Core.UITests
 			
 			App.WaitForElement("TargetViewContainer");
 			App.Tap("TargetViewContainer");
-			App.EnterText(callerMemberName.Replace("_", "") + "VisualElement");
+			//App.EnterText(callerMemberName.Replace("_", "") + "VisualElement");
+			//for Tizen
+			var name= callerMemberName.Replace("_", "") + "VisualElement";
+			App.EnterText("TargetViewContainer", name);
 			App.Tap("GoButton");
 		}
 
@@ -206,6 +209,24 @@ namespace Xamarin.Forms.Core.UITests
 			{
 				return result;
 			}
+
+#elif __TIZEN__
+
+			if (TryConvertFloat(prop, out result))
+			{
+				return result;
+			}
+
+			if (TryConvertDouble(prop, out result))
+			{
+				return result;
+			}
+
+			if (TryConvertFont(prop, out result))
+			{
+				return result;
+			}
+
 #endif
 
 			if (TryConvertBool(prop, out result))

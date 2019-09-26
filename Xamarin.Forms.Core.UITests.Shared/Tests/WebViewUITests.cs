@@ -3,6 +3,9 @@ using Xamarin.Forms.CustomAttributes;
 
 namespace Xamarin.Forms.Core.UITests
 {
+#if __TIZEN__
+	[Ignore("Not tested on the TIZEN")]
+#endif
 	[TestFixture]
 	[Category(UITestCategories.WebView)]
 	internal class WebViewUITests : _ViewUITests

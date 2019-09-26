@@ -2,6 +2,9 @@
 
 namespace Xamarin.Forms.Core.UITests
 {
+#if __TIZEN__
+	[Ignore("Not tested on the TIZEN")]
+#endif
 	[TestFixture]
 	[Category(UITestCategories.DisplayAlert)]
 	internal class DisplayAlertUITests : BaseTestFixture

@@ -49,6 +49,9 @@ namespace Xamarin.Forms.Controls
 
 #elif __WINDOWS__
 			app = InitializeUWPApp();
+
+#elif __TIZEN__
+			app = InitializeTizenApp();
 #endif
 			if (app == null)
 				throw new NullReferenceException("App was not initialized.");
@@ -120,6 +123,13 @@ namespace Xamarin.Forms.Controls
 		}
 #endif
 
+#if __TIZEN__
+		static IApp InitializeTizenApp()
+		{
+			return TizenTestBase.ConfigureApp();
+		}
+#endif
+
 		public static void NavigateToIssue(Type type, IApp app)
 		{
 			var typeIssueAttribute = type.GetTypeInfo().GetCustomAttribute<IssueAttribute>();
@@ -166,6 +176,14 @@ namespace Xamarin.Forms.Controls
 					// So we're just going to use the 'Reset' method to bounce the app to the opening screen
 					// and then fall back to the old manual navigation
 					WindowsTestBase.Reset();
+#endif
+
+#if __TIZEN__
+					// Tizen doens't have an 'invoke' option right now for us to do the more direct navigation
+					// we're using for Android/iOS
+					// So we're just going to use the 'Reset' method to bounce the app to the opening screen
+					// and then fall back to the old manual navigation
+					TizenTestBase.Reset();
 #endif
 				}
 				catch (Exception ex)

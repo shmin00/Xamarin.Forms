@@ -4,6 +4,9 @@ using Xamarin.UITest;
 
 namespace Xamarin.Forms.Core.UITests
 {
+#if __TIZEN__
+	[Ignore("Not tested on the TIZEN")]
+#endif
 	[Category(UITestCategories.CarouselView)]
 	internal class CarouselViewUITests : BaseTestFixture
 	{

@@ -4,6 +4,7 @@ using Xamarin.Forms.Controls;
 using ElmSharp;
 using Tizen.Applications;
 using Tizen.NET.MaterialComponents;
+using Tizen.Appium;
 
 namespace Xamarin.Forms.ControlGallery.Tizen
 {
@@ -21,10 +22,11 @@ namespace Xamarin.Forms.ControlGallery.Tizen
 		static void Main(string[] args)
 		{
 			var app = new MainApplication();
-			FormsMaps.Init("HERE", "write-your-API-key-here");
+			//FormsMaps.Init("HERE", "write-your-API-key-here");
 			Forms.SetFlags("CollectionView_Experimental", "Shell_Experimental");
 			Forms.Init(app);
 			FormsMaterial.Init();
+			TizenAppium.StartService();
 			app.Run(args);
 		}
 	}

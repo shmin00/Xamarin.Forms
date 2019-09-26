@@ -2,6 +2,9 @@ using NUnit.Framework;
 
 namespace Xamarin.Forms.Core.UITests
 {
+#if __TIZEN__
+	[Ignore("Not tested on the TIZEN")]
+#endif
 	[Category(UITestCategories.CollectionView)]
 	internal class CollectionViewUITests : BaseTestFixture
 	{

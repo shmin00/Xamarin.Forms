@@ -9,6 +9,9 @@ using Xamarin.UITest.Queries;
 
 namespace Xamarin.Forms.Core.UITests
 {
+#if __TIZEN__
+	[Ignore("Not tested on the TIZEN")]
+#endif
 	[TestFixture]
 	[Category(UITestCategories.ToolbarItem)]
 	[Category(UITestCategories.UwpIgnore)]

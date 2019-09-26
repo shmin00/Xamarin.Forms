@@ -53,6 +53,8 @@ namespace Xamarin.Forms.Core.UITests
 
 #if __WINDOWS__
 			App.ScrollDownTo(target, CellTestContainerId, timeout: TimeSpan.FromMinutes(1));
+#elif __TIZEN__
+			App.ScrollDownTo(target, CellTestContainerId, timeout: TimeSpan.FromMinutes(3));
 #else
 			App.ScrollForElement($"* marked:'{target}'",
 				new Drag(ScreenBounds, Drag.Direction.BottomToTop, Drag.DragLength.Medium));
@@ -107,7 +109,7 @@ namespace Xamarin.Forms.Core.UITests
 
 			string target = "Detail 99";
 
-#if __WINDOWS__
+#if __WINDOWS__ || __TIZEN__
 			App.ScrollDownTo(target, CellTestContainerId, timeout: TimeSpan.FromMinutes(3));
 #else
 			var scrollBounds = App.Query(q => q.Marked(CellTestContainerId)).First().Rect;
@@ -119,7 +121,7 @@ namespace Xamarin.Forms.Core.UITests
 
 			App.Screenshot("All ImageCells are present");
 
-#if !__WINDOWS__
+#if !__WINDOWS__ && !__TIZEN__
 			var numberOfImages = App.Query(q => q.Raw(PlatformViews.Image)).Length;
 			// Check that there are images present. In Android, 
 			// have to make sure that there are more than 2 for navigation.
@@ -140,11 +142,18 @@ namespace Xamarin.Forms.Core.UITests
 			App.WaitForElement(q => q.Marked("ImageUrlCellListView"));
 
 			var scollBounds = App.Query(q => q.Marked("ImageUrlCellListView")).First().Rect;
+#if __TIZEN__
+			App.ScrollForElement("* marked:'Detail 100'", new Drag(scollBounds, Drag.Direction.BottomToTop, Drag.DragLength.Medium), 50);
+#else
 			App.ScrollForElement("* marked:'Detail 100'", new Drag(scollBounds, Drag.Direction.BottomToTop, Drag.DragLength.Medium));
+#endif
 			App.WaitForElement(q => q.Marked("Detail 100"), "Timeout : Detail 100");
 
 			App.Screenshot("All ImageCells are present");
 
+#if __TIZEN__
+			await Task.Delay(1000);
+#else
 			int numberOfImages = 0;
 
 			// Most of the time, 1 second is long enough to wait for the images to load, but depending on network conditions
@@ -162,6 +171,7 @@ namespace Xamarin.Forms.Core.UITests
 			// Check that there are images present. In Android, 
 			// have to make sure that there are more than 2 for navigation.
 			Assert.IsTrue(numberOfImages > 2);
+#endif
 
 			App.Screenshot("Images are present");
 		}
@@ -191,7 +201,7 @@ namespace Xamarin.Forms.Core.UITests
 
 			App.Screenshot("All ImageCells are present");
 
-#if !__WINDOWS__
+#if !__WINDOWS__ && !__TIZEN__
 			var numberOfImages = App.Query(q => q.Raw(PlatformViews.Image)).Length;
 			// Check that there are images present. In Android, 
 			// have to make sure that there are more than 2 for navigation.
@@ -217,6 +227,8 @@ namespace Xamarin.Forms.Core.UITests
 
 #if __WINDOWS__
 			App.ScrollDownTo(target, CellTestContainerId, timeout: TimeSpan.FromMinutes(1));
+#elif __TIZEN__
+			App.ScrollDownTo(target, CellTestContainerId, timeout: TimeSpan.FromMinutes(3));
 #else
 			App.ScrollForElement($"* marked:'{target}'",
 				new Drag(ScreenBounds, Drag.Direction.BottomToTop, Drag.DragLength.Medium));
@@ -252,8 +264,10 @@ namespace Xamarin.Forms.Core.UITests
 
 			App.WaitForElement(q => q.Marked(target));
 
+#if !__TIZEN__
 			var numberOfSwitches = App.Query(q => q.Raw(PlatformViews.Switch)).Length;
 			Assert.IsTrue(numberOfSwitches > 2);
+#endif
 #endif
 
 			App.Screenshot("Switches are present");
@@ -273,7 +287,7 @@ namespace Xamarin.Forms.Core.UITests
 
 			string target = "Label 99";
 
-#if __WINDOWS__
+#if __WINDOWS__ || __TIZEN__
 			App.ScrollDownTo(target, CellTestContainerId, timeout: TimeSpan.FromMinutes(3));
 #else
 			App.ScrollForElement($"* marked:'{target}'",
@@ -336,11 +350,15 @@ namespace Xamarin.Forms.Core.UITests
 			App.Tap(PlatformQueries.EntryCellWithPlaceholder("I am a placeholder"));
 			App.EnterText(PlatformQueries.EntryCellWithPlaceholder("I am a placeholder"), "Hi");
 			App.Screenshot("Entered Text");
+#if !__TIZEN__
 			App.PressEnter();
 
 			App.WaitForElement(q => q.Marked("Entered: 1"));
 			App.Screenshot("Completed should have changed label's text");
-			
+
+#else
+			App.NavigateBack();
+#endif
 #endif
 		}
 

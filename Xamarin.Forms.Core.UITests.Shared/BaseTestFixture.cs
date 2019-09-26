@@ -106,6 +106,9 @@ namespace Xamarin.Forms.Core.UITests
 #if __WINDOWS__
 			WindowsTestBase.Reset();
 #endif
+#if __TIZEN__
+			TizenTestBase.Reset();
+#endif
 		}
 	}
 }
@@ -128,8 +131,9 @@ namespace Xamarin.Forms.Core.UITests
 		{
 			BaseTestFixture.App = null;
 			BaseTestFixture.App = AppSetup.Setup();
-
+#if !__TIZEN__
 			BaseTestFixture.App.SetOrientationPortrait();
+#endif
 			BaseTestFixture.ScreenBounds = BaseTestFixture.App.RootViewRect();
 		}
 	}

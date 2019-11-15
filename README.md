@@ -1,1 +1,1 @@
-# Xamarin.Forms.Sandbox.Tizen
+# Xamarin.Forms.Tizen.Sandbox

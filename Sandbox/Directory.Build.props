@@ -1,0 +1,16 @@
+<Project>
+  <PropertyGroup>
+    <XamarinFormsSource Condition="'$(XamarinFormsSource)' == ''">..\Xamarin.Forms\</XamarinFormsSource>
+    <CircularUISource>..\Tizen.CircularUI\</CircularUISource>
+
+    <__XFBuildTasksLocation>$(XamarinFormsSource).nuspec\netstandard2.0\</__XFBuildTasksLocation>
+    
+    <FromSource Condition="'$(FromSource)' == ''">true</FromSource>
+    
+    <XamarinFormsVersion>4.3.0.908675</XamarinFormsVersion>
+    <CircularUIVersion>1.3.2</CircularUIVersion>
+  </PropertyGroup>
+
+  <Import Project="$(XamarinFormsSource).nuspec\Xamarin.Forms.props"/>
+  <Import Project="$(XamarinFormsSource)Directory.Build.props"/>
+ </Project>

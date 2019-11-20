@@ -19,7 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Xamarin.Forms\Xamarin.Forms.Build.Tasks\Xamarin.Forms.Build.Tasks.csproj" />
     <ProjectReference Include="..\..\..\..\Xamarin.Forms\Xamarin.Forms.Core\Xamarin.Forms.Core.csproj" />
     <ProjectReference Include="..\..\..\..\Xamarin.Forms\Xamarin.Forms.Platform.Tizen\Xamarin.Forms.Platform.Tizen.csproj" />
     <ProjectReference Include="..\..\..\..\Xamarin.Forms\Xamarin.Forms.Platform\Xamarin.Forms.Platform.csproj" />

@@ -29,13 +29,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SandboxBuild", "SandboxBuil
 		Sandbox\Directory.Build.targets = Sandbox\Directory.Build.targets
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XStopWatch", "Sandbox\XStopWatch\XStopWatch\XStopWatch\XStopWatch.csproj", "{1E9D6567-DE53-4F8E-A19C-E7AEEDF9155C}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Forms.Material.Tizen", "Xamarin.Forms\Xamarin.Forms.Material.Tizen\Xamarin.Forms.Material.Tizen.csproj", "{84607AC1-2469-4500-9AB5-3AA5D349C098}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tizen.Wearable.CircularUI.Forms", "Sandbox\Tizen.CircularUI\src\Tizen.Wearable.CircularUI.Forms\Tizen.Wearable.CircularUI.Forms.csproj", "{C9B8F56B-B2D5-4D8E-84BC-F1926160A130}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tizen.Wearable.CircularUI.Forms.Renderer", "Sandbox\Tizen.CircularUI\src\Tizen.Wearable.CircularUI.Forms.Renderer\Tizen.Wearable.CircularUI.Forms.Renderer.csproj", "{1D58F961-6843-474B-91AB-07140137C707}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XStopWatch", "Sandbox\XStopWatch\XStopWatch\XStopWatch.csproj", "{38700235-FC85-41F6-8801-5BBFDE5BCD65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,10 +71,6 @@ Global
 		{DB9289C6-D0BE-45AF-AA76-601B8B3D89DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB9289C6-D0BE-45AF-AA76-601B8B3D89DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB9289C6-D0BE-45AF-AA76-601B8B3D89DF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1E9D6567-DE53-4F8E-A19C-E7AEEDF9155C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1E9D6567-DE53-4F8E-A19C-E7AEEDF9155C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1E9D6567-DE53-4F8E-A19C-E7AEEDF9155C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1E9D6567-DE53-4F8E-A19C-E7AEEDF9155C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{84607AC1-2469-4500-9AB5-3AA5D349C098}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{84607AC1-2469-4500-9AB5-3AA5D349C098}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84607AC1-2469-4500-9AB5-3AA5D349C098}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -87,6 +83,10 @@ Global
 		{1D58F961-6843-474B-91AB-07140137C707}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D58F961-6843-474B-91AB-07140137C707}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D58F961-6843-474B-91AB-07140137C707}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38700235-FC85-41F6-8801-5BBFDE5BCD65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38700235-FC85-41F6-8801-5BBFDE5BCD65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38700235-FC85-41F6-8801-5BBFDE5BCD65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38700235-FC85-41F6-8801-5BBFDE5BCD65}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -99,10 +99,10 @@ Global
 		{0E757D56-4B1D-44D9-BB2F-4F747A653442} = {68B0EFBF-2ACB-46F2-91D5-263A920AD13B}
 		{2BB62D19-F9C6-46D5-8545-B63345DDBCCC} = {68B0EFBF-2ACB-46F2-91D5-263A920AD13B}
 		{DB9289C6-D0BE-45AF-AA76-601B8B3D89DF} = {68B0EFBF-2ACB-46F2-91D5-263A920AD13B}
-		{1E9D6567-DE53-4F8E-A19C-E7AEEDF9155C} = {087187F9-A361-4269-88EB-47A44185FA7F}
 		{84607AC1-2469-4500-9AB5-3AA5D349C098} = {68B0EFBF-2ACB-46F2-91D5-263A920AD13B}
 		{C9B8F56B-B2D5-4D8E-84BC-F1926160A130} = {32A6D9FF-AFD0-4CAF-A6E9-A3BBE8C4AEBA}
 		{1D58F961-6843-474B-91AB-07140137C707} = {32A6D9FF-AFD0-4CAF-A6E9-A3BBE8C4AEBA}
+		{38700235-FC85-41F6-8801-5BBFDE5BCD65} = {087187F9-A361-4269-88EB-47A44185FA7F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {81158F7F-D003-4C6D-9937-5002C54D57EA}

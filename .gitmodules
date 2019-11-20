@@ -1,0 +1,7 @@
+[submodule "Xamarin.Forms"]
+	path = Xamarin.Forms
+	url = https://github.sec.samsung.net/dotnet/Xamarin.Forms.git
+	branch = profiling
+[submodule "Sandbox/Tizen.CircularUI"]
+	path = Sandbox/Tizen.CircularUI
+	url = https://github.com/Samsung/Tizen.CircularUI.git

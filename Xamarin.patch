@@ -27,19 +27,6 @@ index 85f1a8f9..31cf6779 100644
  
 -  <Import Project="Version.targets" />
   </Project>
-diff --git a/Xamarin.Forms.Build.Tasks/Xamarin.Forms.Build.Tasks.csproj b/Xamarin.Forms.Build.Tasks/Xamarin.Forms.Build.Tasks.csproj
-index bdbdfe96..9ee2217c 100644
---- a/Xamarin.Forms.Build.Tasks/Xamarin.Forms.Build.Tasks.csproj
-+++ b/Xamarin.Forms.Build.Tasks/Xamarin.Forms.Build.Tasks.csproj
-@@ -9,7 +9,7 @@
- 	    <_DisableStrongNamer Condition=" '$(_DisableStrongNamer)' != 'True' ">False</_DisableStrongNamer>
- 	    <AssemblyName>Xamarin.Forms.Build.Tasks</AssemblyName>
-       <Description>Xamarin Forms Build Task</Description>
--	    <TargetFrameworks>net46;netstandard2.0</TargetFrameworks>
-+	    <TargetFrameworks>netstandard2.0</TargetFrameworks>
- 	    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
- 	    <SignAssembly Condition=" '$(_DisableStrongNamer)' != 'True' ">True</SignAssembly>
- 	    <DisableStrongNamer Condition=" '$(_DisableStrongNamer)' == 'True' ">True</DisableStrongNamer>
 diff --git a/Xamarin.Forms.Core/Xamarin.Forms.Core.csproj b/Xamarin.Forms.Core/Xamarin.Forms.Core.csproj
 index f7abdab3..96cacea3 100644
 --- a/Xamarin.Forms.Core/Xamarin.Forms.Core.csproj

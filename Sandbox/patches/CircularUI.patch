@@ -1,11 +1,9 @@
 diff --git a/src/Tizen.Wearable.CircularUI.Forms.Renderer/Tizen.Wearable.CircularUI.Forms.Renderer.csproj b/src/Tizen.Wearable.CircularUI.Forms.Renderer/Tizen.Wearable.CircularUI.Forms.Renderer.csproj
-index 4f879ed..0aa35e9 100644
+index 4f879ed..9eacd7f 100644
 --- a/src/Tizen.Wearable.CircularUI.Forms.Renderer/Tizen.Wearable.CircularUI.Forms.Renderer.csproj
 +++ b/src/Tizen.Wearable.CircularUI.Forms.Renderer/Tizen.Wearable.CircularUI.Forms.Renderer.csproj
-@@ -1,7 +1,10 @@
- ﻿<Project Sdk="Microsoft.NET.Sdk">
+@@ -2,6 +2,8 @@
  
-+
    <PropertyGroup>
      <TargetFramework>tizen40</TargetFramework>
 +    <TargetFrameworkIdentifier>Tizen</TargetFrameworkIdentifier>
@@ -13,7 +11,7 @@ index 4f879ed..0aa35e9 100644
    </PropertyGroup>
  
    <ItemGroup>
-@@ -14,6 +17,7 @@
+@@ -14,6 +16,7 @@
    </ItemGroup>
  
    <ItemGroup>

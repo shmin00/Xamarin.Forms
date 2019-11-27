@@ -37,6 +37,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tizen.Wearable.CircularUI.F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XStopWatch", "Sandbox\XStopWatch\XStopWatch\XStopWatch.csproj", "{38700235-FC85-41F6-8801-5BBFDE5BCD65}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VoiceMemo", "Sandbox\VoiceMemo\VoiceMemo\VoiceMemo.csproj", "{91EA49D7-A47E-43D4-A238-EFD67CC28ADB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VoiceMemo.Tizen.Wearable", "Sandbox\VoiceMemo\VoiceMemo.Tizen.Wearable\VoiceMemo.Tizen.Wearable.csproj", "{0777F9D6-C9AA-4D51-9553-2877030D0550}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +91,14 @@ Global
 		{38700235-FC85-41F6-8801-5BBFDE5BCD65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38700235-FC85-41F6-8801-5BBFDE5BCD65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38700235-FC85-41F6-8801-5BBFDE5BCD65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91EA49D7-A47E-43D4-A238-EFD67CC28ADB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91EA49D7-A47E-43D4-A238-EFD67CC28ADB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91EA49D7-A47E-43D4-A238-EFD67CC28ADB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91EA49D7-A47E-43D4-A238-EFD67CC28ADB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0777F9D6-C9AA-4D51-9553-2877030D0550}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0777F9D6-C9AA-4D51-9553-2877030D0550}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0777F9D6-C9AA-4D51-9553-2877030D0550}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0777F9D6-C9AA-4D51-9553-2877030D0550}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -103,6 +115,8 @@ Global
 		{C9B8F56B-B2D5-4D8E-84BC-F1926160A130} = {32A6D9FF-AFD0-4CAF-A6E9-A3BBE8C4AEBA}
 		{1D58F961-6843-474B-91AB-07140137C707} = {32A6D9FF-AFD0-4CAF-A6E9-A3BBE8C4AEBA}
 		{38700235-FC85-41F6-8801-5BBFDE5BCD65} = {087187F9-A361-4269-88EB-47A44185FA7F}
+		{91EA49D7-A47E-43D4-A238-EFD67CC28ADB} = {087187F9-A361-4269-88EB-47A44185FA7F}
+		{0777F9D6-C9AA-4D51-9553-2877030D0550} = {087187F9-A361-4269-88EB-47A44185FA7F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {81158F7F-D003-4C6D-9937-5002C54D57EA}

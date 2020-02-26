@@ -1,45 +1,57 @@
+From 9f5919a3a9d76a988520a828eacbdee2681303cc Mon Sep 17 00:00:00 2001
+From: chungryeol lim <cdark.lim@samsung.com>
+Date: Wed, 26 Feb 2020 18:42:16 +0900
+Subject: [PATCH] modify Xamarin patch information
+
+---
+ Directory.Build.props                        | 7 +------
+ Directory.Build.targets                      | 1 -
+ Xamarin.Forms.Core/Xamarin.Forms.Core.csproj | 3 ---
+ 3 files changed, 1 insertion(+), 10 deletions(-)
+
 diff --git a/Directory.Build.props b/Directory.Build.props
-index e5996ab3..9fa39969 100644
+index eae9f439..4a372cb0 100644
 --- a/Directory.Build.props
 +++ b/Directory.Build.props
-@@ -14,11 +14,7 @@
+@@ -14,11 +14,6 @@
      <LangVersion>7.3</LangVersion>
      <ProduceReferenceAssembly Condition="'$(UsingMicrosoftNETSdk)' == 'True' AND '$(Configuration)' == 'Debug'">True</ProduceReferenceAssembly>
    </PropertyGroup>
 -  <ItemGroup>
 -    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All"/>
 -  </ItemGroup>
-   <!-- This target is replaced by GitInfo when restored. Allows Version.targets to rely on it before restore. -->
+-  <!-- This target is replaced by GitInfo when restored. Allows Version.targets to rely on it before restore. -->
 -  <Target Name="GitVersion" />
-   <PropertyGroup Condition="'$(CI)' == ''">
-     <CI>false</CI>
-     <CI Condition="'$(TF_BUILD)' == 'true'">true</CI>
+   
+   <Import Condition="'$(EnvironmentBuildPropsImported)' != 'True'" Project="Environment.Build.props" />
+-</Project>
+\ No newline at end of file
++</Project>
 diff --git a/Directory.Build.targets b/Directory.Build.targets
-index 85f1a8f9..31cf6779 100644
+index 85f1a8f9..9d456905 100644
 --- a/Directory.Build.targets
 +++ b/Directory.Build.targets
-@@ -1,8 +1,6 @@
+@@ -1,6 +1,5 @@
  <Project>
    <ItemGroup>
 -    <PackageReference Include="GitInfo" Version="2.0.20" PrivateAssets="All" />
      <PackageReference Include="MSBuilder.GenerateAssemblyInfo" Version="0.2.1" PrivateAssets="All" />
  	</ItemGroup>
  
--  <Import Project="Version.targets" />
-  </Project>
 diff --git a/Xamarin.Forms.Core/Xamarin.Forms.Core.csproj b/Xamarin.Forms.Core/Xamarin.Forms.Core.csproj
-index f7abdab3..96cacea3 100644
+index 4be554b2..27515361 100644
 --- a/Xamarin.Forms.Core/Xamarin.Forms.Core.csproj
 +++ b/Xamarin.Forms.Core/Xamarin.Forms.Core.csproj
-@@ -19,10 +19,7 @@
- 		<PackageReference Include="System.ComponentModel" Version="4.3.0" />
- 		<PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />
- 		<PackageReference Include="System.ValueTuple" Version="4.5.0" />
--	</ItemGroup>	
+@@ -23,9 +23,6 @@
+ 	<ItemGroup>
+ 	  <Folder Include="Xaml\Diagnostics\" />
+ 	</ItemGroup>
 -	<PropertyGroup>
 -    <GitInfoReportImportance>high</GitInfoReportImportance>
 -  </PropertyGroup>
-+	</ItemGroup>
  	<Import Project="..\Xamarin.Flex\Xamarin.Flex.projitems" Label="Shared" Condition="Exists('..\Xamarin.Flex\Xamarin.Flex.projitems')" />
  	<UsingTask TaskName="XFCorePostProcessor.Tasks.FixXFCoreAssembly" AssemblyFile="..\XFCorePostProcessor.Tasks\bin\Debug\net461\XFCorePostProcessor.Tasks.dll" />
  	<Target Condition="$(DesignTimeBuild) != true AND $(BuildingProject) == true" AfterTargets="AfterCompile" Name="XFCorePostProcessor" Inputs="$(IntermediateOutputPath)$(TargetFileName)" Outputs="$(IntermediateOutputPath)XFCorePostProcessor.stamp">
+-- 
+2.17.1
+

@@ -1,13 +1,13 @@
-From 9f5919a3a9d76a988520a828eacbdee2681303cc Mon Sep 17 00:00:00 2001
+From f1f2a7ccf5502eda0eebc1287446ddc547b194da Mon Sep 17 00:00:00 2001
 From: chungryeol lim <cdark.lim@samsung.com>
-Date: Wed, 26 Feb 2020 18:42:16 +0900
-Subject: [PATCH] modify Xamarin patch information
+Date: Wed, 26 Feb 2020 19:55:31 +0900
+Subject: [PATCH] fixed patch error
 
 ---
  Directory.Build.props                        | 7 +------
- Directory.Build.targets                      | 1 -
+ Directory.Build.targets                      | 2 --
  Xamarin.Forms.Core/Xamarin.Forms.Core.csproj | 3 ---
- 3 files changed, 1 insertion(+), 10 deletions(-)
+ 3 files changed, 1 insertion(+), 11 deletions(-)
 
 diff --git a/Directory.Build.props b/Directory.Build.props
 index eae9f439..4a372cb0 100644
@@ -28,16 +28,18 @@ index eae9f439..4a372cb0 100644
 \ No newline at end of file
 +</Project>
 diff --git a/Directory.Build.targets b/Directory.Build.targets
-index 85f1a8f9..9d456905 100644
+index 85f1a8f9..31cf6779 100644
 --- a/Directory.Build.targets
 +++ b/Directory.Build.targets
-@@ -1,6 +1,5 @@
+@@ -1,8 +1,6 @@
  <Project>
    <ItemGroup>
 -    <PackageReference Include="GitInfo" Version="2.0.20" PrivateAssets="All" />
      <PackageReference Include="MSBuilder.GenerateAssemblyInfo" Version="0.2.1" PrivateAssets="All" />
  	</ItemGroup>
  
+-  <Import Project="Version.targets" />
+  </Project>
 diff --git a/Xamarin.Forms.Core/Xamarin.Forms.Core.csproj b/Xamarin.Forms.Core/Xamarin.Forms.Core.csproj
 index 4be554b2..27515361 100644
 --- a/Xamarin.Forms.Core/Xamarin.Forms.Core.csproj

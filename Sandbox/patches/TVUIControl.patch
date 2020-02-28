@@ -1,0 +1,63 @@
+From 128465113d1c833882757436db11d36d733358ee Mon Sep 17 00:00:00 2001
+From: chungryeol lim <cdark.lim@samsung.com>
+Date: Fri, 28 Feb 2020 19:24:47 +0900
+Subject: [PATCH] Fixing Sandbox
+
+---
+ src/Tizen.TV.UIControls.Forms/RecycleItemsView.cs           | 2 +-
+ .../Renderer/MediaSourceHandler.cs                          | 6 ++++--
+ .../Tizen.TV.UIControls.Forms.csproj                        | 5 ++++-
+ 3 files changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/src/Tizen.TV.UIControls.Forms/RecycleItemsView.cs b/src/Tizen.TV.UIControls.Forms/RecycleItemsView.cs
+index a4e518b..07b5ebc 100644
+--- a/src/Tizen.TV.UIControls.Forms/RecycleItemsView.cs
++++ b/src/Tizen.TV.UIControls.Forms/RecycleItemsView.cs
+@@ -232,7 +232,7 @@ namespace Tizen.TV.UIControls.Forms
+             set
+             {
+                 SetValue(SelectedItemProperty, value);
+-                ItemSelected?.Invoke(this, new SelectedItemChangedEventArgs(SelectedItem));
++                ItemSelected?.Invoke(this, new SelectedItemChangedEventArgs(SelectedItem, GetItemIndex(SelectedItem)));
+             }
+         }
+ 
+diff --git a/src/Tizen.TV.UIControls.Forms/Renderer/MediaSourceHandler.cs b/src/Tizen.TV.UIControls.Forms/Renderer/MediaSourceHandler.cs
+index 7f13c45..b6bdfa0 100644
+--- a/src/Tizen.TV.UIControls.Forms/Renderer/MediaSourceHandler.cs
++++ b/src/Tizen.TV.UIControls.Forms/Renderer/MediaSourceHandler.cs
+@@ -21,8 +21,10 @@ using Tizen.TV.UIControls.Forms.Renderer;
+ using Xamarin.Forms;
+ using Xamarin.Forms.Platform.Tizen;
+ 
+-[assembly: ExportHandler(typeof(UriMediaSource), typeof(UriMediaSourceHandler))]
+-[assembly: ExportHandler(typeof(FileMediaSource), typeof(FileMediaSourceHandler))]
++
++
++[assembly: ExportHandler(typeof(Tizen.TV.UIControls.Forms.UriMediaSource), typeof(UriMediaSourceHandler))]
++[assembly: ExportHandler(typeof(Tizen.TV.UIControls.Forms.FileMediaSource), typeof(FileMediaSourceHandler))]
+ namespace Tizen.TV.UIControls.Forms.Renderer
+ {
+ 
+diff --git a/src/Tizen.TV.UIControls.Forms/Tizen.TV.UIControls.Forms.csproj b/src/Tizen.TV.UIControls.Forms/Tizen.TV.UIControls.Forms.csproj
+index 71b0fd5..483e592 100644
+--- a/src/Tizen.TV.UIControls.Forms/Tizen.TV.UIControls.Forms.csproj
++++ b/src/Tizen.TV.UIControls.Forms/Tizen.TV.UIControls.Forms.csproj
+@@ -21,10 +21,13 @@
+     <None Remove="Resources\img_button_play.png" />
+     <EmbeddedResource Include="Resources\img_button_pause.png" />
+     <EmbeddedResource Include="Resources\img_button_play.png" />
++    <ProjectReference Include="..\..\..\..\Xamarin.Forms\Xamarin.Forms.Core\Xamarin.Forms.Core.csproj" />
++    <ProjectReference Include="..\..\..\..\Xamarin.Forms\Xamarin.Forms.Platform.Tizen\Xamarin.Forms.Platform.Tizen.csproj" Condition=" '$(TargetFramework)' == 'tizen40' " />
++    <ProjectReference Include="..\..\..\..\Xamarin.Forms\Xamarin.Forms.Platform\Xamarin.Forms.Platform.csproj" />
++    <ProjectReference Include="..\..\..\..\Xamarin.Forms\Xamarin.Forms.Xaml\Xamarin.Forms.Xaml.csproj" />
+     <EmbeddedResource Update="EmbeddingControls.xaml">
+       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+     </EmbeddedResource>
+-    <PackageReference Include="Xamarin.Forms" Version="4.3.0.991211" />
+   </ItemGroup>
+ 
+   <ItemGroup Condition=" '$(TargetFramework)' == 'tizen40' ">
+-- 
+2.17.1
+

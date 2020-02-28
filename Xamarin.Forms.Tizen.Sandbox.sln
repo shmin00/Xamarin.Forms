@@ -45,6 +45,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "VoiceMemo", "VoiceMemo", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XStopWatch", "XStopWatch", "{CE5F5031-BE26-42D9-8B86-87770CB01226}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TVUIControlSource", "TVUIControlSource", "{B50EF73D-190B-48A3-A009-C0E0EB48C1DE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tizen.TV.UIControls.Forms", "Sandbox\Tizen.TV.UIControls\src\Tizen.TV.UIControls.Forms\Tizen.TV.UIControls.Forms.csproj", "{03DD0AB3-F4DF-4AEB-918F-351BBEC4561D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -103,6 +107,10 @@ Global
 		{0777F9D6-C9AA-4D51-9553-2877030D0550}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0777F9D6-C9AA-4D51-9553-2877030D0550}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0777F9D6-C9AA-4D51-9553-2877030D0550}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03DD0AB3-F4DF-4AEB-918F-351BBEC4561D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03DD0AB3-F4DF-4AEB-918F-351BBEC4561D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03DD0AB3-F4DF-4AEB-918F-351BBEC4561D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03DD0AB3-F4DF-4AEB-918F-351BBEC4561D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -123,6 +131,7 @@ Global
 		{0777F9D6-C9AA-4D51-9553-2877030D0550} = {EAC85847-4A20-48CA-9E1A-BD812C0503F8}
 		{EAC85847-4A20-48CA-9E1A-BD812C0503F8} = {087187F9-A361-4269-88EB-47A44185FA7F}
 		{CE5F5031-BE26-42D9-8B86-87770CB01226} = {087187F9-A361-4269-88EB-47A44185FA7F}
+		{03DD0AB3-F4DF-4AEB-918F-351BBEC4561D} = {B50EF73D-190B-48A3-A009-C0E0EB48C1DE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {81158F7F-D003-4C6D-9937-5002C54D57EA}

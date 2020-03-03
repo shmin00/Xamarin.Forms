@@ -1,44 +1,66 @@
+From 85c86136691a055cbc0fc19c155a171f40033045 Mon Sep 17 00:00:00 2001
+From: chungryeol lim <cdark.lim@samsung.com>
+Date: Wed, 26 Feb 2020 20:31:37 +0900
+Subject: [PATCH] fixed patch error
+
+---
+ .../MediaSourceHandler.cs                                  | 4 ++--
+ .../Tizen.Wearable.CircularUI.Forms.Renderer.csproj        | 1 +
+ .../Tizen.Wearable.CircularUI.Forms.csproj                 | 7 +++----
+ 3 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/src/Tizen.Wearable.CircularUI.Forms.Renderer/MediaSourceHandler.cs b/src/Tizen.Wearable.CircularUI.Forms.Renderer/MediaSourceHandler.cs
+index 91428d3..864fc1f 100644
+--- a/src/Tizen.Wearable.CircularUI.Forms.Renderer/MediaSourceHandler.cs
++++ b/src/Tizen.Wearable.CircularUI.Forms.Renderer/MediaSourceHandler.cs
+@@ -21,8 +21,8 @@ using Tizen.Wearable.CircularUI.Forms.Renderer;
+ using Xamarin.Forms;
+ using Xamarin.Forms.Platform.Tizen;
+ 
+-[assembly: ExportHandler(typeof(UriMediaSource), typeof(UriMediaSourceHandler))]
+-[assembly: ExportHandler(typeof(FileMediaSource), typeof(FileMediaSourceHandler))]
++[assembly: ExportHandler(typeof(Tizen.Wearable.CircularUI.Forms.UriMediaSource), typeof(UriMediaSourceHandler))]
++[assembly: ExportHandler(typeof(Tizen.Wearable.CircularUI.Forms.FileMediaSource), typeof(FileMediaSourceHandler))]
+ namespace Tizen.Wearable.CircularUI.Forms.Renderer
+ {
+ 
 diff --git a/src/Tizen.Wearable.CircularUI.Forms.Renderer/Tizen.Wearable.CircularUI.Forms.Renderer.csproj b/src/Tizen.Wearable.CircularUI.Forms.Renderer/Tizen.Wearable.CircularUI.Forms.Renderer.csproj
-index 4f879ed..9eacd7f 100644
+index 59cb5c6..23e97c5 100644
 --- a/src/Tizen.Wearable.CircularUI.Forms.Renderer/Tizen.Wearable.CircularUI.Forms.Renderer.csproj
 +++ b/src/Tizen.Wearable.CircularUI.Forms.Renderer/Tizen.Wearable.CircularUI.Forms.Renderer.csproj
-@@ -2,6 +2,8 @@
- 
-   <PropertyGroup>
-     <TargetFramework>tizen40</TargetFramework>
-+    <TargetFrameworkIdentifier>Tizen</TargetFrameworkIdentifier>
-+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-   </PropertyGroup>
- 
-   <ItemGroup>
-@@ -14,6 +16,7 @@
+@@ -17,6 +17,7 @@
    </ItemGroup>
  
    <ItemGroup>
-+    <ProjectReference Include="..\..\..\..\Xamarin.Forms\Xamarin.Forms.Platform.Tizen\Xamarin.Forms.Platform.Tizen.csproj" />
++  <ProjectReference Include="..\..\..\..\Xamarin.Forms\Xamarin.Forms.Platform.Tizen\Xamarin.Forms.Platform.Tizen.csproj" />
      <ProjectReference Include="..\Tizen.Wearable.CircularUI.Forms\Tizen.Wearable.CircularUI.Forms.csproj" />
    </ItemGroup>
  
 diff --git a/src/Tizen.Wearable.CircularUI.Forms/Tizen.Wearable.CircularUI.Forms.csproj b/src/Tizen.Wearable.CircularUI.Forms/Tizen.Wearable.CircularUI.Forms.csproj
-index 0a73eb3..e06222b 100644
+index dbfa9af..8e2178c 100644
 --- a/src/Tizen.Wearable.CircularUI.Forms/Tizen.Wearable.CircularUI.Forms.csproj
 +++ b/src/Tizen.Wearable.CircularUI.Forms/Tizen.Wearable.CircularUI.Forms.csproj
-@@ -4,15 +4,14 @@
+@@ -4,10 +4,6 @@
      <TargetFramework>netstandard2.0</TargetFramework>
    </PropertyGroup>
  
 -  <ItemGroup>
--    <PackageReference Include="Xamarin.Forms" Version="4.2.0.709249" />
+-    <PackageReference Include="Xamarin.Forms" Version="4.4.0.991537" />
 -  </ItemGroup>
 -
    <ItemGroup>
      <None Remove="Resources\img_button_pause.png" />
      <None Remove="Resources\img_button_play.png" />
-     <EmbeddedResource Include="Resources\img_button_pause.png" />
-     <EmbeddedResource Include="Resources\img_button_play.png" />
-+    <ProjectReference Include="..\..\..\..\Xamarin.Forms\Xamarin.Forms.Core\Xamarin.Forms.Core.csproj" />
-+    <ProjectReference Include="..\..\..\..\Xamarin.Forms\Xamarin.Forms.Platform\Xamarin.Forms.Platform.csproj" />
-+    <ProjectReference Include="..\..\..\..\Xamarin.Forms\Xamarin.Forms.Xaml\Xamarin.Forms.Xaml.csproj" />
+@@ -16,6 +12,9 @@
      <EmbeddedResource Update="EmbeddingControls.xaml">
        <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
      </EmbeddedResource>
++    <ProjectReference Include="..\..\..\..\Xamarin.Forms\Xamarin.Forms.Core\Xamarin.Forms.Core.csproj" />
++    <ProjectReference Include="..\..\..\..\Xamarin.Forms\Xamarin.Forms.Platform\Xamarin.Forms.Platform.csproj" />
++    <ProjectReference Include="..\..\..\..\Xamarin.Forms\Xamarin.Forms.Xaml\Xamarin.Forms.Xaml.csproj" />
+   </ItemGroup>
+ 
+ </Project>
+-- 
+2.17.1
+

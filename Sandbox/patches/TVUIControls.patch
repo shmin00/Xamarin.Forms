@@ -1,0 +1,31 @@
+diff --git a/src/Tizen.TV.UIControls.Forms/Renderer/MediaSourceHandler.cs b/src/Tizen.TV.UIControls.Forms/Renderer/MediaSourceHandler.cs
+index 7f13c45..caf2d6b 100644
+--- a/src/Tizen.TV.UIControls.Forms/Renderer/MediaSourceHandler.cs
++++ b/src/Tizen.TV.UIControls.Forms/Renderer/MediaSourceHandler.cs
+@@ -21,8 +21,8 @@ using Tizen.TV.UIControls.Forms.Renderer;
+ using Xamarin.Forms;
+ using Xamarin.Forms.Platform.Tizen;
+ 
+-[assembly: ExportHandler(typeof(UriMediaSource), typeof(UriMediaSourceHandler))]
+-[assembly: ExportHandler(typeof(FileMediaSource), typeof(FileMediaSourceHandler))]
++[assembly: ExportHandler(typeof(Tizen.TV.UIControls.Forms.UriMediaSource), typeof(UriMediaSourceHandler))]
++[assembly: ExportHandler(typeof(Tizen.TV.UIControls.Forms.FileMediaSource), typeof(FileMediaSourceHandler))]
+ namespace Tizen.TV.UIControls.Forms.Renderer
+ {
+ 
+diff --git a/src/Tizen.TV.UIControls.Forms/Tizen.TV.UIControls.Forms.csproj b/src/Tizen.TV.UIControls.Forms/Tizen.TV.UIControls.Forms.csproj
+index 3643ae4..c6388c9 100644
+--- a/src/Tizen.TV.UIControls.Forms/Tizen.TV.UIControls.Forms.csproj
++++ b/src/Tizen.TV.UIControls.Forms/Tizen.TV.UIControls.Forms.csproj
+@@ -24,7 +24,10 @@
+     <EmbeddedResource Update="EmbeddingControls.xaml">
+       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+     </EmbeddedResource>
+-    <PackageReference Include="Xamarin.Forms" Version="4.4.0.991537" />
++    <ProjectReference Include="..\..\..\..\Xamarin.Forms\Xamarin.Forms.Core\Xamarin.Forms.Core.csproj" />
++    <ProjectReference Include="..\..\..\..\Xamarin.Forms\Xamarin.Forms.Platform.Tizen\Xamarin.Forms.Platform.Tizen.csproj" Condition=" '$(TargetFramework)' == 'tizen40' " />
++    <ProjectReference Include="..\..\..\..\Xamarin.Forms\Xamarin.Forms.Platform\Xamarin.Forms.Platform.csproj" />
++    <ProjectReference Include="..\..\..\..\Xamarin.Forms\Xamarin.Forms.Xaml\Xamarin.Forms.Xaml.csproj" />
+   </ItemGroup>
+ 
+   <PropertyGroup Condition=" '$(TargetFramework)' == 'tizen40' ">

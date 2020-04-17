@@ -1,44 +1,31 @@
-From f1f2a7ccf5502eda0eebc1287446ddc547b194da Mon Sep 17 00:00:00 2001
-From: chungryeol lim <cdark.lim@samsung.com>
-Date: Wed, 26 Feb 2020 19:55:31 +0900
-Subject: [PATCH] fixed patch error
-
----
- Directory.Build.props                        | 7 +------
- Directory.Build.targets                      | 2 --
- Xamarin.Forms.Core/Xamarin.Forms.Core.csproj | 3 ---
- 3 files changed, 1 insertion(+), 11 deletions(-)
-
 diff --git a/Directory.Build.props b/Directory.Build.props
-index eae9f439..4a372cb0 100644
+index 99a4fa8a..9e293ef4 100644
 --- a/Directory.Build.props
 +++ b/Directory.Build.props
-@@ -14,11 +14,6 @@
+@@ -14,11 +14,7 @@
      <LangVersion>7.3</LangVersion>
      <ProduceReferenceAssembly Condition="'$(UsingMicrosoftNETSdk)' == 'True' AND '$(Configuration)' == 'Debug'">True</ProduceReferenceAssembly>
    </PropertyGroup>
 -  <ItemGroup>
 -    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All"/>
 -  </ItemGroup>
--  <!-- This target is replaced by GitInfo when restored. Allows Version.targets to rely on it before restore. -->
+   <!-- This target is replaced by GitInfo when restored. Allows Version.targets to rely on it before restore. -->
 -  <Target Name="GitVersion" />
    
    <Import Condition="'$(EnvironmentBuildPropsImported)' != 'True'" Project="Environment.Build.props" />
--</Project>
-\ No newline at end of file
-+</Project>
+ </Project>
 diff --git a/Directory.Build.targets b/Directory.Build.targets
-index 85f1a8f9..31cf6779 100644
+index 1dec7b90..8fe93d61 100644
 --- a/Directory.Build.targets
 +++ b/Directory.Build.targets
-@@ -1,8 +1,6 @@
+@@ -1,7 +1,5 @@
  <Project>
    <ItemGroup>
 -    <PackageReference Include="GitInfo" Version="2.0.20" PrivateAssets="All" />
      <PackageReference Include="MSBuilder.GenerateAssemblyInfo" Version="0.2.1" PrivateAssets="All" />
- 	</ItemGroup>
- 
+-	</ItemGroup>
 -  <Import Project="Version.targets" />
++  </ItemGroup>
   </Project>
 diff --git a/Xamarin.Forms.Core/Xamarin.Forms.Core.csproj b/Xamarin.Forms.Core/Xamarin.Forms.Core.csproj
 index 4be554b2..27515361 100644
@@ -54,6 +41,3 @@ index 4be554b2..27515361 100644
  	<Import Project="..\Xamarin.Flex\Xamarin.Flex.projitems" Label="Shared" Condition="Exists('..\Xamarin.Flex\Xamarin.Flex.projitems')" />
  	<UsingTask TaskName="XFCorePostProcessor.Tasks.FixXFCoreAssembly" AssemblyFile="..\XFCorePostProcessor.Tasks\bin\Debug\net461\XFCorePostProcessor.Tasks.dll" />
  	<Target Condition="$(DesignTimeBuild) != true AND $(BuildingProject) == true" AfterTargets="AfterCompile" Name="XFCorePostProcessor" Inputs="$(IntermediateOutputPath)$(TargetFileName)" Outputs="$(IntermediateOutputPath)XFCorePostProcessor.stamp">
--- 
-2.17.1
-

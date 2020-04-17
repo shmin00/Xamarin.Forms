@@ -1,5 +1,9 @@
 diff --git a/src/Tizen.Wearable.CircularUI.Forms.Renderer/Tizen.Wearable.CircularUI.Forms.Renderer.csproj b/src/Tizen.Wearable.CircularUI.Forms.Renderer/Tizen.Wearable.CircularUI.Forms.Renderer.csproj
+<<<<<<< Updated upstream
 index 59cb5c6..ce277c9 100644
+=======
+index 59cb5c6..319ac05 100644
+>>>>>>> Stashed changes
 --- a/src/Tizen.Wearable.CircularUI.Forms.Renderer/Tizen.Wearable.CircularUI.Forms.Renderer.csproj
 +++ b/src/Tizen.Wearable.CircularUI.Forms.Renderer/Tizen.Wearable.CircularUI.Forms.Renderer.csproj
 @@ -1,8 +1,10 @@
@@ -22,12 +26,17 @@ index 59cb5c6..ce277c9 100644
    </ItemGroup>
  
 diff --git a/src/Tizen.Wearable.CircularUI.Forms/Tizen.Wearable.CircularUI.Forms.csproj b/src/Tizen.Wearable.CircularUI.Forms/Tizen.Wearable.CircularUI.Forms.csproj
+<<<<<<< Updated upstream
 index e58fa2a..7a21c61 100644
+=======
+index e58fa2a..f5f9d63 100644
+>>>>>>> Stashed changes
 --- a/src/Tizen.Wearable.CircularUI.Forms/Tizen.Wearable.CircularUI.Forms.csproj
 +++ b/src/Tizen.Wearable.CircularUI.Forms/Tizen.Wearable.CircularUI.Forms.csproj
 @@ -5,14 +5,9 @@
    </PropertyGroup>
  
+<<<<<<< Updated upstream
    <ItemGroup>
 -    <PackageReference Include="Xamarin.Forms" Version="4.6.0.616-pre4" />
 -  </ItemGroup>
@@ -40,6 +49,23 @@ index e58fa2a..7a21c61 100644
 +    <ProjectReference Include="..\..\..\..\Xamarin.Forms\Xamarin.Forms.Core\Xamarin.Forms.Core.csproj" />
 +    <ProjectReference Include="..\..\..\..\Xamarin.Forms\Xamarin.Forms.Platform\Xamarin.Forms.Platform.csproj" />
 +    <ProjectReference Include="..\..\..\..\Xamarin.Forms\Xamarin.Forms.Xaml\Xamarin.Forms.Xaml.csproj" />
+=======
+-  <ItemGroup>
+-    <PackageReference Include="Xamarin.Forms" Version="4.6.0.616-pre4" />
+-  </ItemGroup>
+-
+   <ItemGroup>
+     <None Remove="Resources\img_button_pause.png" />
+     <None Remove="Resources\img_button_play.png" />
+@@ -15,4 +11,10 @@
+     <EmbeddedResource Include="Resources\img_button_play.png" />
+>>>>>>> Stashed changes
    </ItemGroup>
  
++  <ItemGroup>
++    <ProjectReference Include="..\..\..\..\Xamarin.Forms\Xamarin.Forms.Core\Xamarin.Forms.Core.csproj" />
++    <ProjectReference Include="..\..\..\..\Xamarin.Forms\Xamarin.Forms.Platform\Xamarin.Forms.Platform.csproj" />
++    <ProjectReference Include="..\..\..\..\Xamarin.Forms\Xamarin.Forms.Xaml\Xamarin.Forms.Xaml.csproj" />
++  </ItemGroup>
++
  </Project>

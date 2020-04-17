@@ -15,8 +15,8 @@ cd ../../
 
 echo "Applying a patch to Tizen.TV.UIControls.."
 cd ./Sandbox/Tizen.TV.UIControls
-git stash && git checkout master
-git apply < ../patches/TVUIControl.patch
+git checkout master
+git apply < ../patches/TVUIControls.patch
 cd ../../
 
 echo "Done, enjoy experiments in sandbox"

@@ -61,6 +61,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alarm", "Sandbox\Alarm\Alar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calculator", "Sandbox\Calculator\src\Calculator\Calculator.csproj", "{15BD64A6-9607-422C-8C8A-2623A098B709}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HeartRateMonitor", "HeartRateMonitor", "{F5655855-1C50-47A2-ADB5-2B9903EB4FDA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeartRateMonitor", "Sandbox\HeartRateMonitor\HeartRateMonitor\src\HeartRateMonitor\HeartRateMonitor.csproj", "{E6705CF2-02AA-49DE-97FD-A43096C92FFB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -135,6 +139,10 @@ Global
 		{15BD64A6-9607-422C-8C8A-2623A098B709}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15BD64A6-9607-422C-8C8A-2623A098B709}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15BD64A6-9607-422C-8C8A-2623A098B709}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6705CF2-02AA-49DE-97FD-A43096C92FFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6705CF2-02AA-49DE-97FD-A43096C92FFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6705CF2-02AA-49DE-97FD-A43096C92FFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6705CF2-02AA-49DE-97FD-A43096C92FFB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -162,6 +170,8 @@ Global
 		{EEA5727D-5D49-4FC1-B541-F956AC56ED45} = {98B95D56-4CA8-493D-BB77-B870EEEFB428}
 		{0AC3449E-EDCE-4890-8A2B-A7E1925A1A0F} = {BBD8E354-781B-4BB1-8F54-A1F000A54C65}
 		{15BD64A6-9607-422C-8C8A-2623A098B709} = {F2BC98D9-3F25-4A5A-8628-92D6C328C252}
+		{F5655855-1C50-47A2-ADB5-2B9903EB4FDA} = {087187F9-A361-4269-88EB-47A44185FA7F}
+		{E6705CF2-02AA-49DE-97FD-A43096C92FFB} = {F5655855-1C50-47A2-ADB5-2B9903EB4FDA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {81158F7F-D003-4C6D-9937-5002C54D57EA}

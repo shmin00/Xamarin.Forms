@@ -16,14 +16,13 @@
 using HeartRateMonitor.ViewModels;
 using System;
 using System.Linq;
-using Tizen.Wearable.CircularUI.Forms;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace HeartRateMonitor.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class MeasurementPage : CirclePage
+	public partial class MeasurementPage : ContentPage
     {
         /// <summary>
         /// An instance of the MainViewModel class.

@@ -30,7 +30,7 @@ namespace XStopWatch
     /// This page has Time label and the color bar for present measuring time.
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class StopWatch : CirclePage
+    public partial class StopWatch : ContentPage
     {
         public static BindableProperty StateProperty = BindableProperty.Create(nameof(State), typeof(State), typeof(StopWatch), State.Stopped);
         public static BindableProperty AllTimeProperty = BindableProperty.Create(nameof(AllTime), typeof(TimeSpan), typeof(StopWatch), TimeSpan.Zero);

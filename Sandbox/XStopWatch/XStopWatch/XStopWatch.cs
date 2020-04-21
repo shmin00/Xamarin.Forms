@@ -13,8 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+using System;
+using System.Collections.Generic;
 using Xamarin.Forms;
+using Tizen.Wearable.CircularUI.Forms;
+using Tizen.Wearable.CircularUI.Forms.Renderer;
 
 namespace XStopWatch
 {
@@ -43,10 +46,22 @@ namespace XStopWatch
         static void Main(string[] args)
         {
             var app = new Program();
-            // It's mandatory to initialize Xamarin.Forms
-            Forms.Init(app);
+
+            var customRenderers = new Dictionary<Type, Func<IRegisterable>>()
+            {
+                { typeof(CircleSurfaceView), () => new CircleSurfaceViewRenderer() },
+            };
+            var option = new InitializationOptions(app)
+            {
+                PlatformType = PlatformType.Lightweight,
+                UseMessagingCenter = false,
+                StaticRegistarStrategy = StaticRegistrarStrategy.StaticRegistrarOnly,
+                CustomHandlers = customRenderers,
+                Flags = InitializationFlags.DisableCss
+            };
+            Forms.Init(option);
             // It's mandatory to initialize Circular UI for using Tizen Wearable Circular UI API
-            global::Tizen.Wearable.CircularUI.Forms.Renderer.FormsCircularUI.Init();
+            global::Tizen.Wearable.CircularUI.Forms.FormsCircularUI.Init();
             app.Run(args);
         }
     }

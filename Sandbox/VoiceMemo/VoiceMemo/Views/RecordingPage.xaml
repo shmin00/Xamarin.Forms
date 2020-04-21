@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<views:CirclePageEx
+<w:CirclePage
     x:Class="VoiceMemo.Views.RecordingPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:VoiceMemo.Views;"
     xmlns:vm="clr-namespace:VoiceMemo.ViewModels;"
+    xmlns:tizen="clr-namespace:Xamarin.Forms.PlatformConfiguration.TizenSpecific;assembly=Xamarin.Forms.Core"
     xmlns:converter="clr-namespace:VoiceMemo.Converters"
     xmlns:w="clr-namespace:Tizen.Wearable.CircularUI.Forms;assembly=Tizen.Wearable.CircularUI.Forms"
     Title="{Binding Title}">
-    <views:CirclePageEx.Resources>
+    <w:CirclePage.Resources>
         <ResourceDictionary>
             <converter:RecordImageSourceColorConverter x:Key="RecordImageSourceColorConverter" />
         </ResourceDictionary>    
-    </views:CirclePageEx.Resources>
+    </w:CirclePage.Resources>
     <w:CirclePage.CircleSurfaceItems>
         <w:CircleProgressBarSurfaceItem
             x:Name="RecordingProgress"
@@ -115,4 +116,4 @@
                 Style="{StaticResource LabelStyle-AT011}" />
         </AbsoluteLayout>
     </ContentPage.Content>
-</views:CirclePageEx>
+</w:CirclePage>

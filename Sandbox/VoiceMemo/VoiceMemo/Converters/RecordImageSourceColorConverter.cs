@@ -21,7 +21,7 @@ using Xamarin.Forms;
 
 namespace VoiceMemo.Converters
 {
-    class RecordImageSourceColorConverter : IValueConverter
+    public class RecordImageSourceColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

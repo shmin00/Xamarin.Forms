@@ -25,7 +25,7 @@ namespace VoiceMemo.Views
     /// <summary>
     /// The MainPage of VoiceMemo application
     /// </summary>
-    public partial class MainPage : CirclePageEx
+    public partial class MainPage : ContentPage
     {
         /// <summary>
         /// Constructor of StandByPage()
@@ -33,6 +33,7 @@ namespace VoiceMemo.Views
         public MainPage()
         {
             InitializeComponent();
+            ((App)App.Current).mainPageModel = (MainPageModel)BindingContext;
             // Subscribe notification of locale changes to update text based on locale
             MessagingCenter.Subscribe<App>(this, MessageKeys.UpdateByLanguageChange, (obj) =>
             {
@@ -74,7 +75,7 @@ namespace VoiceMemo.Views
             if (((App)App.Current).mainPageModel.availableToRecord)
             {
                 // can record
-                await Navigation.PushAsync(PageFactory.GetInstance(Pages.Recording, ((MainPageModel)ViewModel).SttEnabled));
+                await Shell.Current.Navigation.PushAsync(PageFactory.GetInstance(Pages.Recording, ((MainPageModel)ViewModel).SttEnabled));
 
             }
             else
@@ -93,7 +94,7 @@ namespace VoiceMemo.Views
         async void OnCircleToolbarItemClicked_DisplayRecordings(object sender, EventArgs e)
         {
             Console.WriteLine(" MainPage.OnCircleToolbarItemClicked_DisplayRecordings()");
-            await Navigation.PushAsync(PageFactory.GetInstance(Pages.RecordList, ViewModel));
+            await Shell.Current.Navigation.PushAsync(PageFactory.GetInstance(Pages.RecordList, ViewModel));
         }
 
         /// <summary>
@@ -116,7 +117,7 @@ namespace VoiceMemo.Views
                 ToolbarItems.RemoveAt(1);
                 // When STT is off, Icon image & SubText should be changed.
                 sttOnOfMenu.IconImageSource = "more_option_icon_stt_off.png";
-                sttOnOfMenu.SubText = AppResources.SttOff;
+                //sttOnOfMenu.SubText = AppResources.SttOff;
                 ToolbarItems.Add(sttOnOfMenu);
             }
             else
@@ -124,7 +125,7 @@ namespace VoiceMemo.Views
                 ToolbarItems.RemoveAt(1);
                 // When STT is on, Icon image & SubText should be changed.
                 sttOnOfMenu.IconImageSource = "more_option_icon_stt_on.png";
-                sttOnOfMenu.SubText = AppResources.SttOn;
+                //sttOnOfMenu.SubText = AppResources.SttOn;
                 ToolbarItems.Add(sttOnOfMenu);
                 // When STT is on, "Language" more menu should be shown.
                 ToolbarItems.Add(sttMenu);
@@ -139,7 +140,7 @@ namespace VoiceMemo.Views
         /// <param name="e">EventArgs</param>
         async void OnCircleToolbarItemClicked_SelectLanguage(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(PageFactory.GetInstance(Pages.Languages, ViewModel));
+            await Shell.Current.Navigation.PushAsync(PageFactory.GetInstance(Pages.Languages, ViewModel));
         }
 
         /// <summary>

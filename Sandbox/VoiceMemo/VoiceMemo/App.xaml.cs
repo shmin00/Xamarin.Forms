@@ -31,16 +31,13 @@ namespace VoiceMemo
     /// </summary>
     public partial class App : Application
     {
-        MainPage firstPage;
         public MainPageModel mainPageModel;
         public App()
         {
             // Get locale information
             UpdateLocale();
             InitializeComponent();
-            firstPage = (MainPage)PageFactory.GetInstance(Pages.StandBy);
-            MainPage = new NavigationPage(firstPage);
-            mainPageModel = (MainPageModel)firstPage.BindingContext;
+            MainPage = new AppShell();
         }
 
         // database for voice records

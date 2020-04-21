@@ -55,7 +55,7 @@ namespace XStopWatch
         void OnAddLap(object sender, (TimeSpan, TimeSpan) e)
         {
             // Add Lap record to LapsPage
-            Laps.AddLap(e);
+            //Laps.AddLap(e);
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace XStopWatch
         void OnStopLap(object sender, EventArgs e)
         {
             // Reset the LapsPage
-            Laps.Reset();
+            //Laps.Reset();
         }
     }
 }

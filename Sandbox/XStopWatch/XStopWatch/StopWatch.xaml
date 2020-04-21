@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<cu:CirclePage xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:cu="clr-namespace:Tizen.Wearable.CircularUI.Forms;assembly=Tizen.Wearable.CircularUI.Forms"
              xmlns:local="clr-namespace:XStopWatch"
+             xmlns:tizen="clr-namespace:Xamarin.Forms.PlatformConfiguration.TizenSpecific;assembly=Xamarin.Forms.Core"
              x:Name="Self"
              x:Class="XStopWatch.StopWatch">
     <ContentPage.Resources>
@@ -18,29 +19,20 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <!-- CirclePage has a special item list to show a circular progressbar or a circular slider.-->
-    <cu:CirclePage.CircleSurfaceItems>
-        <!-- this circular progressbar show the elapsed time -->
-        <cu:CircleProgressBarSurfaceItem x:Name="Timebar"
-                                         BarColor="#12b4ff"
-                                         BarRadius="108"
-                                         BarLineWidth="6"
-                                         IsVisible="true"
-                                         Value="0"/>
-    </cu:CirclePage.CircleSurfaceItems>
+
     <ContentPage.Content>
         <AbsoluteLayout BackgroundColor="Black" x:Name="RootView">
             <!-- Background image that show the numbers and pins -->
-            <Image Source="images/b_stopwatch_unit_number.png"
+            <Image tizen:Image.File="images/b_stopwatch_unit_number.png"
                    AbsoluteLayout.LayoutBounds="0,0,1,1"
                    AbsoluteLayout.LayoutFlags="All"/>
             <!-- Red bar image that present current elapsed time -->
-            <Image Source="images/b_stopwatch_mark_red.png"
+            <Image tizen:Image.File="images/b_stopwatch_mark_red.png"
                    x:Name="RedBar"
                    AbsoluteLayout.LayoutBounds="0,0,1,1"
                    AbsoluteLayout.LayoutFlags="All"/>
             <!-- Blue bar image that present Lap time. it is visible only Lap measurement started -->
-            <Image Source="images/b_stopwatch_mark_blue.png"
+            <Image tizen:Image.File="images/b_stopwatch_mark_blue.png"
                    x:Name="BlueBar"
                    AbsoluteLayout.LayoutBounds="0,0,1,1"
                    AbsoluteLayout.LayoutFlags="All"
@@ -106,28 +98,35 @@
             </Label>
 
             <!-- If Lap is added, this small bracket image show the bounce animation -->
-            <Image Source="images/wc_visual_cue.png"
+            <Image tizen:Image.File="images/wc_visual_cue.png"
                    x:Name="CueBtn"
                    IsVisible="False"
                    AbsoluteLayout.LayoutBounds="315, 164, 18, 32"/>
 
             <!-- this translucent images indicate the area to receive the touch. -->
-            <Image Source="images/event_spot.png"
-                   Opacity="0"
-                   AbsoluteLayout.LayoutBounds="80, 126, 200, 200"
-                   AbsoluteLayout.LayoutFlags="None">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="OnBottomEventTapped"/>
-                </Image.GestureRecognizers>
-            </Image>
-            <Image Source="images/event_spot.png"
-                   Opacity="0"
-                   AbsoluteLayout.LayoutBounds="80, 22, 200, 200"
-                   AbsoluteLayout.LayoutFlags="None">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="OnTopEventTapped"/>
-                </Image.GestureRecognizers>
-            </Image>
+            <ImageButton Source="images/event_spot.png"
+                         Opacity="0"
+                         AbsoluteLayout.LayoutBounds="80, 126, 200, 200"
+                         AbsoluteLayout.LayoutFlags="None"
+                         Clicked="OnBottomEventTapped" />
+            <ImageButton Source="images/event_spot.png"
+                         Opacity="0"
+                         AbsoluteLayout.LayoutBounds="80, 22, 200, 200"
+                         AbsoluteLayout.LayoutFlags="None"
+                         Clicked="OnTopEventTapped" />
+
+            <cu:CircleSurfaceView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" InputTransparent="True">
+                <!-- CirclePage has a special item list to show a circular progressbar or a circular slider.-->
+                <cu:CircleSurfaceView.CircleSurfaceItems>
+                    <!-- this circular progressbar show the elapsed time -->
+                    <cu:CircleProgressBarSurfaceItem x:Name="Timebar"
+                                         BarColor="#12b4ff"
+                                         BarRadius="108"
+                                         BarLineWidth="6"
+                                         IsVisible="true"
+                                         Value="0"/>
+                </cu:CircleSurfaceView.CircleSurfaceItems>
+            </cu:CircleSurfaceView>
         </AbsoluteLayout>
     </ContentPage.Content>
-</cu:CirclePage>
+</ContentPage>

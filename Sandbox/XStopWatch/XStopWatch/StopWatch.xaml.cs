@@ -30,7 +30,7 @@ namespace XStopWatch
     /// This page has Time label and the color bar for present measuring time.
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class StopWatch : CirclePage
+    public partial class StopWatch : ContentPage
     {
         public static BindableProperty StateProperty = BindableProperty.Create(nameof(State), typeof(State), typeof(StopWatch), State.Stopped);
         public static BindableProperty AllTimeProperty = BindableProperty.Create(nameof(AllTime), typeof(TimeSpan), typeof(StopWatch), TimeSpan.Zero);
@@ -69,7 +69,7 @@ namespace XStopWatch
         /// <param name="args">An object that contains no event data.</param>
         void OnTopEventTapped(object sender, EventArgs args)
         {
-            DoSpotAnimation(sender as Image);
+            DoSpotAnimation(sender as ImageButton);
             if (State == State.Stopped)
             {
                 Start();
@@ -91,7 +91,7 @@ namespace XStopWatch
         /// <param name="args">An object that contains no event data.</param>
         void OnBottomEventTapped(object sender, EventArgs args)
         {
-            DoSpotAnimation(sender as Image);
+            DoSpotAnimation(sender as ImageButton);
             if (State == State.Started)
             {
                 OnLapPressed();
@@ -106,7 +106,7 @@ namespace XStopWatch
         /// this method is used to show the upward or downward button clicking effect
         /// </summary>
         /// <param name="spot">The button clicking effect image</param>
-        void DoSpotAnimation(Image spot)
+        void DoSpotAnimation(ImageButton spot)
         {
             spot.Opacity = 1;
             Device.StartTimer(TimeSpan.FromMilliseconds(80), () =>

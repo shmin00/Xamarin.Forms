@@ -16,6 +16,7 @@
 
 using System;
 using System.Threading.Tasks;
+using Tizen.Wearable.CircularUI.Forms;
 using VoiceMemo.Effects;
 using VoiceMemo.Models;
 using VoiceMemo.Services;
@@ -29,7 +30,7 @@ namespace VoiceMemo.Views
     /// RecordingPage class
     /// It provides voice recording, pausing, and canceling.
     /// </summary>
-    public partial class RecordingPage : CirclePageEx
+    public partial class RecordingPage : CirclePage
     {
         public RecordingPageModel ViewModel;
         double prevScale;

@@ -15,10 +15,19 @@
  */
 
 using System;
+using System.Collections.Generic;
 using Tizen.Applications;
+using Tizen.Wearable.CircularUI.Forms;
 using Tizen.Wearable.CircularUI.Forms.Renderer;
+using VoiceMemo.Services;
+using VoiceMemo.Tizen.Wearable.Effects;
+using VoiceMemo.Tizen.Wearable.Renderers;
 using VoiceMemo.Tizen.Wearable.Services;
+using VoiceMemo.Views;
 using Xamarin.Forms;
+using CircleListView = Tizen.Wearable.CircularUI.Forms.CircleListView;
+using FormsCircularUI = Tizen.Wearable.CircularUI.Forms.FormsCircularUI;
+using Xamarin.Forms.Internals;
 
 namespace VoiceMemo.Tizen.Wearable
 {
@@ -50,7 +59,46 @@ namespace VoiceMemo.Tizen.Wearable
         static void Main(string[] args)
         {
             var app = new Program();
-            Forms.Init(app);
+            var customRenderer = new Dictionary<Type, Func<IRegisterable>>()
+            {
+                { typeof(Shell), ()=> new ShellRenderer() },
+                { typeof(CirclePage), ()=> new CirclePageRenderer() },
+                { typeof(CirclePageEx), ()=> new CirclePageRenderer() },
+                { typeof(CircleListView), ()=> new CircleListViewRenderer() },
+                { typeof(CircleScrollView), ()=> new CircleScrollViewRenderer() },
+                { typeof(TwoButtonPage), ()=> new TwoButtonPageRenderer() },
+            };
+
+            var option = new InitializationOptions(app)
+            {
+                PlatformType = PlatformType.Lightweight,
+                EffectScopes = new InitializationOptions.EffectScope[]
+                {
+                    new InitializationOptions.EffectScope
+                    {
+                        Name = "SEC",
+                        Effects = new ExportEffectAttribute[] {
+                            new ExportEffectAttribute(typeof(BlendColorEffect), "BlendColorEffect"),
+                            new ExportEffectAttribute(typeof(TizenEventPropagationEffect), "TizenEventPropagationEffect"),
+                            new ExportEffectAttribute(typeof(TizenItemLongPressEffect), "ItemLongPressEffect"),
+                            new ExportEffectAttribute(typeof(TizenStyleEffect), "TizenStyleEffect")
+                        }
+                    }
+                }
+            };
+            option.UseStaticRegistrar(StaticRegistrarStrategy.StaticRegistrarOnly, customRenderer, true);
+            DependencyService.Register<IAudioPlayService, AudioPlayService>();
+            DependencyService.Register<IDeviceInformation, DeviceInformation>();
+            DependencyService.Register<ILocaleService, LocaleService>();
+            DependencyService.Register<IAppDataService, AppDataService>();
+            DependencyService.Register<ISpeechToTextService, SpeechToTextService>();
+            DependencyService.Register<IMediaContentService, MediaContentService>();
+            DependencyService.Register<IUserPermission, UserPermission>();
+            DependencyService.Register<IAppTerminator, AppTerminator>();
+            DependencyService.Register<IAudioRecordService, AudioRecordService>();
+            DependencyService.Register<IGraphicPopup, GraphicPopUpRenderer>();
+
+            Forms.Init(option);
             // It's mandatory to initialize Circular UI for using Tizen Wearable Circular UI API
             FormsCircularUI.Init();
             app.Run(args);

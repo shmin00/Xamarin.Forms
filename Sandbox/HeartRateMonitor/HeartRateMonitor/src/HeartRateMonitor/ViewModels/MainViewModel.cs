@@ -149,11 +149,6 @@ namespace HeartRateMonitor.ViewModels
         #region properties
 
         /// <summary>
-        /// An instance of PageNavigation class.
-        /// </summary>
-        public INavigation AppPageNavigation { private set; get; }
-
-        /// <summary>
         /// Starts and stops measurement process.
         /// </summary>
         public ICommand ToggleMeasurementCommand { private set; get; }
@@ -312,10 +307,9 @@ namespace HeartRateMonitor.ViewModels
         /// <param name="properties">View model instance properties.</param>
         /// <param name="pageNavigation">Page navigation object.</param>
         /// <returns>The initialization task.</returns>
-        public async Task Init(IDictionary<string, object> properties, INavigation pageMavigation)
+        public async Task Init(IDictionary<string, object> properties)
         {
             this.properties = properties;
-            AppPageNavigation = pageMavigation;
 
             heartRateMonitorModel = new HeartRateMonitorModel();
 
@@ -388,7 +382,7 @@ namespace HeartRateMonitor.ViewModels
         private void ExecuteUpdateHeartRateLimitCommand()
         {
             HeartRateLimitValue = HeartRateLimitBufferValue;
-            AppPageNavigation.PopAsync();
+            Shell.Current.GoToAsync("//Measurement");
         }
 
         /// <summary>
@@ -411,7 +405,7 @@ namespace HeartRateMonitor.ViewModels
         private void ExecuteShowSettingsCommand(object obj)
         {
             HeartRateLimitBufferValue = HeartRateLimitValue;
-            AppPageNavigation.PushAsync(new SettingsPage(), false);
+            Shell.Current.GoToAsync("//Settings");
         }
 
         /// <summary>

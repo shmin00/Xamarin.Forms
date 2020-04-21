@@ -12,7 +12,13 @@
 //WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and
 //limitations under the License.
+using System;
+using System.Collections.Generic;
 using Xamarin.Forms;
+using Tizen.Wearable.CircularUI.Forms;
+using Tizen.Wearable.CircularUI.Forms.Renderer;
+using FormsCircularUI = Tizen.Wearable.CircularUI.Forms.FormsCircularUI;
+using ShellRenderer = Xamarin.Forms.Platform.Tizen.Watch.ShellRenderer;
 
 namespace HeartRateMonitor
 {
@@ -28,9 +34,22 @@ namespace HeartRateMonitor
         static void Main(string[] args)
         {
             var app = new Program();
-            Forms.Init(app);
+            var customRenderer = new Dictionary<Type, Func<IRegisterable>>()
+            {
+                { typeof(Shell), ()=> new ShellRenderer() },
+                { typeof(CirclePage), ()=> new CirclePageRenderer() },
+                { typeof(CircleStepper), ()=> new CircleStepperRenderer() },
+            };
+
+            var option = new InitializationOptions(app)
+            {
+                UseMessagingCenter = false,
+                PlatformType = PlatformType.Lightweight
+            };
+            option.UseStaticRegistrar(StaticRegistrarStrategy.StaticRegistrarOnly, customRenderer, true);
+            Forms.Init(option);
             
-            Tizen.Wearable.CircularUI.Forms.FormsCircularUI.Init();
+            FormsCircularUI.Init();
             app.Run(args);
         }
     }

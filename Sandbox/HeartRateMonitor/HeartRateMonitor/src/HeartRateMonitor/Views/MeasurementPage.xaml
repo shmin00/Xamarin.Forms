@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<forms:CirclePage xmlns:forms="clr-namespace:Tizen.Wearable.CircularUI.Forms;assembly=Tizen.Wearable.CircularUI.Forms"
-                  xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:tizen="clr-namespace:Xamarin.Forms.PlatformConfiguration.TizenSpecific;assembly=Xamarin.Forms.Core"
                   xmlns:controls="clr-namespace:HeartRateMonitor.Controls"
                   x:Class="HeartRateMonitor.Views.MeasurementPage"
                   BindingContext="{Binding Source={x:Static Application.Current}, Path=AppMainViewModel}"
                   NavigationPage.HasBackButton="False"
                   NavigationPage.HasNavigationBar="False">
 
-    <forms:CirclePage.Resources>
+    <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="BaseLabel"
                    TargetType="Label">
@@ -32,17 +32,17 @@
                                ExecuteCommand="{Binding NotSupportedInfoCommand}"
                                ConfirmCommand="{Binding AppUnusableConfirmedCommand}" />
         </ResourceDictionary>
-    </forms:CirclePage.Resources>
+    </ContentPage.Resources>
 
-    <forms:CirclePage.Content>
-        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" Padding="35,25,35,80">
+    <ContentPage.Content>
+        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" Padding="35,25,35,0">
 
             <Label Style="{StaticResource BaseLabel}" Text="Ready">
                 <Label.Triggers>
                     <DataTrigger Binding="{Binding IsMeasuring}" TargetType="Label" Value="True">
                         <Setter Property="Text" Value="{Binding MeasurementCountdown, StringFormat='Measuring... ({0} sec.)'}"/>
                     </DataTrigger>
-                    
+
                     <DataTrigger Binding="{Binding IsFinished}" TargetType="Label" Value="True">
                         <Setter Property="Text" Value="Finished." />
                     </DataTrigger>
@@ -54,7 +54,7 @@
                     <DataTrigger Binding="{Binding IsMeasuring}" TargetType="Label" Value="True">
                         <Setter Property="Text" Value="Try to keep still and quiet." />
                     </DataTrigger>
-                    
+
                     <MultiTrigger TargetType="Label">
                         <MultiTrigger.Conditions>
                             <BindingCondition Binding="{Binding IsFinished}"
@@ -64,7 +64,7 @@
                         </MultiTrigger.Conditions>
                         <Setter Property="Text"  Value="Your result is within the average resting rate (61-76 bpm)." />
                     </MultiTrigger>
-                    
+
                     <MultiTrigger TargetType="Label">
                         <MultiTrigger.Conditions>
                             <BindingCondition Binding="{Binding IsFinished}"
@@ -74,7 +74,7 @@
                         </MultiTrigger.Conditions>
                         <Setter Property="Text" Value="Your result is within the defined heart rate limit."/>
                     </MultiTrigger>
-                    
+
                     <MultiTrigger TargetType="Label">
                         <MultiTrigger.Conditions>
                             <BindingCondition Binding="{Binding IsFinished}" Value="True" />
@@ -87,7 +87,7 @@
             </Label>
 
             <AbsoluteLayout>
-                <Image x:Name="heart" Source="heart.png" 
+                <ImageButton x:Name="heart" Source="heart.png" Command="{Binding ToggleMeasurementCommand}"
                    AbsoluteLayout.LayoutBounds=".5, .5, 100, 100"
                    AbsoluteLayout.LayoutFlags="PositionProportional"/>
 
@@ -100,10 +100,6 @@
                         </DataTrigger>
                     </Label.Triggers>
                 </Label>
-
-                <Button Command="{Binding ToggleMeasurementCommand}" Opacity="0"
-                   AbsoluteLayout.LayoutBounds=".5, .5, 100, 100"
-                   AbsoluteLayout.LayoutFlags="PositionProportional"/>
             </AbsoluteLayout>
 
             <Label Opacity="0" Text="{Binding CurrentHeartRate, StringFormat='{0} bpm'}" Style="{StaticResource BpmLabel}">
@@ -116,11 +112,7 @@
                     </DataTrigger>
                 </Label.Triggers>
             </Label>
-
+            <Button ImageSource="settings.png" tizen:VisualElement.Style="bottom" Command="{Binding ShowSettingsCommand}"/>
         </StackLayout>
-    </forms:CirclePage.Content>
-
-    <forms:CirclePage.ActionButton>
-        <forms:ActionButtonItem Icon="settings.png" Command="{Binding ShowSettingsCommand}"/>
-    </forms:CirclePage.ActionButton>
-</forms:CirclePage>
+    </ContentPage.Content>
+</ContentPage>

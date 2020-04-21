@@ -31,14 +31,14 @@ namespace HeartRateMonitor
         {
             AppMainViewModel = new MainViewModel();
 
-            MainPage = new NavigationPage(new MeasurementPage());
+            MainPage = new AppShell();
         }
 
         protected override async void OnStart()
         {
             base.OnStart();
 
-            await AppMainViewModel.Init(Properties, MainPage.Navigation);
+            await AppMainViewModel.Init(Properties);
         }
     }
 }

@@ -104,22 +104,17 @@
                    AbsoluteLayout.LayoutBounds="315, 164, 18, 32"/>
 
             <!-- this translucent images indicate the area to receive the touch. -->
-            <Image tizen:Image.File="images/event_spot.png"
-                   Opacity="0"
-                   AbsoluteLayout.LayoutBounds="80, 126, 200, 200"
-                   AbsoluteLayout.LayoutFlags="None">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="OnBottomEventTapped"/>
-                </Image.GestureRecognizers>
-            </Image>
-            <Image tizen:Image.File="images/event_spot.png"
-                   Opacity="0"
-                   AbsoluteLayout.LayoutBounds="80, 22, 200, 200"
-                   AbsoluteLayout.LayoutFlags="None">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="OnTopEventTapped"/>
-                </Image.GestureRecognizers>
-            </Image>
+            <ImageButton Source="images/event_spot.png"
+                         Opacity="0"
+                         AbsoluteLayout.LayoutBounds="80, 126, 200, 200"
+                         AbsoluteLayout.LayoutFlags="None"
+                         Clicked="OnBottomEventTapped" />
+            <ImageButton Source="images/event_spot.png"
+                         Opacity="0"
+                         AbsoluteLayout.LayoutBounds="80, 22, 200, 200"
+                         AbsoluteLayout.LayoutFlags="None"
+                         Clicked="OnTopEventTapped" />
+
             <cu:CircleSurfaceView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" InputTransparent="True">
                 <!-- CirclePage has a special item list to show a circular progressbar or a circular slider.-->
                 <cu:CircleSurfaceView.CircleSurfaceItems>

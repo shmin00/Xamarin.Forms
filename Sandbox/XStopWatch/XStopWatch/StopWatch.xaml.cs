@@ -69,7 +69,7 @@ namespace XStopWatch
         /// <param name="args">An object that contains no event data.</param>
         void OnTopEventTapped(object sender, EventArgs args)
         {
-            DoSpotAnimation(sender as Image);
+            DoSpotAnimation(sender as ImageButton);
             if (State == State.Stopped)
             {
                 Start();
@@ -91,7 +91,7 @@ namespace XStopWatch
         /// <param name="args">An object that contains no event data.</param>
         void OnBottomEventTapped(object sender, EventArgs args)
         {
-            DoSpotAnimation(sender as Image);
+            DoSpotAnimation(sender as ImageButton);
             if (State == State.Started)
             {
                 OnLapPressed();
@@ -106,7 +106,7 @@ namespace XStopWatch
         /// this method is used to show the upward or downward button clicking effect
         /// </summary>
         /// <param name="spot">The button clicking effect image</param>
-        void DoSpotAnimation(Image spot)
+        void DoSpotAnimation(ImageButton spot)
         {
             spot.Opacity = 1;
             Device.StartTimer(TimeSpan.FromMilliseconds(80), () =>

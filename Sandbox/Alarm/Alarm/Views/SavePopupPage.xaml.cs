@@ -208,7 +208,7 @@ namespace Alarm.Views
         async private void ClosePopup()
         {
             await Task.Delay(2000);
-            await Navigation.PopToRootAsync();
+            await Shell.Current.Navigation.PopToRootAsync();
         }
     }
 }

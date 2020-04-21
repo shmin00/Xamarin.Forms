@@ -32,8 +32,11 @@ namespace Alarm.Views
     /// Main Page class
     /// </summary>
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class MainPage : CirclePageEx
+	public partial class MainPage : CirclePage
     {
+        public MainPage() : this(new MainPageModel())
+        { 
+        }
         /// <summary>
         /// Constructor of MainPage class
         /// </summary>
@@ -106,7 +109,7 @@ namespace Alarm.Views
             /// Creates default alarm record
             AlarmRecord defaultAlarmRecord = new AlarmRecord();
             defaultAlarmRecord.SetDefault();
-            await Navigation.PushAsync(AlarmPageController.GetInstance(AlarmPages.EditPage, defaultAlarmRecord));
+            await Shell.Current.Navigation.PushAsync(AlarmPageController.GetInstance(AlarmPages.EditPage, defaultAlarmRecord));
         }
 
         /// <summary>
@@ -115,7 +118,7 @@ namespace Alarm.Views
         /// <param name="record">AlarmRecord</param>
         async void EditAlarm(AlarmRecord record)
         {
-            await Navigation.PushAsync(AlarmPageController.GetInstance(AlarmPages.EditPage, record));
+            await Shell.Current.Navigation.PushAsync(AlarmPageController.GetInstance(AlarmPages.EditPage, record));
         }
     }
 }

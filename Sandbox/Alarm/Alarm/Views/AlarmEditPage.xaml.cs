@@ -28,7 +28,7 @@ namespace Alarm.Views
     /// User can set alarm time using CircleDateTimeSelector. and then save alarm record.
     /// </summary>
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class AlarmEditPage : CirclePageEx
+	public partial class AlarmEditPage : CirclePage
     {
         public static readonly BindableProperty SelectedDateTimeProperty = BindableProperty.Create("SelectedDateTime", typeof(DateTime), typeof(AlarmEditPage), DateTime.Now);
 
@@ -148,8 +148,8 @@ namespace Alarm.Views
             }
 
             //Create SavePopupPage, and then close current EditPage.
-            Navigation.InsertPageBefore(new SavePopupPage(AlarmModel.BindableAlarmRecord), this);
-            await Navigation.PopAsync();
+            Shell.Current.Navigation.InsertPageBefore(new SavePopupPage(AlarmModel.BindableAlarmRecord), this);
+            await Shell.Current.Navigation.PopAsync();
             _alarmSaving = false;
         }
     }

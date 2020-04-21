@@ -31,8 +31,6 @@ namespace Alarm
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class App : Application
     {
-        MainPage firstPage;
-
         public static CultureInfo Culture { get; private set; }
 
         public App()
@@ -41,8 +39,7 @@ namespace Alarm
             UpdateLocale();
             InitializeComponent();
             var alarmModel = new AlarmModel();
-            firstPage = (MainPage)AlarmPageController.GetInstance(AlarmPages.MainPage , new MainPageModel());
-            MainPage = new NavigationPage(firstPage);
+            MainPage = new AppShell();
         }
 
         protected override void OnStart()

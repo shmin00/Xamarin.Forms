@@ -22,7 +22,7 @@ using Alarm.Controls;
 using Alarm.Tizen.Renderers;
 
 
-[assembly: Xamarin.Forms.ExportRenderer(typeof(ImageButton), typeof(Alarm.Tizen.Renderers.ImageButtonRenderer))]
+[assembly: Xamarin.Forms.ExportRenderer(typeof(CustomImageButton), typeof(Alarm.Tizen.Renderers.CustomImageButtonRenderer))]
 namespace Alarm.Tizen.Renderers
 {
     /// <summary>
@@ -33,7 +33,7 @@ namespace Alarm.Tizen.Renderers
     /// Please refer to Xamarin Custom Renderer
     /// https://developer.xamarin.com/guides/xamarin-forms/custom-renderer/
     /// </remarks>
-    class ImageButtonRenderer : ImageRenderer//ViewRenderer<Xamarin.Forms.Image, Image>
+    class CustomImageButtonRenderer : ImageRenderer//ViewRenderer<Xamarin.Forms.Image, Image>
     {
         /// <summary>
         /// Tizen's gesture recognizer for Tap gesture, Long Tap gesture, Line gesture and so on.
@@ -45,9 +45,9 @@ namespace Alarm.Tizen.Renderers
         /// </summary>
         private volatile bool isTouched;
 
-        public ImageButtonRenderer()
+        public CustomImageButtonRenderer()
         {
-            RegisterPropertyHandler(ImageButton.BlendColorProperty, UpdateBlendColor);
+            RegisterPropertyHandler(CustomImageButton.PressedColorProperty, UpdatePressedColor);
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace Alarm.Tizen.Renderers
                 Control.Clicked += SendClicked;
             }
 
-            ImageButton BtnElement = args.NewElement as ImageButton;
+            CustomImageButton BtnElement = args.NewElement as CustomImageButton;
             if (BtnElement == null)
             {
                 return;
@@ -121,7 +121,7 @@ namespace Alarm.Tizen.Renderers
             if (isTouched)
             {
                 //invoke click event when a user releases image button.
-                ((ImageButton)Element).SendReleased();
+                ((CustomImageButton)Element).SendReleased();
             }
 
             Control.Color = Color.Default;
@@ -132,7 +132,7 @@ namespace Alarm.Tizen.Renderers
         /// A Action delegate which is restore button image as pressed situation. </summary>
         private void KeyDown()
         {
-            ImageButton BtnElement = Element as ImageButton;
+            CustomImageButton BtnElement = Element as CustomImageButton;
 
             if (BtnElement == null ||
                 Control == null)
@@ -140,14 +140,14 @@ namespace Alarm.Tizen.Renderers
                 return;
             }
 
-            Control.Color = BtnElement.BlendColor.ToNative();
+            Control.Color = BtnElement.PressedColor.ToNative();
             isTouched = true;
         }
 
-        private void UpdateBlendColor(bool obj)
+        private void UpdatePressedColor(bool obj)
         {
-            ImageButton BtnElement = Element as ImageButton;
-            Control.Color = BtnElement.BlendColor.ToNative();
+            CustomImageButton BtnElement = Element as CustomImageButton;
+            Control.Color = BtnElement.PressedColor.ToNative();
         }
 
         /// <summary>
@@ -157,7 +157,7 @@ namespace Alarm.Tizen.Renderers
         /// <param name="e">event</param>
         void SendClicked(object sender, EventArgs e)
         {
-            ((ImageButton)Element).SendClicked();
+            ((CustomImageButton)Element).SendClicked();
         }
 
     }

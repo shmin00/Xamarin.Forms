@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Calculator.ViewModels"
              xmlns:control="clr-namespace:Calculator.Controls"
+             xmlns:tizen="clr-namespace:Xamarin.Forms.PlatformConfiguration.TizenSpecific;assembly=Xamarin.Forms.Core"
              x:Class="Calculator.Views.CalculatorMainPage">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -83,104 +84,104 @@
                            FormattedText="{Binding ResultText}" />
 
                 <control:ImageButton Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" 
-                                     Source="calculator_button_l_01.png"    
+                                     tizen:Image.File="calculator_button_l_01.png"
                                      Command="{Binding Clear}"
                                      BackgroundColor="HotPink"/>
                 <control:ImageButton Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" 
-                                     Source="calculator_button_l_05.png"   
+                                     tizen:Image.File="calculator_button_l_05.png"
                                      Command="{Binding PressButton}" 
                                      CommandParameter="*"
                                      BackgroundColor="HotPink"/>
                 <control:ImageButton Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="2"
-                                     Source="calculator_button_l_04.png"   
+                                     tizen:Image.File="calculator_button_l_04.png"
                                      Command="{Binding PressButton}" 
                                      CommandParameter="/"
                                      BackgroundColor="HotPink"/>
                 <control:ImageButton Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="2" 
-                                     Source="btn_delete.png"    
+                                     tizen:Image.File="btn_delete.png"
                                      Command="{Binding RemoveLast}"
                                      BackgroundColor="HotPink"/>
 
                 <control:ImageButton Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" 
-                                     Source="calculator_button_p_number_7.png"  
+                                     tizen:Image.File="calculator_button_p_number_7.png"
                                      Command="{Binding PressButton}"
                                      CommandParameter="7"
                                      BackgroundColor="Gray" />
                 <control:ImageButton Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" 
-                                     Source="calculator_button_p_number_8.png"  
+                                     tizen:Image.File="calculator_button_p_number_8.png"
                                      Command="{Binding PressButton}"
                                      CommandParameter="8"
                                      BackgroundColor="Gray"/>
                 <control:ImageButton Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="2" 
-                                     Source="calculator_button_p_number_9.png"  
+                                     tizen:Image.File="calculator_button_p_number_9.png"
                                      Command="{Binding PressButton}"
                                      CommandParameter="9"
                                      BackgroundColor="Gray"/>
                 <control:ImageButton Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="2" 
-                                     Source="calculator_button_l_07.png"  
+                                     tizen:Image.File="calculator_button_l_07.png"
                                      Command="{Binding PressButton}"
                                      CommandParameter="+"
                                      BackgroundColor="HotPink"/>
 
                 <control:ImageButton Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" 
-                                     Source="calculator_button_p_number_4.png"  
+                                     tizen:Image.File="calculator_button_p_number_4.png"
                                      Command="{Binding PressButton}"
                                      CommandParameter="4"
                                      BackgroundColor="Gray"/>
                 <control:ImageButton Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" 
-                                     Source="calculator_button_p_number_5.png"  
+                                     tizen:Image.File="calculator_button_p_number_5.png"
                                      Command="{Binding PressButton}"
                                      CommandParameter="5"
                                      BackgroundColor="Gray"/>
                 <control:ImageButton Grid.Row="5" Grid.Column="4" Grid.ColumnSpan="2" 
-                                     Source="calculator_button_p_number_6.png"  
+                                     tizen:Image.File="calculator_button_p_number_6.png"
                                      Command="{Binding PressButton}"
                                      CommandParameter="6"
                                      BackgroundColor="Gray"/>
                 <control:ImageButton Grid.Row="5" Grid.Column="6" Grid.ColumnSpan="2" 
-                                     Source="calculator_button_l_06.png"  
+                                     tizen:Image.File="calculator_button_l_06.png"
                                      Command="{Binding PressButton}"
                                      CommandParameter="-"
                                      BackgroundColor="HotPink"/>
 
                 <control:ImageButton Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" 
-                                     Source="calculator_button_p_number_1.png"  
+                                     tizen:Image.File="calculator_button_p_number_1.png"
                                      Command="{Binding PressButton}"
                                      CommandParameter="1"
                                      BackgroundColor="Gray"/>
                 <control:ImageButton Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2" 
-                                     Source="calculator_button_p_number_2.png"  
+                                     tizen:Image.File="calculator_button_p_number_2.png"
                                      Command="{Binding PressButton}"
                                      CommandParameter="2"
                                      BackgroundColor="Gray"/>
                 <control:ImageButton Grid.Row="6" Grid.Column="4" Grid.ColumnSpan="2" 
-                                     Source="calculator_button_p_number_3.png"  
+                                     tizen:Image.File="calculator_button_p_number_3.png"
                                      Command="{Binding PressButton}"
                                      CommandParameter="3"
                                      BackgroundColor="Gray"/>
                 <control:ImageButton Grid.Row="6" Grid.Column="6" Grid.ColumnSpan="2" 
-                                     Source="calculator_button_l_02.png" 
+                                     tizen:Image.File="calculator_button_l_02.png"
                                      Command="{Binding PressButton}"
                                      CommandParameter="("
                                      BackgroundColor="HotPink" />
 
-                <control:ImageButton Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" 
-                                     Source="calculator_button_p_number_10.png"  
+                <control:ImageButton Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3"
+                                     tizen:Image.File="calculator_button_p_number_10.png"
                                      Command="{Binding PressButton}"
                                      CommandParameter="."
                                      BackgroundColor="Gray"/>
-                <control:ImageButton Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="2" 
-                                     Source="calculator_button_p_number_0.png"  
+                <control:ImageButton Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="2"
+                                     tizen:Image.File="calculator_button_p_number_0.png"
                                      Command="{Binding PressButton}"
                                      CommandParameter="0"
                                      BackgroundColor="Gray" />
-                <control:ImageButton Grid.Row="7" Grid.Column="5" Grid.ColumnSpan="3" 
-                                     Source="calculator_button_p_number_11.png" 
+                <control:ImageButton Grid.Row="7" Grid.Column="5" Grid.ColumnSpan="3"
+                                     tizen:Image.File="calculator_button_p_number_11.png"
                                      Command="{Binding Reverse}"
                                      BackgroundColor="HotPink"/>
 
-                <control:ImageButton Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="8" 
-                                     Source="calculator_button_l_08.png"    
+                <control:ImageButton Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="8"
+                                     tizen:Image.File="calculator_button_l_08.png"
                                      Command="{Binding Calculate}"
                                      BackgroundColor="DeepPink"/>
             </Grid>

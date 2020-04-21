@@ -12,6 +12,10 @@
 //WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and
 //limitations under the License.
+using System;
+using System.Collections.Generic;
+using Tizen.Wearable.CircularUI.Forms;
+using Tizen.Wearable.CircularUI.Forms.Renderer;
 using Xamarin.Forms;
 
 namespace Calculator
@@ -50,8 +54,23 @@ namespace Calculator
         static void Main(string[] args)
         {
             var app = new Program();
-            Forms.Init(app);
-            Tizen.Wearable.CircularUI.Forms.Renderer.FormsCircularUI.Init();
+
+            var customRenderers = new Dictionary<Type, Func<IRegisterable>>()
+            {
+                { typeof(Calculator.Controls.ImageButton), () => new  Calculator.Renderers.ImageButtonRenderer() }
+            };
+
+            var option = new InitializationOptions(app)
+            {
+                PlatformType = PlatformType.Lightweight,
+                StaticRegistarStrategy = StaticRegistrarStrategy.StaticRegistrarOnly,
+                CustomHandlers = customRenderers,
+                Flags = InitializationFlags.DisableCss,
+                UseMessagingCenter = false                
+            };
+            Forms.Init(option);
+
+            Tizen.Wearable.CircularUI.Forms.FormsCircularUI.Init();
             app.Run(args);
         }
     }

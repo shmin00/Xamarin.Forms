@@ -23,95 +23,95 @@
     <ContentPage.Content>
         <AbsoluteLayout BackgroundColor="Black" x:Name="RootView">
             <!-- Background image that show the numbers and pins -->
-                <Image tizen:Image.File="images/b_stopwatch_unit_number.png"
+            <Image tizen:Image.File="images/b_stopwatch_unit_number.png"
                    AbsoluteLayout.LayoutBounds="0,0,1,1"
                    AbsoluteLayout.LayoutFlags="All"/>
-                <!-- Red bar image that present current elapsed time -->
-                <Image tizen:Image.File="images/b_stopwatch_mark_red.png"
+            <!-- Red bar image that present current elapsed time -->
+            <Image tizen:Image.File="images/b_stopwatch_mark_red.png"
                    x:Name="RedBar"
                    AbsoluteLayout.LayoutBounds="0,0,1,1"
                    AbsoluteLayout.LayoutFlags="All"/>
-                <!-- Blue bar image that present Lap time. it is visible only Lap measurement started -->
-                <Image tizen:Image.File="images/b_stopwatch_mark_blue.png"
+            <!-- Blue bar image that present Lap time. it is visible only Lap measurement started -->
+            <Image tizen:Image.File="images/b_stopwatch_mark_blue.png"
                    x:Name="BlueBar"
                    AbsoluteLayout.LayoutBounds="0,0,1,1"
                    AbsoluteLayout.LayoutFlags="All"
                    IsVisible="False"/>
 
-                <!-- Upward Label for start / stop button -->
-                <Label x:Name="StateLabel"
+            <!-- Upward Label for start / stop button -->
+            <Label x:Name="StateLabel"
                    TextColor="#00CC4D"
                    FontSize="6"
                    HorizontalTextAlignment="Center"
                    VerticalTextAlignment="Center"
                    AbsoluteLayout.LayoutBounds="130, 120, 100, 20"
                    AbsoluteLayout.LayoutFlags="None">
-                    <Label.Triggers>
-                        <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference Self}, Path=State}" Value="Started">
-                            <Setter Property="Text" Value="STOP"/>
-                            <Setter Property="TextColor" Value="Red"/>
-                        </DataTrigger>
-                        <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference Self}, Path=State}" Value="Paused">
-                            <Setter Property="Text" Value="RESUME"/>
-                        </DataTrigger>
-                        <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference Self}, Path=State}" Value="Stopped">
-                            <Setter Property="Text" Value="START"/>
-                        </DataTrigger>
-                    </Label.Triggers>
-                </Label>
-                <!-- Downward Label for reset / lap button -->
-                <Label x:Name="ResetOrLapLabel"
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference Self}, Path=State}" Value="Started">
+                        <Setter Property="Text" Value="STOP"/>
+                        <Setter Property="TextColor" Value="Red"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference Self}, Path=State}" Value="Paused">
+                        <Setter Property="Text" Value="RESUME"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference Self}, Path=State}" Value="Stopped">
+                        <Setter Property="Text" Value="START"/>
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
+            <!-- Downward Label for reset / lap button -->
+            <Label x:Name="ResetOrLapLabel"
                    TextColor="#0080dd"
                    FontSize="6"
                    HorizontalTextAlignment="Center"
                    VerticalTextAlignment="Center"
                    AbsoluteLayout.LayoutBounds="130, 224, 100, 20"
                    AbsoluteLayout.LayoutFlags="None">
-                    <Label.Triggers>
-                        <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference Self}, Path=State}" Value="Started">
-                            <Setter Property="Text" Value="LAP"/>
-                        </DataTrigger>
-                        <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference Self}, Path=State}" Value="Paused">
-                            <Setter Property="Text" Value="RESET"/>
-                        </DataTrigger>
-                        <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference Self}, Path=State}" Value="Stopped">
-                            <Setter Property="Text" Value=""/>
-                        </DataTrigger>
-                    </Label.Triggers>
-                </Label>
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference Self}, Path=State}" Value="Started">
+                        <Setter Property="Text" Value="LAP"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference Self}, Path=State}" Value="Paused">
+                        <Setter Property="Text" Value="RESET"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference Self}, Path=State}" Value="Stopped">
+                        <Setter Property="Text" Value=""/>
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
 
-                <!-- Central Label that present elapsed tiem -->
-                <Label FontSize="10"
+            <!-- Central Label that present elapsed tiem -->
+            <Label FontSize="10"
                    HorizontalTextAlignment="Center"
                    VerticalTextAlignment="Center"
                    AbsoluteLayout.LayoutBounds="96, 152, 168, 58"
                    AbsoluteLayout.LayoutFlags="None">
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <Span Text="{Binding AllTime, Source={x:Reference Self}, StringFormat='{}{0:mm}', Mode=OneWay}" Style="{StaticResource TimeStyle}"/>
-                            <Span Text=" : "/>
-                            <Span Text="{Binding AllTime, Source={x:Reference Self}, StringFormat='{}{0:ss}', Mode=OneWay}" Style="{StaticResource TimeStyle}"/>
-                            <Span Text=" . "/>
-                            <Span Text="{Binding AllTime, Source={x:Reference Self}, StringFormat='{}{0:ff}', Mode=OneWay}" Style="{StaticResource TimeStyle}"/>
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{Binding AllTime, Source={x:Reference Self}, StringFormat='{}{0:mm}', Mode=OneWay}" Style="{StaticResource TimeStyle}"/>
+                        <Span Text=" : "/>
+                        <Span Text="{Binding AllTime, Source={x:Reference Self}, StringFormat='{}{0:ss}', Mode=OneWay}" Style="{StaticResource TimeStyle}"/>
+                        <Span Text=" . "/>
+                        <Span Text="{Binding AllTime, Source={x:Reference Self}, StringFormat='{}{0:ff}', Mode=OneWay}" Style="{StaticResource TimeStyle}"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
 
-                <!-- If Lap is added, this small bracket image show the bounce animation -->
-                <Image tizen:Image.File="images/wc_visual_cue.png"
+            <!-- If Lap is added, this small bracket image show the bounce animation -->
+            <Image tizen:Image.File="images/wc_visual_cue.png"
                    x:Name="CueBtn"
                    IsVisible="False"
                    AbsoluteLayout.LayoutBounds="315, 164, 18, 32"/>
 
-                <!-- this translucent images indicate the area to receive the touch. -->
-                <Image tizen:Image.File="images/event_spot.png"
+            <!-- this translucent images indicate the area to receive the touch. -->
+            <Image tizen:Image.File="images/event_spot.png"
                    Opacity="0"
                    AbsoluteLayout.LayoutBounds="80, 126, 200, 200"
                    AbsoluteLayout.LayoutFlags="None">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnBottomEventTapped"/>
-                    </Image.GestureRecognizers>
-                </Image>
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnBottomEventTapped"/>
+                </Image.GestureRecognizers>
+            </Image>
             <Image tizen:Image.File="images/event_spot.png"
                    Opacity="0"
                    AbsoluteLayout.LayoutBounds="80, 22, 200, 200"

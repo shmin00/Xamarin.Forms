@@ -4,10 +4,7 @@
                   xmlns:tizen="clr-namespace:Xamarin.Forms.PlatformConfiguration.TizenSpecific;assembly=Xamarin.Forms.Core"
                   xmlns:controls="clr-namespace:HeartRateMonitor.Controls"
                   x:Class="HeartRateMonitor.Views.MeasurementPage"
-                  BindingContext="{Binding Source={x:Static Application.Current}, Path=AppMainViewModel}"
-                  NavigationPage.HasBackButton="False"
-                  NavigationPage.HasNavigationBar="False">
-
+                  BindingContext="{Binding Source={x:Static Application.Current}, Path=AppMainViewModel}">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="BaseLabel"

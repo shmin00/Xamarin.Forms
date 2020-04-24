@@ -135,7 +135,7 @@ namespace HeartRateMonitor.ViewModels
         /// Reference to the IDictionary object that is used to store some data,
         /// so that they are available next time the applications runs.
         /// </summary>
-        private IDictionary<string, object> properties;
+        private IDictionary<string, object> properties => App.Current.Properties;
 
         /// <summary>
         /// List of numbers storing measurement values.
@@ -143,6 +143,7 @@ namespace HeartRateMonitor.ViewModels
         /// </summary>
         private List<int> measurementValues;
 
+        private bool isPropertyCreated;
 
         #endregion
 
@@ -262,8 +263,10 @@ namespace HeartRateMonitor.ViewModels
             {
                 SetProperty(ref heartRateLimitValue, value);
                 properties[HEART_RATE_LIMIT_KEY] = value;
+                isPropertyCreated = true;
                 UpdateMeasurementResultRange();
                 UpdateMeasurementResultAlert();
+
             }
             get { return heartRateLimitValue; }
         }
@@ -307,10 +310,8 @@ namespace HeartRateMonitor.ViewModels
         /// <param name="properties">View model instance properties.</param>
         /// <param name="pageNavigation">Page navigation object.</param>
         /// <returns>The initialization task.</returns>
-        public async Task Init(IDictionary<string, object> properties)
+        public async Task Init()
         {
-            this.properties = properties;
-
             heartRateMonitorModel = new HeartRateMonitorModel();
 
             heartRateMonitorModel.HeartRateMonitorDataChanged += ModelOnHeartRateMonitorDataChanged;
@@ -325,7 +326,8 @@ namespace HeartRateMonitor.ViewModels
 
             heartRateMonitorModel.Init();
 
-            RestoreHeartRateLimitSliderValue();
+            if (isPropertyCreated)
+                RestoreHeartRateLimitSliderValue();
         }
 
         /// <summary>

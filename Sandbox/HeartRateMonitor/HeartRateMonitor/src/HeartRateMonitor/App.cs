@@ -38,7 +38,7 @@ namespace HeartRateMonitor
         {
             base.OnStart();
 
-            await AppMainViewModel.Init(Properties);
+            await AppMainViewModel.Init();
         }
     }
 }

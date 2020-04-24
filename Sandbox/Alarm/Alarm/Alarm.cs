@@ -14,13 +14,18 @@
  * limitations under the License.
  */
 
+using System;
+using System.Collections.Generic;
 using Alarm.Implements;
 using Alarm.Models;
 using Alarm.ViewModels;
 using Alarm.Views;
-using System;
 using Tizen.Applications;
 using Xamarin.Forms;
+using Tizen.Wearable.CircularUI.Forms;
+using Tizen.Wearable.CircularUI.Forms.Renderer;
+using Alarm.Controls;
+using Alarm.Tizen.Renderers;
 
 namespace Alarm
 {
@@ -72,8 +77,6 @@ namespace Alarm
             Console.WriteLine("OnAppControlReceived");
             base.OnAppControlReceived(e);
             AppControl appControl = e.ReceivedAppControl;
-            var navi = app.MainPage as NavigationPage;
-            var currentPage = navi.CurrentPage;
             try
             {
                 if (appControl.ExtraData.Count() != 0)
@@ -99,8 +102,8 @@ namespace Alarm
                             Console.WriteLine("retrievedRecord:" + retrievedRecord);
                             if (retrievedRecord != null && retrievedRecord.AlarmState < AlarmStates.Inactive)
                             {
-                                _alertPageModel = new AlertPageModel(retrievedRecord); 
-                                await currentPage.Navigation.PushAsync(new AlarmAlertPage(_alertPageModel));
+                                _alertPageModel = new AlertPageModel(retrievedRecord);
+                                await Shell.Current.Navigation.PushAsync(new AlarmAlertPage(_alertPageModel));
                             }
                         }
                     }
@@ -115,9 +118,27 @@ namespace Alarm
         static void Main(string[] args)
         {
             var app = new Program();
-            Forms.Init(app);
+
+            var customRenderers = new Dictionary<Type, Func<IRegisterable>>()
+            {
+                { typeof(Shell), ()=> new ShellRenderer() },
+                { typeof(CirclePage), ()=> new CirclePageRenderer() },
+                { typeof(CircleDateTimeSelector), ()=> new CircleDateTimeSelectorRenderer() },
+                { typeof(Check), ()=> new CheckRenderer() },
+                { typeof(CustomImageButton), () => new CustomImageButtonRenderer() }
+             };
+
+            var option = new InitializationOptions(app)
+            {
+                StaticRegistarStrategy = StaticRegistrarStrategy.StaticRegistrarOnly,
+                PlatformType = PlatformType.Lightweight,
+                CustomHandlers = customRenderers,
+                Flags = InitializationFlags.DisableCss
+            };
+            Forms.Init(option);
+
             // It's mandatory to initialize Circular UI for using Tizen Wearable Circular UI API
-            global::Tizen.Wearable.CircularUI.Forms.Renderer.FormsCircularUI.Init();
+            global::Tizen.Wearable.CircularUI.Forms.FormsCircularUI.Init();
             app.Run(args);
         }
     }

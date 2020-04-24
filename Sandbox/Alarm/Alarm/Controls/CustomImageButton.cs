@@ -24,9 +24,9 @@ namespace Alarm.Controls
     /// <summary>
     /// A element button which is implemented with a custom renderer based on a native image. 
     /// </summary>
-    public class ImageButton : Image
+    public class CustomImageButton : Image
     {
-        public static readonly BindableProperty BlendColorProperty = BindableProperty.Create("BlendColor", typeof(Color), typeof(ImageButton), Color.Default);
+        public static readonly BindableProperty PressedColorProperty = BindableProperty.Create("PressedColor", typeof(Color), typeof(CustomImageButton), Color.Default);
 
         public event EventHandler Clicked;
 
@@ -35,10 +35,10 @@ namespace Alarm.Controls
         /// <summary>
         /// A color when the button is pressed. 
         /// </summary>
-        public Color BlendColor
+        public Color PressedColor
         {
-            get { return (Color)GetValue(BlendColorProperty); }
-            set { SetValue(BlendColorProperty, value); }
+            get { return (Color)GetValue(PressedColorProperty); }
+            set { SetValue(PressedColorProperty, value); }
         }
 
         /// <summary>
@@ -60,9 +60,9 @@ namespace Alarm.Controls
         /// <summary>
         /// ImageButton constructor
         /// </summary>
-        public ImageButton()
+        public CustomImageButton()
         {
-            BlendColor = Color.FromRgba(255, 255, 255, 100);
+            PressedColor = Color.FromRgba(255, 255, 255, 100);
         }
     }
 }

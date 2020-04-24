@@ -20,6 +20,7 @@ using Alarm.Resx;
 using Alarm.ViewModels;
 using System;
 using System.Globalization;
+using Tizen.Wearable.CircularUI.Forms;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -31,7 +32,7 @@ namespace Alarm.Views
     /// User can dismiss alarm alert and remove record using dismiss button in the bottom of view.
     /// </summary>
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AlarmAlertPage : CirclePageEx
+    public partial class AlarmAlertPage : CirclePage
     {
         AlertPageModel _viewModel;
         /// <summary>
@@ -86,7 +87,7 @@ namespace Alarm.Views
 
         async void PopAsyncAlertPage()
         {
-            await Navigation.PopAsync();
+            await Shell.Current.Navigation.PopAsync();
         }
 
     }

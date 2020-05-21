@@ -28,7 +28,7 @@ namespace Alarm.Views
     /// User can set alarm time using CircleDateTimeSelector. and then save alarm record.
     /// </summary>
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class AlarmEditPage : CirclePage
+	public partial class AlarmEditPage : BezelInteractionPage
     {
         public static readonly BindableProperty SelectedDateTimeProperty = BindableProperty.Create("SelectedDateTime", typeof(DateTime), typeof(AlarmEditPage), DateTime.Now);
 

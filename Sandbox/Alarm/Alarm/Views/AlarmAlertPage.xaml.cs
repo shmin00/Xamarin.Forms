@@ -32,7 +32,7 @@ namespace Alarm.Views
     /// User can dismiss alarm alert and remove record using dismiss button in the bottom of view.
     /// </summary>
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AlarmAlertPage : CirclePage
+    public partial class AlarmAlertPage : ContentPage
     {
         AlertPageModel _viewModel;
         /// <summary>

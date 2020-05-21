@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<w:CirclePage
+<w:BezelInteractionPage
 	x:Class="Alarm.Views.MainPage"
 	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -85,4 +85,4 @@
                     Text="{x:Static resx:AppResources.Add}" />
         </StackLayout>
     </ContentPage.Content>
-</w:CirclePage>
+</w:BezelInteractionPage>

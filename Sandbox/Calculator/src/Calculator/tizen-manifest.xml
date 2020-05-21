@@ -5,6 +5,8 @@
 					exec="Calculator.dll"
 					type="dotnet"
 					multiple="false"
+					effectimage-type="edj-default"
+					portrait-effectimage="res/edje/effect.edj"
 					taskmanage="true"
 					nodisplay="false"
 					launch_mode="single">

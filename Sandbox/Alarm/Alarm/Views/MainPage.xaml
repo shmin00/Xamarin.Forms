@@ -17,7 +17,7 @@
 		</ResourceDictionary>
 	</ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical">
+        <StackLayout Orientation="Vertical" BackgroundColor="Black">
             <StackLayout
 				x:Name="NoAlarmLayout"
 				HorizontalOptions="Center"
@@ -34,7 +34,7 @@
                 <control:CustomImageButton
 					x:Name="noAlarmImg"
 					Released="OnButtonReleased"
-					Source="alarm_no_alarm_icon.png" />
+					tizen:Image.File="alarm_no_alarm_icon.png" />
                 <Label
 					x:Name="EmptyBottomLabel"
 					Margin="0,30,0,50"

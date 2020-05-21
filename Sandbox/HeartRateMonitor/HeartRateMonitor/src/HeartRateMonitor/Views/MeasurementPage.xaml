@@ -32,7 +32,7 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" Padding="35,25,35,0">
+        <StackLayout BackgroundColor="Black" HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" Padding="35,25,35,0">
 
             <Label Style="{StaticResource BaseLabel}" Text="Ready">
                 <Label.Triggers>

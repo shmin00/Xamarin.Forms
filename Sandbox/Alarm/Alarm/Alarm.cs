@@ -121,10 +121,9 @@ namespace Alarm
 
             var customRenderers = new Dictionary<Type, Func<IRegisterable>>()
             {
-                { typeof(Shell), ()=> new ShellRenderer() },
+                { typeof(Shell), ()=> new CircularShellRenderer() },
                 { typeof(CirclePage), ()=> new CirclePageRenderer() },
                 { typeof(CircleDateTimeSelector), ()=> new CircleDateTimeSelectorRenderer() },
-                { typeof(Check), ()=> new CheckRenderer() },
                 { typeof(CustomImageButton), () => new CustomImageButtonRenderer() }
              };
 

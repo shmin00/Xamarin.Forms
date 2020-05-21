@@ -8,7 +8,7 @@
                   RotaryFocusObject="{x:Reference stepper}">
     
     <forms:CirclePage.Content>
-        <StackLayout Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="Center">
+        <StackLayout BackgroundColor="black" Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="Center">
             <Label
                 FontSize="10"
                 HorizontalTextAlignment="Center"

@@ -1,23 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<w:CirclePage
+<ContentPage
 	x:Class="Alarm.Views.MainPage"
 	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-	xmlns:control="clr-namespace:Alarm.Controls"
 	xmlns:converters="clr-namespace:Alarm.Converters"
 	xmlns:resx="clr-namespace:Alarm.Resx"
 	xmlns:views="clr-namespace:Alarm.Views"
-	xmlns:w="clr-namespace:Tizen.Wearable.CircularUI.Forms;assembly=Tizen.Wearable.CircularUI.Forms"
     xmlns:tizen="clr-namespace:Xamarin.Forms.PlatformConfiguration.TizenSpecific;assembly=Xamarin.Forms.Core"
-	Title="MainPage"
-    RotaryFocusObject="{x:Reference AlarmList}">
+	Title="MainPage">
 	<ContentPage.Resources>
 		<ResourceDictionary>
 			<converters:ItemCountToVisibilityConverter x:Key="VisibilityConverter" />
 		</ResourceDictionary>
 	</ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical">
+        <StackLayout Orientation="Vertical" BackgroundColor="Black">
             <StackLayout
 				x:Name="NoAlarmLayout"
 				HorizontalOptions="Center"
@@ -31,7 +28,7 @@
 					HorizontalTextAlignment="Center"
 					Text="{x:Static resx:AppResources.Alarm}"
 					TextColor="#368AFF" />
-                <control:CustomImageButton
+                <ImageButton
 					x:Name="noAlarmImg"
 					Released="OnButtonReleased"
 					Source="alarm_no_alarm_icon.png" />
@@ -85,4 +82,4 @@
                     Text="{x:Static resx:AppResources.Add}" />
         </StackLayout>
     </ContentPage.Content>
-</w:CirclePage>
+</ContentPage>

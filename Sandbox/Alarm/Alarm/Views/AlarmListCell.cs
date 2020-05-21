@@ -42,7 +42,7 @@ namespace Alarm.Views
         /// <summary>
         /// Active/Inactive switch object
         /// </summary>
-        public Switch switchObj;
+        public CheckBox switchObj;
 
         /// <summary>
         /// Draws alarm list
@@ -88,12 +88,11 @@ namespace Alarm.Views
                 timeLabel.SetBinding(Label.TextProperty, new Binding("ScheduledDateTime", BindingMode.Default, new ScheduledDateTimeToTextConverter()));
                 alarmItemLayout.Children.Add(timeLabel);
 
-                switchObj = new Check
+                switchObj = new CheckBox
                 {
                     HeightRequest = 80,
                     WidthRequest = 80,
-                    DisplayStyle = CheckDisplayStyle.Default,
-                    IsToggled = alarmData.AlarmState == AlarmStates.Inactive ? false : true,
+                    IsChecked = alarmData.AlarmState == AlarmStates.Inactive ? false : true,
                     HorizontalOptions = LayoutOptions.End,
                     VerticalOptions = LayoutOptions.Center,
                 };
@@ -101,7 +100,7 @@ namespace Alarm.Views
                 alarmItemLayout.Children.Add(switchObj);
 
                 /// Adds an event
-                switchObj.Toggled += (s, e) =>
+                switchObj.CheckedChanged += (s, e) =>
                 {
                     AlarmRecord am = (AlarmRecord)BindingContext;
                     /// Modify state and re-draw it. Redraw must be called to redraw

@@ -32,7 +32,7 @@ namespace Alarm.Views
     /// Main Page class
     /// </summary>
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class MainPage : CirclePage
+	public partial class MainPage : ContentPage
     {
         public MainPage() : this(new MainPageModel())
         { 

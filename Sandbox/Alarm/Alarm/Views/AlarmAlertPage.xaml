@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<w:CirclePage
+<ContentPage
 	x:Class="Alarm.Views.AlarmAlertPage"
 	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -13,7 +13,7 @@
 			<converters:ScheduledDateTimeToTextConverter x:Key="TimeConverter" />
 		</ResourceDictionary>
 	</ContentPage.Resources>
-    <w:CirclePage.Content>
+    <ContentPage.Content>
         <StackLayout>
             <AbsoluteLayout BackgroundColor="Black">
                 <Image x:Name="AlarmRingImg"
@@ -33,5 +33,5 @@
                     Clicked="OnDismissButtonClicked"
                     Text="{x:Static resx:AppResources.Dismiss}" />
         </StackLayout>
-    </w:CirclePage.Content>
-</w:CirclePage>
+    </ContentPage.Content>
+</ContentPage>

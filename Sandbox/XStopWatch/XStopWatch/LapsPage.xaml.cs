@@ -32,7 +32,7 @@ namespace XStopWatch
     /// LapsPage is a Page that present measured Laps time list
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class LapsPage : CirclePage
+	public partial class LapsPage : ContentPage
     {
         public static BindableProperty TimeProperty = BindableProperty.Create(nameof(Time), typeof(TimeSpan), typeof(StopWatch), TimeSpan.Zero);
 

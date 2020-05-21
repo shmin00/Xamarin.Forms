@@ -61,7 +61,7 @@ namespace VoiceMemo.Tizen.Wearable
             var app = new Program();
             var customRenderer = new Dictionary<Type, Func<IRegisterable>>()
             {
-                { typeof(Shell), ()=> new ShellRenderer() },
+                { typeof(Shell), ()=> new CircularShellRenderer() },
                 { typeof(CirclePage), ()=> new CirclePageRenderer() },
                 { typeof(CirclePageEx), ()=> new CirclePageRenderer() },
                 { typeof(CircleListView), ()=> new CircleListViewRenderer() },

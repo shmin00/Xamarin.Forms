@@ -92,7 +92,6 @@ namespace Alarm.Views
                 {
                     HeightRequest = 80,
                     WidthRequest = 80,
-                    //DisplayStyle = CheckDisplayStyle.Default,
                     IsChecked = alarmData.AlarmState == AlarmStates.Inactive ? false : true,
                     HorizontalOptions = LayoutOptions.End,
                     VerticalOptions = LayoutOptions.Center,

@@ -65,7 +65,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HeartRateMonitor", "HeartRa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeartRateMonitor", "Sandbox\HeartRateMonitor\HeartRateMonitor\src\HeartRateMonitor\HeartRateMonitor.csproj", "{E6705CF2-02AA-49DE-97FD-A43096C92FFB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ControlGallery", "ControlGallery", "{3BCBAF27-676B-4BAF-8013-A8F2727003F3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Forms.Controls", "Xamarin.Forms\Xamarin.Forms.Controls\Xamarin.Forms.Controls.csproj", "{7808630D-6B0E-4C28-AF0D-67688AC8E6CB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Forms.CustomAttributes", "Xamarin.Forms\Xamarin.Forms.CustomAttributes\Xamarin.Forms.CustomAttributes.csproj", "{96B947B2-7322-4442-A753-3D9C0474ECE9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Forms.ControlGallery.Tizen", "Xamarin.Forms\Xamarin.Forms.ControlGallery.Tizen\Xamarin.Forms.ControlGallery.Tizen.csproj", "{67850EC4-9256-4623-A0F8-5B6AD2EC104D}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Xamarin.Forms.Controls.Issues.Shared", "Xamarin.Forms\Xamarin.Forms.Controls.Issues\Xamarin.Forms.Controls.Issues.Shared\Xamarin.Forms.Controls.Issues.Shared.shproj", "{0F0DB9CC-EA65-429C-9363-38624BF8F49C}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Xamarin.Forms\Xamarin.Forms.Controls.Issues\Xamarin.Forms.Controls.Issues.Shared\Xamarin.Forms.Controls.Issues.Shared.projitems*{0f0db9cc-ea65-429c-9363-38624bf8f49c}*SharedItemsImports = 13
+		Xamarin.Forms\Xamarin.Forms.Controls.Issues\Xamarin.Forms.Controls.Issues.Shared\Xamarin.Forms.Controls.Issues.Shared.projitems*{7808630d-6b0e-4c28-af0d-67688ac8e6cb}*SharedItemsImports = 5
+		Xamarin.Forms\Xamarin.Flex\Xamarin.Flex.projitems*{d725ae90-e651-450e-ad6d-f221a2eda5bf}*SharedItemsImports = 5
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -143,6 +158,18 @@ Global
 		{E6705CF2-02AA-49DE-97FD-A43096C92FFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6705CF2-02AA-49DE-97FD-A43096C92FFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6705CF2-02AA-49DE-97FD-A43096C92FFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7808630D-6B0E-4C28-AF0D-67688AC8E6CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7808630D-6B0E-4C28-AF0D-67688AC8E6CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7808630D-6B0E-4C28-AF0D-67688AC8E6CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7808630D-6B0E-4C28-AF0D-67688AC8E6CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96B947B2-7322-4442-A753-3D9C0474ECE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96B947B2-7322-4442-A753-3D9C0474ECE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96B947B2-7322-4442-A753-3D9C0474ECE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96B947B2-7322-4442-A753-3D9C0474ECE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67850EC4-9256-4623-A0F8-5B6AD2EC104D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67850EC4-9256-4623-A0F8-5B6AD2EC104D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67850EC4-9256-4623-A0F8-5B6AD2EC104D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67850EC4-9256-4623-A0F8-5B6AD2EC104D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -172,6 +199,10 @@ Global
 		{15BD64A6-9607-422C-8C8A-2623A098B709} = {F2BC98D9-3F25-4A5A-8628-92D6C328C252}
 		{F5655855-1C50-47A2-ADB5-2B9903EB4FDA} = {087187F9-A361-4269-88EB-47A44185FA7F}
 		{E6705CF2-02AA-49DE-97FD-A43096C92FFB} = {F5655855-1C50-47A2-ADB5-2B9903EB4FDA}
+		{7808630D-6B0E-4C28-AF0D-67688AC8E6CB} = {3BCBAF27-676B-4BAF-8013-A8F2727003F3}
+		{96B947B2-7322-4442-A753-3D9C0474ECE9} = {68B0EFBF-2ACB-46F2-91D5-263A920AD13B}
+		{67850EC4-9256-4623-A0F8-5B6AD2EC104D} = {3BCBAF27-676B-4BAF-8013-A8F2727003F3}
+		{0F0DB9CC-EA65-429C-9363-38624BF8F49C} = {3BCBAF27-676B-4BAF-8013-A8F2727003F3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {81158F7F-D003-4C6D-9937-5002C54D57EA}

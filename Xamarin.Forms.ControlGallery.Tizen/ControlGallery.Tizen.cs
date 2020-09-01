@@ -13,9 +13,16 @@ namespace Xamarin.Forms.ControlGallery.Tizen
 		protected override void OnCreate()
 		{
 			base.OnCreate();
+			CoverageAnalysis.Start();
 			MaterialComponents.Init(DirectoryInfo.Resource);
 			NativeParent = MainWindow;
 			LoadApplication(new App());
+		}
+
+		protected override void OnTerminate()
+		{
+			CoverageAnalysis.Stop();
+			base.OnTerminate();
 		}
 
 		static void Main(string[] args)

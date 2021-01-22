@@ -8,18 +8,29 @@ namespace Xamarin.Forms.Platform.Tizen
 	{
 		IVisualElementRenderer _renderer;
 
+		GestureExtensions.Interop.DragStateCallback _dragEnterCallback;
+		GestureExtensions.Interop.DragStateCallback _dragLeaveCallback;
+		GestureExtensions.Interop.DropCallback _dropCallback;
+
 		public override GestureHandlerType Type => GestureHandlerType.Drop;
 
 		public DropGestureHandler(IGestureRecognizer recognizer, IVisualElementRenderer renderer) : base(recognizer)
 		{
 			_renderer = renderer;
+			_dragEnterCallback = OnEnterCallback;
+			_dragLeaveCallback = OnLeaveCallback;
+			_dropCallback = OnDropCallback;
 
 			var target = GestureExtensions.DragDropContentType.Text;
 
 			if (DotnetUtil.TizenAPIVersion < 5)
 				target = GestureExtensions.DragDropContentType.Targets;
 
-			GestureExtensions.AddDropTarget(NativeView, target, OnEnterCallback, OnLeaveCallback, null, OnDropCallback);
+			GestureExtensions.AddDropTarget(NativeView, 
+				target, 
+				_dragEnterCallback, 
+				_dragLeaveCallback, null, 
+				_dropCallback);
 
 		}
 
@@ -41,6 +52,7 @@ namespace Xamarin.Forms.Platform.Tizen
 
 		void OnEnterCallback(IntPtr data, IntPtr obj)
 		{
+			Console.WriteLine($"### [OnEnterCallback]");
 			var currentStateData = DragGestureHandler.CurrentStateData;
 			if (currentStateData == null)
 				return;
@@ -56,6 +68,7 @@ namespace Xamarin.Forms.Platform.Tizen
 
 		void OnLeaveCallback(IntPtr data, IntPtr obj)
 		{
+			Console.WriteLine($"### [OnLeaveCallback]");
 			var currentStateData = DragGestureHandler.CurrentStateData;
 			if (currentStateData == null)
 				return;
@@ -71,6 +84,7 @@ namespace Xamarin.Forms.Platform.Tizen
 
 		bool OnDropCallback(IntPtr data, IntPtr obj, IntPtr selectionData)
 		{
+			Console.WriteLine($"### [OnDropCallback]");
 			var currentStateData = DragGestureHandler.CurrentStateData;
 
 			if (currentStateData.DataPackage == null || currentStateData.AcceptedOperation == DataPackageOperation.None)

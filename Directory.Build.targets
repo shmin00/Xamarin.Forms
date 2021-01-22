@@ -1,4 +1,3 @@
 <Project>
   <Import Condition="'$(SampleProject)' != 'true'" Project="Git.Build.targets" />
-  <Import Condition="'$(SampleProject)' != 'true'" Project="Version.targets" />
  </Project>

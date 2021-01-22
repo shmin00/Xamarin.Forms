@@ -8,6 +8,9 @@ namespace Xamarin.Forms.Platform.Tizen
 	{
 		IVisualElementRenderer _renderer;
 
+		GestureExtensions.Interop.DragIconCreateCallback _iconCallback;
+		GestureExtensions.Interop.DragStateCallback _dragDoneCallback;
+
 		static CustomDragStateData _currentDragstateData;
 
 		public override GestureHandlerType Type => GestureHandlerType.Drag;
@@ -15,6 +18,9 @@ namespace Xamarin.Forms.Platform.Tizen
 		public DragGestureHandler(IGestureRecognizer recognizer, IVisualElementRenderer renderer) : base(recognizer)
 		{
 			_renderer = renderer;
+
+			_iconCallback = OnIconCallback;
+			_dragDoneCallback = OnDragDoneCallback;
 		}
 
 		public static CustomDragStateData CurrentStateData
@@ -48,19 +54,26 @@ namespace Xamarin.Forms.Platform.Tizen
 
 		protected override void OnStarted(View sender, object data)
 		{
+			Console.WriteLine($"### [OnStarted]");
 			if (!((DragGestureRecognizer)Recognizer).CanDrag)
 				return;
 
 			var target = GestureExtensions.DragDropContentType.Text;
 
 			var StrData = GetStringValue();
-			GestureExtensions.StartDrag(NativeView, target,
-										StrData, GestureExtensions.DragDropActionType.Move,
-										OnIconCallback, null, null, OnDragDoneCallback);
+			GestureExtensions.StartDrag(NativeView, 
+				target,
+				StrData, 
+				GestureExtensions.DragDropActionType.Move,
+				_iconCallback, 
+				null, 
+				null, 
+				_dragDoneCallback);
 		}
 
 		IntPtr OnIconCallback(IntPtr data, IntPtr window, ref int xoff, ref int yoff)
 		{
+			Console.WriteLine($"### [OnIconCallback]");
 			var arg = ((DragGestureRecognizer)Recognizer).SendDragStarting(_renderer.Element);
 
 			if (arg.Cancel)
@@ -152,8 +165,8 @@ namespace Xamarin.Forms.Platform.Tizen
 			{
 				var imgObj = image.ImageObject;
 				evasImg.Size = imgObj.Size;
-				var imgPtr = GestureExtensions.evas_object_image_data_get(imgObj, true);
-				GestureExtensions.evas_object_image_data_set(evasImg, imgPtr);
+				var imgPtr = GestureExtensions.Interop.evas_object_image_data_get(imgObj, true);
+				GestureExtensions.Interop.evas_object_image_data_set(evasImg, imgPtr);
 			}
 
 			return evasImg;
@@ -161,6 +174,7 @@ namespace Xamarin.Forms.Platform.Tizen
 
 		void OnDragDoneCallback(IntPtr data, IntPtr obj)
 		{
+			Console.WriteLine($"### [OnDragDoneCallback]");
 			if (!((DragGestureRecognizer)Recognizer).CanDrag || _currentDragstateData == null)
 				return;
 

@@ -1,5 +1,3 @@
-using System;
-using System.ComponentModel;
 using ElmSharp;
 
 namespace Xamarin.Forms.Platform.Tizen
@@ -14,11 +12,11 @@ namespace Xamarin.Forms.Platform.Tizen
 		{
 		}
 
-		public override GestureLayer.GestureType Type
+		public override GestureHandlerType Type
 		{
 			get
 			{
-				return GestureLayer.GestureType.Zoom;
+				return GestureHandlerType.Pinch;
 			}
 		}
 

@@ -10,7 +10,7 @@ namespace Xamarin.Forms.Platform.Tizen
 		{
 		}
 
-		public override GestureLayer.GestureType Type
+		public override GestureHandlerType Type
 		{
 			get
 			{
@@ -20,11 +20,11 @@ namespace Xamarin.Forms.Platform.Tizen
 					int numberOfTaps = recognizer.NumberOfTapsRequired;
 
 					if (numberOfTaps > 2)
-						return GestureLayer.GestureType.TripleTap;
+						return GestureHandlerType.TripleTap;
 					else if (numberOfTaps > 1)
-						return GestureLayer.GestureType.DoubleTap;
+						return GestureHandlerType.DoubleTap;
 				}
-				return GestureLayer.GestureType.Tap;
+				return GestureHandlerType.Tap;
 			}
 		}
 

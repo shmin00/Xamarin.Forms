@@ -1,13 +1,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using ElmSharp;
-using EGestureType = ElmSharp.GestureLayer.GestureType;
 
 namespace Xamarin.Forms.Platform.Tizen
 {
+	public enum GestureHandlerType
+	{
+		Tap,
+		LongTap,
+		DoubleTap,
+		TripleTap,
+		Pan,
+		Pinch,
+		Swipe,
+		Rotate,
+		Drag,
+		Drop
+	}
+
 	internal class GestureDetector
 	{
-		readonly IDictionary<EGestureType, List<GestureHandler>> _handlerCache;
+		readonly IDictionary<GestureHandlerType, List<GestureHandler>> _handlerCache;
 
 		readonly IVisualElementRenderer _renderer;
 		GestureLayer _gestureLayer;
@@ -17,6 +30,8 @@ namespace Xamarin.Forms.Platform.Tizen
 		bool _isEnabled;
 
 		View View => _renderer.Element as View;
+
+		EvasObject NativeView => _renderer.NativeView;
 
 		public bool IsEnabled
 		{
@@ -46,7 +61,7 @@ namespace Xamarin.Forms.Platform.Tizen
 
 		public GestureDetector(IVisualElementRenderer renderer)
 		{
-			_handlerCache = new Dictionary<EGestureType, List<GestureHandler>>();
+			_handlerCache = new Dictionary<GestureHandlerType, List<GestureHandler>>();
 			_renderer = renderer;
 			_isEnabled = View.IsEnabled;
 			_inputTransparent = View.InputTransparent;
@@ -136,37 +151,37 @@ namespace Xamarin.Forms.Platform.Tizen
 			{
 				switch (gestureType)
 				{
-					case EGestureType.Tap:
-					case EGestureType.TripleTap:
+					case GestureHandlerType.Tap:
+					case GestureHandlerType.TripleTap:
 						AddTapGesture(gestureType);
 						break;
 
-					case EGestureType.DoubleTap:
+					case GestureHandlerType.DoubleTap:
 						AddDoubleTapGesture(gestureType, timeout);
 						break;
 
-					case EGestureType.LongTap:
+					case GestureHandlerType.LongTap:
 						AddLongTapGesture(gestureType, timeout);
 						break;
 
-					case EGestureType.Line:
-						AddLineGesture(gestureType);
-						break;
-
-					case EGestureType.Flick:
-						AddFlickGesture(gestureType, timeout);
-						break;
-
-					case EGestureType.Rotate:
-						AddRotateGesture(gestureType);
-						break;
-
-					case EGestureType.Momentum:
+					case GestureHandlerType.Pan:
 						AddMomentumGesture(gestureType);
 						break;
 
-					case EGestureType.Zoom:
+					case GestureHandlerType.Pinch:
 						AddPinchGesture(gestureType);
+						break;
+
+					case GestureHandlerType.Swipe:
+						AddFlickGesture(gestureType, timeout);
+						break;
+
+					case GestureHandlerType.Rotate:
+						AddRotateGesture(gestureType);
+						break;
+
+					case GestureHandlerType.Drag:
+						AddDragGesture(gestureType);
 						break;
 
 					default:
@@ -188,31 +203,35 @@ namespace Xamarin.Forms.Platform.Tizen
 			{
 				switch (gestureType)
 				{
-					case EGestureType.Tap:
-					case EGestureType.DoubleTap:
-					case EGestureType.TripleTap:
-					case EGestureType.LongTap:
+					case GestureHandlerType.Tap:
+					case GestureHandlerType.DoubleTap:
+					case GestureHandlerType.TripleTap:
+					case GestureHandlerType.LongTap:
 						RemoveTapGesture(gestureType);
 						break;
 
-					case EGestureType.Line:
-						RemoveLineGesture();
-						break;
-
-					case EGestureType.Flick:
-						RemoveFlickGesture();
-						break;
-
-					case EGestureType.Rotate:
-						RemoveRotateGesture();
-						break;
-
-					case EGestureType.Momentum:
+					case GestureHandlerType.Pan:
 						RemoveMomentumGesture();
 						break;
 
-					case EGestureType.Zoom:
+					case GestureHandlerType.Pinch:
 						RemovePinchGesture();
+						break;
+
+					case GestureHandlerType.Swipe:
+						RemoveFlickGesture();
+						break;
+
+					case GestureHandlerType.Rotate:
+						RemoveRotateGesture();
+						break;
+
+					case GestureHandlerType.Drag:
+						RemoveDragGesture();
+						break;
+
+					case GestureHandlerType.Drop:
+						RemoveDragGesture();
 						break;
 
 					default:
@@ -221,7 +240,7 @@ namespace Xamarin.Forms.Platform.Tizen
 			}
 		}
 
-		void AddLineGesture(EGestureType type)
+		void AddLineGesture(GestureHandlerType type)
 		{
 			_gestureLayer.SetLineCallback(GestureLayer.GestureState.Start, (data) => { OnGestureStarted(type, data); });
 			_gestureLayer.SetLineCallback(GestureLayer.GestureState.Move, (data) => { OnGestureMoved(type, data); });
@@ -229,7 +248,7 @@ namespace Xamarin.Forms.Platform.Tizen
 			_gestureLayer.SetLineCallback(GestureLayer.GestureState.Abort, (data) => { OnGestureCanceled(type, data); });
 		}
 
-		void AddPinchGesture(EGestureType type)
+		void AddPinchGesture(GestureHandlerType type)
 		{
 			_gestureLayer.SetZoomCallback(GestureLayer.GestureState.Start, (data) => { OnGestureStarted(type, data); });
 			_gestureLayer.SetZoomCallback(GestureLayer.GestureState.Move, (data) => { OnGestureMoved(type, data); });
@@ -237,34 +256,34 @@ namespace Xamarin.Forms.Platform.Tizen
 			_gestureLayer.SetZoomCallback(GestureLayer.GestureState.Abort, (data) => { OnGestureCanceled(type, data); });
 		}
 
-		void AddTapGesture(EGestureType type)
+		void AddTapGesture(GestureHandlerType type)
 		{
-			_gestureLayer.SetTapCallback(type, GestureLayer.GestureState.Start, (data) => { OnGestureStarted(type, data); });
-			_gestureLayer.SetTapCallback(type, GestureLayer.GestureState.End, (data) => { OnGestureCompleted(type, data); });
-			_gestureLayer.SetTapCallback(type, GestureLayer.GestureState.Abort, (data) => { OnGestureCanceled(type, data); });
+			_gestureLayer.SetTapCallback(type.ConvertToNative(), GestureLayer.GestureState.Start, (data) => { OnGestureStarted(type, data); });
+			_gestureLayer.SetTapCallback(type.ConvertToNative(), GestureLayer.GestureState.End, (data) => { OnGestureCompleted(type, data); });
+			_gestureLayer.SetTapCallback(type.ConvertToNative(), GestureLayer.GestureState.Abort, (data) => { OnGestureCanceled(type, data); });
 		}
 
-		void AddDoubleTapGesture(EGestureType type, double timeout)
+		void AddDoubleTapGesture(GestureHandlerType type, double timeout)
 		{
 			if (timeout > 0)
 				_gestureLayer.DoubleTapTimeout = timeout;
 
-			_gestureLayer.SetTapCallback(type, GestureLayer.GestureState.Start, (data) => { OnDoubleTapStarted(type, data); });
-			_gestureLayer.SetTapCallback(type, GestureLayer.GestureState.End, (data) => { OnDoubleTapCompleted(type, data); });
-			_gestureLayer.SetTapCallback(type, GestureLayer.GestureState.Abort, (data) => { OnGestureCanceled(type, data); });
+			_gestureLayer.SetTapCallback(type.ConvertToNative(), GestureLayer.GestureState.Start, (data) => { OnDoubleTapStarted(type, data); });
+			_gestureLayer.SetTapCallback(type.ConvertToNative(), GestureLayer.GestureState.End, (data) => { OnDoubleTapCompleted(type, data); });
+			_gestureLayer.SetTapCallback(type.ConvertToNative(), GestureLayer.GestureState.Abort, (data) => { OnGestureCanceled(type, data); });
 		}
 
-		void AddLongTapGesture(EGestureType type, double timeout)
+		void AddLongTapGesture(GestureHandlerType type, double timeout)
 		{
 			if (timeout > 0)
 				_gestureLayer.LongTapTimeout = timeout;
 
-			_gestureLayer.SetTapCallback(type, GestureLayer.GestureState.Start, (data) => { OnLongTapStarted(type, data); });
-			_gestureLayer.SetTapCallback(type, GestureLayer.GestureState.End, (data) => { OnLongTapCompleted(type, data); });
-			_gestureLayer.SetTapCallback(type, GestureLayer.GestureState.Abort, (data) => { OnGestureCanceled(type, data); });
+			_gestureLayer.SetTapCallback(type.ConvertToNative(), GestureLayer.GestureState.Start, (data) => { OnLongTapStarted(type, data); });
+			_gestureLayer.SetTapCallback(type.ConvertToNative(), GestureLayer.GestureState.End, (data) => { OnLongTapCompleted(type, data); });
+			_gestureLayer.SetTapCallback(type.ConvertToNative(), GestureLayer.GestureState.Abort, (data) => { OnGestureCanceled(type, data); });
 		}
 
-		void AddFlickGesture(EGestureType type, double timeout)
+		void AddFlickGesture(GestureHandlerType type, double timeout)
 		{
 			if (timeout > 0)
 				_gestureLayer.FlickTimeLimit = (int)(timeout * 1000);
@@ -300,7 +319,7 @@ namespace Xamarin.Forms.Platform.Tizen
 			_gestureLayer.SetFlickCallback(GestureLayer.GestureState.Abort, (data) => { OnGestureCanceled(type, data); });
 		}
 
-		void AddRotateGesture(EGestureType type)
+		void AddRotateGesture(GestureHandlerType type)
 		{
 			_gestureLayer.SetRotateCallback(GestureLayer.GestureState.Start, (data) => { OnGestureStarted(type, data); });
 			_gestureLayer.SetRotateCallback(GestureLayer.GestureState.Move, (data) => { OnGestureMoved(type, data); });
@@ -308,7 +327,7 @@ namespace Xamarin.Forms.Platform.Tizen
 			_gestureLayer.SetRotateCallback(GestureLayer.GestureState.Abort, (data) => { OnGestureCanceled(type, data); });
 		}
 
-		void AddMomentumGesture(EGestureType type)
+		void AddMomentumGesture(GestureHandlerType type)
 		{
 			// Task to correct wrong coordinates information when applying EvasMap(Xamarin ex: Translation, Scale, Rotate property)
 			// Always change to the absolute coordinates of the pointer.
@@ -332,6 +351,11 @@ namespace Xamarin.Forms.Platform.Tizen
 			_gestureLayer.SetMomentumCallback(GestureLayer.GestureState.Abort, (data) => { OnGestureCanceled(type, data); });
 		}
 
+		void AddDragGesture(GestureHandlerType type)
+		{
+			_gestureLayer.SetMomentumCallback(GestureLayer.GestureState.Start, (data) => { OnGestureStarted(type, data); });
+		}
+
 		void RemoveLineGesture()
 		{
 			_gestureLayer.SetLineCallback(GestureLayer.GestureState.Start, null);
@@ -348,11 +372,11 @@ namespace Xamarin.Forms.Platform.Tizen
 			_gestureLayer.SetZoomCallback(GestureLayer.GestureState.Abort, null);
 		}
 
-		void RemoveTapGesture(EGestureType type)
+		void RemoveTapGesture(GestureHandlerType type)
 		{
-			_gestureLayer.SetTapCallback(type, GestureLayer.GestureState.Start, null);
-			_gestureLayer.SetTapCallback(type, GestureLayer.GestureState.End, null);
-			_gestureLayer.SetTapCallback(type, GestureLayer.GestureState.Abort, null);
+			_gestureLayer.SetTapCallback(type.ConvertToNative(), GestureLayer.GestureState.Start, null);
+			_gestureLayer.SetTapCallback(type.ConvertToNative(), GestureLayer.GestureState.End, null);
+			_gestureLayer.SetTapCallback(type.ConvertToNative(), GestureLayer.GestureState.Abort, null);
 		}
 
 		void RemoveFlickGesture()
@@ -379,9 +403,14 @@ namespace Xamarin.Forms.Platform.Tizen
 			_gestureLayer.SetMomentumCallback(GestureLayer.GestureState.Abort, null);
 		}
 
+		void RemoveDragGesture()
+		{
+			_gestureLayer.SetMomentumCallback(GestureLayer.GestureState.Start, null);
+		}
+
 		#region GestureCallback
 
-		void OnGestureStarted(EGestureType type, object data)
+		void OnGestureStarted(GestureHandlerType type, object data)
 		{
 			var cache = _handlerCache;
 			if (cache.ContainsKey(type))
@@ -393,7 +422,7 @@ namespace Xamarin.Forms.Platform.Tizen
 			}
 		}
 
-		void OnGestureMoved(EGestureType type, object data)
+		void OnGestureMoved(GestureHandlerType type, object data)
 		{
 			var cache = _handlerCache;
 			if (cache.ContainsKey(type))
@@ -405,7 +434,7 @@ namespace Xamarin.Forms.Platform.Tizen
 			}
 		}
 
-		void OnGestureCompleted(EGestureType type, object data)
+		void OnGestureCompleted(GestureHandlerType type, object data)
 		{
 			var cache = _handlerCache;
 			if (cache.ContainsKey(type))
@@ -417,7 +446,7 @@ namespace Xamarin.Forms.Platform.Tizen
 			}
 		}
 
-		void OnGestureCanceled(EGestureType type, object data)
+		void OnGestureCanceled(GestureHandlerType type, object data)
 		{
 			var cache = _handlerCache;
 			if (cache.ContainsKey(type))
@@ -429,13 +458,13 @@ namespace Xamarin.Forms.Platform.Tizen
 			}
 		}
 
-		void OnDoubleTapStarted(EGestureType type, object data)
+		void OnDoubleTapStarted(GestureHandlerType type, object data)
 		{
 			_doubleTapTime = ((GestureLayer.TapData)data).Timestamp;
 			OnGestureStarted(type, data);
 		}
 
-		void OnDoubleTapCompleted(EGestureType type, object data)
+		void OnDoubleTapCompleted(GestureHandlerType type, object data)
 		{
 			_doubleTapTime = ((GestureLayer.TapData)data).Timestamp - _doubleTapTime;
 			var cache = _handlerCache;
@@ -452,13 +481,13 @@ namespace Xamarin.Forms.Platform.Tizen
 			}
 		}
 
-		void OnLongTapStarted(EGestureType type, object data)
+		void OnLongTapStarted(GestureHandlerType type, object data)
 		{
 			_longTapTime = ((GestureLayer.TapData)data).Timestamp;
 			OnGestureStarted(type, data);
 		}
 
-		void OnLongTapCompleted(EGestureType type, object data)
+		void OnLongTapCompleted(GestureHandlerType type, object data)
 		{
 			_longTapTime = ((GestureLayer.TapData)data).Timestamp - _longTapTime;
 			var cache = _handlerCache;
@@ -494,6 +523,14 @@ namespace Xamarin.Forms.Platform.Tizen
 			else if (recognizer is SwipeGestureRecognizer)
 			{
 				return new SwipeGestureHandler(recognizer);
+			}
+			else if (recognizer is DragGestureRecognizer)
+			{
+				return new DragGestureHandler(recognizer, _renderer);
+			}
+			else if (recognizer is DropGestureRecognizer)
+			{
+				return new DropGestureHandler(recognizer, _renderer);
 			}
 			return Forms.GetHandlerForObject<GestureHandler>(recognizer, recognizer);
 		}
@@ -541,17 +578,17 @@ namespace Xamarin.Forms.Platform.Tizen
 			{
 				switch (handler.Type)
 				{
-					case EGestureType.Tap:
-					case EGestureType.DoubleTap:
-					case EGestureType.TripleTap:
+					case GestureHandlerType.Tap:
+					case GestureHandlerType.DoubleTap:
+					case GestureHandlerType.TripleTap:
 						UpdateTapGesture(handler);
 						break;
 
-					case EGestureType.LongTap:
+					case GestureHandlerType.LongTap:
 						UpdateLongTapGesture(handler);
 						break;
 
-					case EGestureType.Flick:
+					case GestureHandlerType.Swipe:
 						UpdateFlickGesture(handler);
 						break;
 
@@ -566,9 +603,9 @@ namespace Xamarin.Forms.Platform.Tizen
 			if (e.KeyName == "Return" && _gestureLayer.IsEnabled)
 			{
 				var cache = _handlerCache;
-				if (cache.ContainsKey(EGestureType.Tap))
+				if (cache.ContainsKey(GestureHandlerType.Tap))
 				{
-					foreach (var handler in cache[EGestureType.Tap])
+					foreach (var handler in cache[GestureHandlerType.Tap])
 					{
 						(handler as IGestureController)?.SendStarted(View, null);
 						(handler as IGestureController)?.SendCompleted(View, null);

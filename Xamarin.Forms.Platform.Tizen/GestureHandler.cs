@@ -1,6 +1,4 @@
-using System;
 using System.ComponentModel;
-using ElmSharp;
 
 namespace Xamarin.Forms.Platform.Tizen
 {
@@ -8,7 +6,7 @@ namespace Xamarin.Forms.Platform.Tizen
 	{
 		public IGestureRecognizer Recognizer { get; private set; }
 
-		public abstract GestureLayer.GestureType Type { get; }
+		public abstract GestureHandlerType Type { get; }
 
 		public virtual double Timeout { get; }
 

@@ -8,7 +8,7 @@ namespace Xamarin.Forms.Platform.Tizen
 		{
 		}
 
-		public override GestureLayer.GestureType Type => GestureLayer.GestureType.Flick;
+		public override GestureHandlerType Type => GestureHandlerType.Swipe;
 
 		protected override void OnStarted(View sender, object data) { }
 

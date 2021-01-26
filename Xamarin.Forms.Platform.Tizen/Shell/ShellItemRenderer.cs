@@ -12,7 +12,12 @@ using EToolbarItem = ElmSharp.ToolbarItem;
 
 namespace Xamarin.Forms.Platform.Tizen
 {
-	public class ShellItemRenderer : IAppearanceObserver, IDisposable
+	public interface IShellItemRenderer :  IDisposable
+	{
+		EvasObject NativeView { get; }
+	}
+
+	public class ShellItemRenderer : IAppearanceObserver, IShellItemRenderer
 	{
 		// The source of icon resources is https://materialdesignicons.com/
 		const string _dotsIcon = ThemeConstants.Shell.Resources.DotsIcon;
@@ -90,7 +95,7 @@ namespace Xamarin.Forms.Platform.Tizen
 		ShellItem ShellItem { get; }
 		IShellController ShellController => Shell.Current;
 		bool HasMoreItems => _moreItemsDrawer != null;
-		bool HasTabs => _tabs != null;
+		protected virtual bool HasTabs => _tabs != null;
 
 		public void Dispose()
 		{

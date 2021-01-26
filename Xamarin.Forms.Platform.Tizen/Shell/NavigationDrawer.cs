@@ -207,4 +207,11 @@ namespace Xamarin.Forms.Platform.Tizen
 		{
 		}
 	}
+
+	public enum DrawerBehavior
+	{
+		Default,
+		Locked,
+		Disabled
+	}
 }

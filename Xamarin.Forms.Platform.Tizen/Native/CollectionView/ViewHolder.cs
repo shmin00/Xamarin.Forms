@@ -82,7 +82,7 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 			_focusArea.SetEffectColor(EColor.Transparent);
 			_focusArea.Clicked += OnClicked;
 			_focusArea.Focused += OnFocused;
-			_focusArea.Unfocused += OnFocused;
+			_focusArea.Unfocused += OnUnfocused;
 			_focusArea.KeyUp += OnKeyUp;
 			_focusArea.RepeatEvents = true;
 			_focusArea.Show();
@@ -93,14 +93,12 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 
 		protected virtual void OnFocused(object sender, EventArgs e)
 		{
-			if (_focusArea.IsFocused)
-			{
-				State = ViewHolderState.Focused;
-			}
-			else
-			{
-				State = _isSelected ? ViewHolderState.Selected : ViewHolderState.Normal;
-			}
+			UpdateFocusState();
+		}
+
+		protected virtual void OnUnfocused(object sender, EventArgs e)
+		{
+			UpdateFocusState();
 		}
 
 		protected virtual void OnClicked(object sender, EventArgs e)
@@ -127,6 +125,18 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 				RaiseTop();
 
 			StateUpdated?.Invoke(this, EventArgs.Empty);
+		}
+
+		void UpdateFocusState()
+		{
+			if (_focusArea.IsFocused)
+			{
+				State = ViewHolderState.Focused;
+			}
+			else
+			{
+				State = _isSelected ? ViewHolderState.Selected : ViewHolderState.Normal;
+			}
 		}
 
 		void OnKeyUp(object sender, EvasKeyEventArgs e)

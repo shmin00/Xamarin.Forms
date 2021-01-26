@@ -67,6 +67,7 @@ using Xamarin.Forms.Shapes;
 [assembly: ExportHandler(typeof(SwipeGestureRecognizer), typeof(SwipeGestureHandler))]
 
 [assembly: ExportRenderer(typeof(Shell), typeof(Xamarin.Forms.Platform.Tizen.Watch.ShellRenderer), TargetIdiom.Watch)]
+[assembly: ExportRenderer(typeof(Shell), typeof(Xamarin.Forms.Platform.Tizen.TV.TVShellRenderer), TargetIdiom.TV)]
 
 [assembly: ExportRenderer(typeof(Ellipse), typeof(EllipseRenderer))]
 [assembly: ExportRenderer(typeof(Line), typeof(LineRenderer))]

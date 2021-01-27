@@ -966,15 +966,16 @@ namespace Xamarin.Forms.Platform.Tizen
 
 		#region INavigationDrawer
 
-		static double s_navigationDrawerRatio = -1;
-		public static double GetFlyoutRatio(this INavigationDrawer drawer, int width, int height)
+		static int s_navigationDrawerWidth = -1;
+		public static int GetFlyoutWidth(this INavigationDrawer drawer)
 		{
-			return s_navigationDrawerRatio = (width > height) ? 0.4 : 0.83;
+			return s_navigationDrawerWidth = (int)CalculateDoubleScaledSizeInLargeScreen(600);
 		}
 
-		public static double GetFlyoutCollapseRatio(this INavigationDrawer drawer)
+		static int s_navigationDrawerCollapseWidth = -1;
+		public static int GetFlyoutCollapseWidth(this INavigationDrawer drawer)
 		{
-			return 0.05;
+			return s_navigationDrawerCollapseWidth = (int)CalculateDoubleScaledSizeInLargeScreen(80);
 		}
 		#endregion
 

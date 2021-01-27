@@ -42,9 +42,9 @@ namespace Xamarin.Forms.Platform.Tizen.Native
 
 		public ICollectionViewController CollectionView { get; set; }
 
-		public void SizeAllocated(ESize size)
+		public virtual void SizeAllocated(ESize size)
 		{
-			Reset();
+			_scrollCanvasSize = new ESize(0, 0);
 			_allocatedSize = size;
 			InitializeMeasureCache();
 		}

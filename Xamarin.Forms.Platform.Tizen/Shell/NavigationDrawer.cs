@@ -129,7 +129,8 @@ namespace Xamarin.Forms.Platform.Tizen
 
 			_mainContainer.Geometry = Geometry;
 			_dimArea.Geometry = Geometry;
-			var drawerWidth = (int)(Geometry.Width * this.GetFlyoutRatio(Geometry.Width, Geometry.Height));
+			//var drawerWidth = (int)(Geometry.Width * this.GetFlyoutRatio(Geometry.Width, Geometry.Height));
+			var drawerWidth = this.GetFlyoutWidth();
 			var bound = Geometry;
 			bound.Width = drawerWidth;
 			bound.X = _isOpen ? bound.X : bound.X - drawerWidth;

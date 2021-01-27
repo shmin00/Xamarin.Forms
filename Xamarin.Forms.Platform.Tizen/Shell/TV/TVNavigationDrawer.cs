@@ -7,15 +7,16 @@ namespace Xamarin.Forms.Platform.Tizen.TV
 {
 	public class TVNavigationDrawer : EBox, INavigationDrawer, IAnimatable
 	{
-		EvasObject _navigationView;
 		EBox _drawerBox;
+		EBox _mainBox;
 		EvasObject _main;
-		EBox _mainContainer;
+		TVNavigationView _drawer;
 
 		DrawerBehavior _behavior;
 		bool _isOpen;
 
 		double _openRatio;
+		EvasObject _lastfocusedobject;
 
 		public TVNavigationDrawer(EvasObject parent) : base(parent)
 		{
@@ -28,7 +29,7 @@ namespace Xamarin.Forms.Platform.Tizen.TV
 
 		public EvasObject NavigationView
 		{
-			get => _navigationView;
+			get => _drawer;
 			set => UpdateNavigationView(value);
 		}
 
@@ -65,79 +66,90 @@ namespace Xamarin.Forms.Platform.Tizen.TV
 			_drawerBox.Focused += (s, e) =>
 			{
 				IsOpen = true;
+				_lastfocusedobject = _drawerBox;
 			};
 
-			_drawerBox.KeyDown += (s, e) =>
+			_mainBox = new EBox(parent);
+			_mainBox.BackgroundColor = EColor.Black;
+			_mainBox.Show();
+			PackEnd(_mainBox);
+
+			_drawerBox.KeyUp += (s, e) =>
 			{
-				if (e.KeyName == "Right" && _behavior == DrawerBehavior.Default)
+				// Workaroud to prevent losing focus to invisible object using remote controller.
+				if (e.KeyName == "Return")
 				{
-					IsOpen = false;
+					Device.BeginInvokeOnMainThread(() =>
+					{
+						_mainBox.SetFocus(true);
+						if (_mainBox.IsFocusedObjectExist())
+							_drawerBox.AllowTreeFocus = false;
+					});
 				}
 			};
 
-			_mainContainer = new EBox(parent);
-			_mainContainer.BackgroundColor = EColor.Black;
-			_mainContainer.Show();
-			PackEnd(_mainContainer);
-
-			_mainContainer.KeyDown += (s, e) =>
+			_mainBox.KeyDown += (s, e) =>
 			{
-				// It is workaround of managing focus, to prevent losing the focus because of invisible objects.
-				Device.BeginInvokeOnMainThread(() =>
+				// Restore AllowTreeFocus when an any key is pressed.
+				if (!_drawerBox.AllowTreeFocus)
+					_drawerBox.AllowTreeFocus = true;
+
+				// Workaroud to prevent losing focus to invisible object using remote controller.
+				if (e.KeyName == "Left")
 				{
-					// 1. focus can be returned to _drawerbox if there is no object to get the focus.
-					if(_drawerBox.IsFocusedObjectExist())
-					{
-						IsOpen = true;
-					}
+					var geo = _mainBox.GetFocusedObjectGeometry();
 
-					// 2. to prevent to move the focus to an invisible object of _main.
-					var focused = _main.GetFocusedObjectGeometry();
-					var isVisible = _main.IsFocusedObjectVisible();
-					if (focused.Width * focused.Height <= 0 || !isVisible)
+					if ((geo.Width * geo.Height) <= 0)
 					{
-						if (_behavior == DrawerBehavior.Default)
-						{
-							IsOpen = true;
-						}
-						else if (_behavior == DrawerBehavior.Locked)
-						{
-							UpdateFocusPolicy();
-						}
-					}
-				});
+						_drawerBox.AllowTreeFocus = true;
+						_drawerBox.SetFocus(true);
+					};
+				}
 			};
-
-			_drawerBox.AllowFocus(true);
-			_mainContainer.SetNextFocusObject(_drawerBox, FocusDirection.Left);
 		}
 
 		void UpdateNavigationView(EvasObject navigationView)
 		{
-			if (_navigationView != null)
+			if (_drawer != null)
 			{
-				_drawerBox.UnPack(_navigationView);
-				_navigationView.Hide();
+				_drawer.ItemFocused -= OnNavigationViewItemFocused;
+				_drawer.ItemUnfocused -= OnNavigationViewItemUnfocused;
+				_drawerBox.UnPack(_drawer);
+				_drawer.Hide();
 			}
 
-			_navigationView = navigationView;
+			_drawer = navigationView as TVNavigationView;
 
-			if (_navigationView != null)
+			if (_drawer != null)
 			{
-				_navigationView.SetAlignment(-1, -1);
-				_navigationView.SetWeight(1, 1);
-				_navigationView.Show();
-				_drawerBox.PackEnd(_navigationView);
+				_drawer.SetAlignment(-1, -1);
+				_drawer.SetWeight(1, 1);
+				_drawer.Show();
+				_drawerBox.PackEnd(_drawer);
 
-				UpdateFocusPolicy();
+				if (_drawer is TVNavigationView nv)
+				{
+					nv.ItemFocused += OnNavigationViewItemFocused;
+					nv.ItemUnfocused += OnNavigationViewItemUnfocused;
+				};
 			}
+		}
+
+		void OnNavigationViewItemFocused(object sender, EventArgs args)
+		{
+			IsOpen = true;
+		}
+
+		void OnNavigationViewItemUnfocused(object sender, EventArgs args)
+		{
+			IsOpen = false;
 		}
 
 		void UpdateMain(EvasObject main)
 		{
 			if (_main != null)
 			{
-				_mainContainer.UnPack(_main);
+				_mainBox.UnPack(_main);
 				_main.Hide();
 			}
 
@@ -149,9 +161,7 @@ namespace Xamarin.Forms.Platform.Tizen.TV
 				_main.SetWeight(1, 1);
 				_main.Show();
 
-				_mainContainer.PackEnd(_main);
-
-				UpdateFocusPolicy();
+				_mainBox.PackEnd(_main);
 			}
 		}
 
@@ -177,22 +187,20 @@ namespace Xamarin.Forms.Platform.Tizen.TV
 
 			var bound = Geometry;
 
-			var ratio = this.GetFlyoutRatio(Geometry.Width, Geometry.Height);
-			var minimumRatio = (_behavior == DrawerBehavior.Disabled) ? 0 : this.GetFlyoutCollapseRatio();
-			var drawerWidthMax = (int)(bound.Width * ratio);
-			var drawerWidthMin = (int)(bound.Width * minimumRatio);
+			var drawerWidthMax = this.GetFlyoutWidth();
+			var drawerWidthMin = this.GetFlyoutCollapseWidth();
 
 			var drawerWidthOutBound = (int)((drawerWidthMax - drawerWidthMin) * (1 - _openRatio));
 			var drawerWidthInBound = drawerWidthMax - drawerWidthOutBound;
 
 			var drawerGeometry = bound;
-			drawerGeometry.Width = drawerWidthMax;
+			drawerGeometry.Width = drawerWidthInBound;
 			_drawerBox.Geometry = drawerGeometry;
 
 			var containerGeometry = bound;
 			containerGeometry.X = drawerWidthInBound;
 			containerGeometry.Width = (_behavior == DrawerBehavior.Locked) ? (bound.Width - drawerWidthInBound) : (bound.Width - drawerWidthMin);
-			_mainContainer.Geometry = containerGeometry;
+			_mainBox.Geometry = containerGeometry;
 		}
 
 		void UpdateOpenState(bool isOpen)
@@ -213,65 +221,9 @@ namespace Xamarin.Forms.Platform.Tizen.TV
 					{
 						_isOpen = isOpen;
 						Toggled?.Invoke(this, EventArgs.Empty);
-						UpdateFocusPolicy();
 					}
 				}
 			});
-		}
-
-		void UpdateFocusPolicy()
-		{
-			var drawer = _navigationView as Widget;
-			var main = _main as Widget;
-
-			if (_behavior == DrawerBehavior.Locked)
-			{
-				if (drawer != null)
-				{
-					drawer.AllowTreeFocus = true;
-					drawer.SetFocus(true);
-				}
-				if (main != null)
-				{
-					main.AllowTreeFocus = true;
-				}
-				return;
-			}
-
-			if (_isOpen)
-			{
-				if (drawer != null)
-				{
-					drawer.AllowTreeFocus = true;
-					drawer.SetFocus(true);
-				}
-				if (main != null)
-				{
-					main.AllowTreeFocus = false;
-				}
-			}
-			else
-			{
-				if (drawer != null)
-				{
-					drawer.AllowTreeFocus = false;
-				}
-				if (main != null)
-				{
-					main.AllowTreeFocus = true;
-					main.SetFocus(true);
-
-					// It is workaround of managing focus, to prevent losing the focus because of invisible objects.
-					// If there is no object to get focus in main box, the focus will be returned to drawer.
-					Device.BeginInvokeOnMainThread(() =>
-					{
-						if(_drawerBox.IsFocusedObjectExist())
-						{
-							IsOpen = true;
-						}
-					});
-				}
-			}
 		}
 
 		void IAnimatable.BatchBegin()

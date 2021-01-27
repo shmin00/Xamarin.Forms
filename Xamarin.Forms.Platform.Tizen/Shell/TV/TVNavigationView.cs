@@ -42,6 +42,10 @@ namespace Xamarin.Forms.Platform.Tizen
 
 		public event EventHandler<SelectedItemChangedEventArgs> SelectedItemChanged;
 
+		public event EventHandler ItemFocused;
+
+		public event EventHandler ItemUnfocused;
+
 		public EvasObject NativeView => this;
 
 		public Element Element { get; }
@@ -152,6 +156,7 @@ namespace Xamarin.Forms.Platform.Tizen
 
 		void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
 		{
+			Console.WriteLine($"#### [OnItemSelected] ");
 			SelectedItemChanged?.Invoke(this, new SelectedItemChangedEventArgs(e.SelectedItem, -1));
 		}
 
@@ -189,6 +194,20 @@ namespace Xamarin.Forms.Platform.Tizen
 
 			_list.Show();
 			_mainLayout.PackEnd(_list);
+
+			_list.Focused += OnListFocused;
+			_list.Unfocused += OnListUnfocused;
+
+		}
+
+		void OnListFocused(object sender, EventArgs args)
+		{
+			ItemFocused?.Invoke(this, EventArgs.Empty);
+		}
+
+		void OnListUnfocused(object sender, EventArgs args)
+		{
+			ItemUnfocused?.Invoke(this, EventArgs.Empty);
 		}
 
 		bool IsMenuItemChanged(List<List<Element>> flyoutGroups)

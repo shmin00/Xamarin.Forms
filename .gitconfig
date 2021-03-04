@@ -1,2 +1,4 @@
 [merge "ours"]
     driver = true
+[init]
+    defaultBranch = 5.0.0
